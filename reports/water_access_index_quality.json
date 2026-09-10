@@ -1,0 +1,40 @@
+{
+  "generated_at_utc": "2026-09-08T06:40:27.013679+00:00",
+  "source": "JRC Global Surface Water v1.5 aggregated 1984-2024",
+  "attribution": "Source: EC JRC/Google",
+  "status": "passed",
+  "grid_rows": 4672,
+  "columns": [
+    "grid_id",
+    "jrc_water_occurrence_mean_pct",
+    "jrc_permanent_water_cover_pct",
+    "jrc_seasonal_water_cover_pct",
+    "jrc_valid_observation_cover_pct",
+    "nearest_permanent_surface_water_km",
+    "nearest_any_surface_water_km",
+    "water_access_index_relative_0_100",
+    "water_source_status",
+    "nearest_pupr_bore_well_candidate_km",
+    "pupr_bore_well_candidate_status"
+  ],
+  "valid_observation_coverage_min_pct": 100.0,
+  "nearest_permanent_water_km": {
+    "min": 0.038,
+    "median": 4.783,
+    "max": 35.413
+  },
+  "nearest_any_water_km": {
+    "min": 0.022,
+    "median": 3.928,
+    "max": 27.29
+  },
+  "definition": {
+    "water_access_index_relative_0_100": "Min-max normalised inverse distance from each grid centroid to the nearest JRC pixel classified as permanent water (seasonality=12); relative spatial rank only.",
+    "candidate_water": "A satellite-classified surface-water location; field verification of water volume, pumpability, legal permission, and vehicle access remains mandatory."
+  },
+  "pupr_bore_well_candidates": {
+    "available": true,
+    "candidate_points": 291,
+    "definition": "Distance to a PUPR-mapped bore-well candidate. It is separate from the JRC-only surface-water index and must not be treated as a confirmed fire-water source."
+  }
+}

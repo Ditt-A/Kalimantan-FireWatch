@@ -1,0 +1,26 @@
+# Credentials: keep only the committed examples.
+env.txt
+secrets.local.txt
+secrets.txt
+.cdsapirc
+.env
+.env.*
+!.env.example
+
+# Local Python and JavaScript environments / build cache.
+.venv/
+.venv-wsl/
+__pycache__/
+*.py[cod]
+web/node_modules/
+web/.next/
+
+# Local runtime noise and notebook editor checkpoints.
+.streamlit/
+logs/*.log
+logs/*.pid
+.ipynb_checkpoints/
+
+# OS/editor files.
+.DS_Store
+Thumbs.db

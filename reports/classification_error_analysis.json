@@ -1,0 +1,521 @@
+{
+  "status": "passed",
+  "threshold_from_2025_validation": 0.18,
+  "overall_test": {
+    "rows": 135488,
+    "prevalence": 0.04113,
+    "predicted_positive_rate": 0.03828,
+    "precision": 0.37093,
+    "recall": 0.3453,
+    "f1": 0.35765,
+    "false_positive_rate": 0.02408,
+    "false_negative_rate": 0.02692
+  },
+  "error_counts": {
+    "true_negative": 126653,
+    "false_negative": 3648,
+    "false_positive": 3263,
+    "true_positive": 1924
+  },
+  "test_oracle_threshold_diagnostic": 0.16131,
+  "test_oracle_f1_diagnostic": 0.36249,
+  "by_province": [
+    {
+      "province": "West Kalimantan",
+      "rows": 37410,
+      "prevalence": 0.06169,
+      "predicted_positive_rate": 0.06009,
+      "precision": 0.38345,
+      "recall": 0.37348,
+      "f1": 0.3784,
+      "false_positive_rate": 0.03705,
+      "false_negative_rate": 0.03865
+    },
+    {
+      "province": "East Kalimantan",
+      "rows": 31784,
+      "prevalence": 0.04789,
+      "predicted_positive_rate": 0.05883,
+      "precision": 0.31818,
+      "recall": 0.39093,
+      "f1": 0.35083,
+      "false_positive_rate": 0.04011,
+      "false_negative_rate": 0.02917
+    },
+    {
+      "province": "Central Kalimantan",
+      "rows": 37323,
+      "prevalence": 0.0277,
+      "predicted_positive_rate": 0.01436,
+      "precision": 0.39925,
+      "recall": 0.20696,
+      "f1": 0.27261,
+      "false_positive_rate": 0.00863,
+      "false_negative_rate": 0.02197
+    },
+    {
+      "province": "South Kalimantan",
+      "rows": 10208,
+      "prevalence": 0.04487,
+      "predicted_positive_rate": 0.04173,
+      "precision": 0.55634,
+      "recall": 0.51747,
+      "f1": 0.5362,
+      "false_positive_rate": 0.01851,
+      "false_negative_rate": 0.02165
+    },
+    {
+      "province": "North Kalimantan",
+      "rows": 18763,
+      "prevalence": 0.01332,
+      "predicted_positive_rate": 0.0057,
+      "precision": 0.14953,
+      "recall": 0.064,
+      "f1": 0.08964,
+      "false_positive_rate": 0.00485,
+      "false_negative_rate": 0.01247
+    }
+  ],
+  "by_month": [
+    {
+      "week_start": "2026-07-06 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.11109,
+      "predicted_positive_rate": 0.04067,
+      "precision": 0.58947,
+      "recall": 0.2158,
+      "f1": 0.31594,
+      "false_positive_rate": 0.0167,
+      "false_negative_rate": 0.08711
+    },
+    {
+      "week_start": "2026-07-13 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.15004,
+      "predicted_positive_rate": 0.2012,
+      "precision": 0.43191,
+      "recall": 0.57917,
+      "f1": 0.49482,
+      "false_positive_rate": 0.1143,
+      "false_negative_rate": 0.06314
+    },
+    {
+      "week_start": "2026-01-19 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.07513,
+      "predicted_positive_rate": 0.02633,
+      "precision": 0.53659,
+      "recall": 0.18803,
+      "f1": 0.27848,
+      "false_positive_rate": 0.0122,
+      "false_negative_rate": 0.061
+    },
+    {
+      "week_start": "2026-01-12 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.05394,
+      "predicted_positive_rate": 0.00128,
+      "precision": 0.33333,
+      "recall": 0.00794,
+      "f1": 0.0155,
+      "false_positive_rate": 0.00086,
+      "false_negative_rate": 0.05351
+    },
+    {
+      "week_start": "2026-03-23 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.06464,
+      "predicted_positive_rate": 0.01734,
+      "precision": 0.67901,
+      "recall": 0.18212,
+      "f1": 0.28721,
+      "false_positive_rate": 0.00557,
+      "false_negative_rate": 0.05287
+    },
+    {
+      "week_start": "2026-06-01 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.04987,
+      "predicted_positive_rate": 0.00835,
+      "precision": 0.51282,
+      "recall": 0.08584,
+      "f1": 0.14706,
+      "false_positive_rate": 0.00407,
+      "false_negative_rate": 0.04559
+    },
+    {
+      "week_start": "2026-06-22 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.05629,
+      "predicted_positive_rate": 0.02461,
+      "precision": 0.44348,
+      "recall": 0.19392,
+      "f1": 0.26984,
+      "false_positive_rate": 0.0137,
+      "false_negative_rate": 0.04538
+    },
+    {
+      "week_start": "2026-04-20 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.04259,
+      "predicted_positive_rate": 0.01263,
+      "precision": 0.50847,
+      "recall": 0.15075,
+      "f1": 0.23256,
+      "false_positive_rate": 0.00621,
+      "false_negative_rate": 0.03617
+    },
+    {
+      "week_start": "2026-06-29 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.04602,
+      "predicted_positive_rate": 0.04324,
+      "precision": 0.31188,
+      "recall": 0.29302,
+      "f1": 0.30216,
+      "false_positive_rate": 0.02975,
+      "false_negative_rate": 0.03253
+    },
+    {
+      "week_start": "2026-01-26 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.04859,
+      "predicted_positive_rate": 0.0351,
+      "precision": 0.47561,
+      "recall": 0.34361,
+      "f1": 0.39898,
+      "false_positive_rate": 0.01841,
+      "false_negative_rate": 0.03189
+    },
+    {
+      "week_start": "2026-03-09 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.03446,
+      "predicted_positive_rate": 0.01306,
+      "precision": 0.4918,
+      "recall": 0.18634,
+      "f1": 0.27027,
+      "false_positive_rate": 0.00664,
+      "false_negative_rate": 0.02804
+    },
+    {
+      "week_start": "2026-04-27 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.03446,
+      "predicted_positive_rate": 0.02076,
+      "precision": 0.46392,
+      "recall": 0.2795,
+      "f1": 0.34884,
+      "false_positive_rate": 0.01113,
+      "false_negative_rate": 0.02483
+    },
+    {
+      "week_start": "2026-07-20 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.14983,
+      "predicted_positive_rate": 0.36943,
+      "precision": 0.34067,
+      "recall": 0.84,
+      "f1": 0.48475,
+      "false_positive_rate": 0.24358,
+      "false_negative_rate": 0.02397
+    },
+    {
+      "week_start": "2026-06-15 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.02911,
+      "predicted_positive_rate": 0.01391,
+      "precision": 0.41538,
+      "recall": 0.19853,
+      "f1": 0.26866,
+      "false_positive_rate": 0.00813,
+      "false_negative_rate": 0.02333
+    },
+    {
+      "week_start": "2026-03-02 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.02419,
+      "predicted_positive_rate": 0.01134,
+      "precision": 0.56604,
+      "recall": 0.26549,
+      "f1": 0.36145,
+      "false_positive_rate": 0.00492,
+      "false_negative_rate": 0.01777
+    },
+    {
+      "week_start": "2026-05-18 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.02012,
+      "predicted_positive_rate": 0.01306,
+      "precision": 0.32787,
+      "recall": 0.21277,
+      "f1": 0.25806,
+      "false_positive_rate": 0.00878,
+      "false_negative_rate": 0.01584
+    },
+    {
+      "week_start": "2026-02-23 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01819,
+      "predicted_positive_rate": 0.00578,
+      "precision": 0.48148,
+      "recall": 0.15294,
+      "f1": 0.23214,
+      "false_positive_rate": 0.003,
+      "false_negative_rate": 0.01541
+    },
+    {
+      "week_start": "2026-05-04 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.02098,
+      "predicted_positive_rate": 0.02055,
+      "precision": 0.35417,
+      "recall": 0.34694,
+      "f1": 0.35052,
+      "false_positive_rate": 0.01327,
+      "false_negative_rate": 0.0137
+    },
+    {
+      "week_start": "2026-04-13 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01884,
+      "predicted_positive_rate": 0.01905,
+      "precision": 0.31461,
+      "recall": 0.31818,
+      "f1": 0.31638,
+      "false_positive_rate": 0.01306,
+      "false_negative_rate": 0.01284
+    },
+    {
+      "week_start": "2026-06-08 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01841,
+      "predicted_positive_rate": 0.02076,
+      "precision": 0.27835,
+      "recall": 0.31395,
+      "f1": 0.29508,
+      "false_positive_rate": 0.01498,
+      "false_negative_rate": 0.01263
+    },
+    {
+      "week_start": "2026-04-06 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01712,
+      "predicted_positive_rate": 0.01991,
+      "precision": 0.23656,
+      "recall": 0.275,
+      "f1": 0.25434,
+      "false_positive_rate": 0.0152,
+      "false_negative_rate": 0.01241
+    },
+    {
+      "week_start": "2026-05-11 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01755,
+      "predicted_positive_rate": 0.01434,
+      "precision": 0.35821,
+      "recall": 0.29268,
+      "f1": 0.32215,
+      "false_positive_rate": 0.0092,
+      "false_negative_rate": 0.01241
+    },
+    {
+      "week_start": "2026-02-09 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01691,
+      "predicted_positive_rate": 0.02761,
+      "precision": 0.1938,
+      "recall": 0.31646,
+      "f1": 0.24038,
+      "false_positive_rate": 0.02226,
+      "false_negative_rate": 0.01156
+    },
+    {
+      "week_start": "2026-05-25 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01391,
+      "predicted_positive_rate": 0.01327,
+      "precision": 0.22581,
+      "recall": 0.21538,
+      "f1": 0.22047,
+      "false_positive_rate": 0.01027,
+      "false_negative_rate": 0.01092
+    },
+    {
+      "week_start": "2026-02-02 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01541,
+      "predicted_positive_rate": 0.01948,
+      "precision": 0.24176,
+      "recall": 0.30556,
+      "f1": 0.26994,
+      "false_positive_rate": 0.01477,
+      "false_negative_rate": 0.0107
+    },
+    {
+      "week_start": "2026-03-30 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01712,
+      "predicted_positive_rate": 0.05244,
+      "precision": 0.15102,
+      "recall": 0.4625,
+      "f1": 0.22769,
+      "false_positive_rate": 0.04452,
+      "false_negative_rate": 0.0092
+    },
+    {
+      "week_start": "2026-03-16 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.0137,
+      "predicted_positive_rate": 0.02504,
+      "precision": 0.2906,
+      "recall": 0.53125,
+      "f1": 0.37569,
+      "false_positive_rate": 0.01777,
+      "false_negative_rate": 0.00642
+    },
+    {
+      "week_start": "2026-02-16 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.01027,
+      "predicted_positive_rate": 0.01755,
+      "precision": 0.23171,
+      "recall": 0.39583,
+      "f1": 0.29231,
+      "false_positive_rate": 0.01348,
+      "false_negative_rate": 0.00621
+    },
+    {
+      "week_start": "2026-01-05 00:00:00",
+      "rows": 4672,
+      "prevalence": 0.00385,
+      "predicted_positive_rate": 0.00214,
+      "precision": 0.2,
+      "recall": 0.11111,
+      "f1": 0.14286,
+      "false_positive_rate": 0.00171,
+      "false_negative_rate": 0.00342
+    }
+  ],
+  "by_peat": [
+    {
+      "peat_group": "peat",
+      "rows": 27144,
+      "prevalence": 0.05231,
+      "predicted_positive_rate": 0.04502,
+      "precision": 0.38216,
+      "recall": 0.32887,
+      "f1": 0.35352,
+      "false_positive_rate": 0.02781,
+      "false_negative_rate": 0.03511
+    },
+    {
+      "peat_group": "non_peat",
+      "rows": 108344,
+      "prevalence": 0.03832,
+      "predicted_positive_rate": 0.0366,
+      "precision": 0.36747,
+      "recall": 0.35092,
+      "f1": 0.359,
+      "false_positive_rate": 0.02315,
+      "false_negative_rate": 0.02487
+    }
+  ],
+  "by_previous_fire": [
+    {
+      "previous_fire_group": "1_to_4",
+      "rows": 10601,
+      "prevalence": 0.1647,
+      "predicted_positive_rate": 0.25526,
+      "precision": 0.3337,
+      "recall": 0.51718,
+      "f1": 0.40566,
+      "false_positive_rate": 0.17008,
+      "false_negative_rate": 0.07952
+    },
+    {
+      "previous_fire_group": "none",
+      "rows": 123245,
+      "prevalence": 0.02454,
+      "predicted_positive_rate": 0.0088,
+      "precision": 0.23041,
+      "recall": 0.08264,
+      "f1": 0.12165,
+      "false_positive_rate": 0.00678,
+      "false_negative_rate": 0.02252
+    },
+    {
+      "previous_fire_group": "5_or_more",
+      "rows": 1642,
+      "prevalence": 0.48782,
+      "predicted_positive_rate": 0.85018,
+      "precision": 0.55229,
+      "recall": 0.96255,
+      "f1": 0.70187,
+      "false_positive_rate": 0.38063,
+      "false_negative_rate": 0.01827
+    }
+  ],
+  "probability_calibration_deciles": [
+    {
+      "probability_bin": "(-0.0008600000000000001, 0.000465]",
+      "rows": 13549,
+      "observed_fire_rate": 7e-05,
+      "average_probability": 0.00035
+    },
+    {
+      "probability_bin": "(0.000465, 0.00107]",
+      "rows": 13549,
+      "observed_fire_rate": 0.00044,
+      "average_probability": 0.00068
+    },
+    {
+      "probability_bin": "(0.00107, 0.00212]",
+      "rows": 13549,
+      "observed_fire_rate": 0.00288,
+      "average_probability": 0.00158
+    },
+    {
+      "probability_bin": "(0.00212, 0.00383]",
+      "rows": 13548,
+      "observed_fire_rate": 0.00679,
+      "average_probability": 0.00289
+    },
+    {
+      "probability_bin": "(0.00383, 0.00681]",
+      "rows": 13549,
+      "observed_fire_rate": 0.01314,
+      "average_probability": 0.00516
+    },
+    {
+      "probability_bin": "(0.00681, 0.0113]",
+      "rows": 13549,
+      "observed_fire_rate": 0.01779,
+      "average_probability": 0.00896
+    },
+    {
+      "probability_bin": "(0.0113, 0.0193]",
+      "rows": 13548,
+      "observed_fire_rate": 0.02761,
+      "average_probability": 0.01483
+    },
+    {
+      "probability_bin": "(0.0193, 0.0357]",
+      "rows": 13549,
+      "observed_fire_rate": 0.04192,
+      "average_probability": 0.02653
+    },
+    {
+      "probability_bin": "(0.0357, 0.0747]",
+      "rows": 13549,
+      "observed_fire_rate": 0.07322,
+      "average_probability": 0.05182
+    },
+    {
+      "probability_bin": "(0.0747, 0.981]",
+      "rows": 13549,
+      "observed_fire_rate": 0.2274,
+      "average_probability": 0.21511
+    }
+  ]
+}

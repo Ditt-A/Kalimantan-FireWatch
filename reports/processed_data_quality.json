@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "fact_rows": 868992,
+  "grid_rows": 4672,
+  "firms_rows": 173507,
+  "missing_fact_columns": [],
+  "primary_key_duplicates": 0,
+  "negative_hotspot_counts": 0,
+  "invalid_peat_pct": 0,
+  "firms_outside_request_bbox": 0,
+  "weather_nonnull_pct": 97.31
+}

@@ -1,0 +1,15 @@
+{
+  "promoted_at_utc": "2026-09-09T18:55:52.605806+00:00",
+  "status": "passed",
+  "cutoff_date_utc": "2026-09-03",
+  "rows": 280906,
+  "date_min": "2023-01-01",
+  "date_max": "2026-09-03",
+  "duplicate_natural_keys": 0,
+  "missing_grid_assignments": 0,
+  "unassigned_districts": 75,
+  "footprint_ha_proxy_min": 13.68,
+  "footprint_ha_proxy_max": 62.40000000000001,
+  "backup_file": "firms_kalimantan_clean_through_20260903.parquet",
+  "source_note": "NASA FIRMS VIIRS NOAA-20 NRT is included only through the ERA5-complete daily cutoff."
+}

@@ -1,0 +1,121 @@
+{
+  "generated_at_utc": "2026-09-07T08:01:10.847123+00:00",
+  "input": "ics209plus-wildfire.zip::ics209plus-wildfire/ics209-plus-wf_incidents_1999to2020.csv",
+  "incident_count": 34622,
+  "resource_definitions": {
+    "WF_PEAK_PERSONNEL": "Maximum value for TOTAL_PERSONNEL in an incident's sitreps.",
+    "WF_PEAK_AERIAL": "Maximum value for TOTAL_AERIAL in an incident's sitreps.",
+    "TOTAL_PERSONNEL_SUM": "TOTAL_PERSONNEL summed across an incident's sitreps; not a unique headcount.",
+    "TOTAL_AERIAL_SUM": "TOTAL_AERIAL summed across an incident's sitreps; not a count of unique aircraft."
+  },
+  "resource_stats": {
+    "TOTAL_PERSONNEL_SUM": {
+      "reported_incidents": 27252,
+      "zero_count": 0,
+      "median": 49.75,
+      "p90": 1441.9000000000015,
+      "p99": 18201.984098290595,
+      "max": 401311.0
+    },
+    "WF_PEAK_PERSONNEL": {
+      "reported_incidents": 27252,
+      "zero_count": 0,
+      "median": 27.0,
+      "p90": 276.92666666666776,
+      "p99": 1284.2672727272716,
+      "max": 400000.0
+    },
+    "TOTAL_AERIAL_SUM": {
+      "reported_incidents": 11954,
+      "zero_count": 0,
+      "median": 5.0,
+      "p90": 54.0,
+      "p99": 320.19583333333304,
+      "max": 2289.0
+    },
+    "WF_PEAK_AERIAL": {
+      "reported_incidents": 11954,
+      "zero_count": 0,
+      "median": 2.0,
+      "p90": 9.0,
+      "p99": 21.0,
+      "max": 840.0
+    }
+  },
+  "resource_missing": {
+    "TOTAL_PERSONNEL_SUM": 7370,
+    "WF_PEAK_PERSONNEL": 7370,
+    "TOTAL_AERIAL_SUM": 22668,
+    "WF_PEAK_AERIAL": 22668
+  },
+  "resource_by_final_acres_band": [
+    {
+      "final_acres_band": "<100",
+      "incident_count": 7632,
+      "peak_personnel_reported": 4733,
+      "peak_personnel_median": 13.0,
+      "peak_personnel_p90": 138.0,
+      "peak_aerial_reported": 1334,
+      "peak_aerial_median": 2.0,
+      "peak_aerial_p90": 7.0
+    },
+    {
+      "final_acres_band": "100-999",
+      "incident_count": 17595,
+      "peak_personnel_reported": 14166,
+      "peak_personnel_median": 20.0,
+      "peak_personnel_p90": 152.70833333333334,
+      "peak_aerial_reported": 5186,
+      "peak_aerial_median": 2.0,
+      "peak_aerial_p90": 6.0
+    },
+    {
+      "final_acres_band": "1k-9.9k",
+      "incident_count": 7266,
+      "peak_personnel_reported": 6393,
+      "peak_personnel_median": 59.0,
+      "peak_personnel_p90": 427.0,
+      "peak_aerial_reported": 3836,
+      "peak_aerial_median": 2.0,
+      "peak_aerial_p90": 9.0
+    },
+    {
+      "final_acres_band": "10k-99.9k",
+      "incident_count": 1923,
+      "peak_personnel_reported": 1761,
+      "peak_personnel_median": 205.3333333333333,
+      "peak_personnel_p90": 1077.0,
+      "peak_aerial_reported": 1418,
+      "peak_aerial_median": 5.0,
+      "peak_aerial_p90": 13.0
+    },
+    {
+      "final_acres_band": "100k+",
+      "incident_count": 206,
+      "peak_personnel_reported": 199,
+      "peak_personnel_median": 472.0,
+      "peak_personnel_p90": 1828.4,
+      "peak_aerial_reported": 180,
+      "peak_aerial_median": 8.0,
+      "peak_aerial_p90": 21.0
+    }
+  ],
+  "resource_area_association": {
+    "WF_PEAK_PERSONNEL": {
+      "paired_incidents": 27252,
+      "spearman_rank_correlation": 0.4263276198068247
+    },
+    "WF_PEAK_AERIAL": {
+      "paired_incidents": 11954,
+      "spearman_rank_correlation": 0.2669496297253016
+    }
+  },
+  "quality_review": {
+    "peak_personnel_non_integer": 3447,
+    "peak_aerial_non_integer": 228,
+    "peak_personnel_over_10000_review": 1,
+    "peak_aerial_over_100_review": 2,
+    "negative_personnel_values": 0,
+    "negative_aerial_values": 0
+  }
+}

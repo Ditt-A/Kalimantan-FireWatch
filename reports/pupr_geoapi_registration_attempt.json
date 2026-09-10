@@ -1,0 +1,13 @@
+{
+  "created_at_utc": "2026-09-08T06:22:59.273673+00:00",
+  "portal": "https://sigi.pu.go.id/geoapi/",
+  "layer": "sumur",
+  "registration_form_submitted": true,
+  "registration_gate_still_visible": false,
+  "captured_geoapi_requests": [
+    "https://sigi.pu.go.id/geoapi/api/v1/igt_2021_airtanah_sumurbor/columns",
+    "https://sigi.pu.go.id/geoapi/api/v1/registrasi"
+  ],
+  "body_tail": "PUBLIC GEOAPI\nOPEN SPATIAL DATA API\nIDN\nENG\n🌙\nPARAMETER QUERY\nNama Layer\nJenis Data\n-- Pilih Jenis Data --\nData\nMetadata\nFormat Output\n-- Pilih Format Output --\nGeoJSON\nJSON\nHTML\nCSV\nGeometri\n-- Pilih Geometri --\nDengan Geometri\nTanpa Geometri\n↺ Reset Parameter\n▶ Run Query\nFILTER LANJUTAN\n▼\nPILIH DATASET\n▼\nREQUEST ENDPOINT PERMANEN\n▼\n📋 Salin Endpoint\n🔗 Buka API\n{ } Open Raw\n📊 Open Tabel\nFormat:\nGEOJSON\nPUSDATIN · KEMENTERIAN PEKERJAAN UMUM\n🗺️ Open Spatial Data API\nAkses data infrastruktur PU secara terbuka — jalan, jembatan, bendungan, irigasi, dan 60+ dataset spasial nasional dalam format GeoJSON, JSON, HTML, dan CSV.\n📍 62 Dataset\n🏗️ 5 Unit Organisasi\n🔓 Akses Terbuka\n🌐 ISO 19139\n✉\n?\nPusat Data dan Teknologi Informasi Kementerian Pekerjaan Umum\nJl. Patimura 20, Kebayoran Baru, Jakarta Selatan 12110\n@2026\n🗂 Dataset\n✕\n🅐 Detail Dataset:\n🏢\nUnit Organisasi\n🔐\nAkses\n📐\nTipe Geometri\n🔄\nUpdate\n📍\nCoverage\n🌐\nEPSG\n📊\nRecords\n📋 Lihat Kolom & Tipe Kolom\n📋 Kolom & Tipe Kolom –\n✕\nNAMA KOLOM\tTIPE KOLOM\n⬇ Download CSV\n📋 Form Registrasi Download\n✕\n✅\nRegistrasi Berhasil!\nTerima kasih, Aditya Akbar.\nAnda sekarang dapat mengakses dan mengunduh data spasial GEOAPI.\nLanjutkan Query ▶",
+  "next_action": "session_unlocked_check_generated_raw_endpoint"
+}

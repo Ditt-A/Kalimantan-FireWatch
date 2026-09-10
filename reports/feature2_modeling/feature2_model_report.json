@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-09-09T04:11:10.178196+00:00",
+  "dataset_contract": "feature2_model_ready; direct model matrices exclude provenance/origin fields",
+  "evaluation_mode": "fixed_random_mixed_holdout_80_20",
+  "personnel": {
+    "evaluation_protocol": "Fixed random 80:20 split over the direct mixed training matrix. Both train and test contain the same combined real/synthetic distribution; provenance is not an input or split key.",
+    "training_rows": 706,
+    "test_rows": 177,
+    "benchmark_area_huber": {
+      "mae": 11.409,
+      "rmse": 24.708,
+      "median_ae": 5.266,
+      "r2": 0.507
+    },
+    "boosting_hybrid": {
+      "mae": 1.429,
+      "rmse": 3.625,
+      "median_ae": 0.69,
+      "r2": 0.989
+    },
+    "interpretation_guardrail": "Mixed-holdout performance measures fit to the configured hybrid scenario distribution, not real-world field accuracy."
+  },
+  "fire_engine": {
+    "evaluation_protocol": "Fixed random 80:20 split over the direct mixed fire-engine matrix. Input is planned_personnel only.",
+    "training_rows": 679,
+    "test_rows": 170,
+    "benchmark_personnel_capacity": {
+      "mae": 0.059,
+      "rmse": 0.42,
+      "median_ae": 0.0,
+      "r2": 0.995
+    },
+    "boosting_personnel_only": {
+      "mae": 0.124,
+      "rmse": 0.479,
+      "median_ae": 0.0,
+      "r2": 0.994
+    },
+    "selection": "The deterministic six-person capacity policy remains serving logic; the booster is retained for comparison and offline experiments.",
+    "interpretation_guardrail": "Mixed-holdout engine metrics are dominated by deterministic synthetic policy rows and do not validate incident-level deployment accuracy."
+  },
+  "artifacts": {
+    "personnel": {
+      "artifact": "models/feature2_personnel_hgb_pilot.joblib",
+      "sha256": "eb949a9144bed4cc6b35c7a98737c5c909bc95794f82413d0dee4bb0e1d62489",
+      "training_rows": 883,
+      "training_protocol": "direct mixed matrix; no origin/provenance input",
+      "status": "pilot_planning_only"
+    },
+    "fire_engine": {
+      "artifact": "models/feature2_fire_engine_hgb_experimental.joblib",
+      "sha256": "970185fd6b773b0f3f9edecfcafc4acd85220988e3f886259552800ea23cdb40",
+      "status": "experimental_not_for_serving",
+      "training_protocol": "direct mixed matrix; planned_personnel is the only input"
+    }
+  },
+  "deployment_decision": {
+    "personnel": "pilot_planning_only",
+    "fire_engine": "serve_deterministic_personnel_capacity_policy_only"
+  }
+}

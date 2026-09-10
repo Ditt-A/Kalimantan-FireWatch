@@ -1,0 +1,6 @@
+final_acres_band,incident_count,peak_personnel_reported,peak_personnel_median,peak_personnel_p90,peak_aerial_reported,peak_aerial_median,peak_aerial_p90
+<100,7632,4733,13.0,138.0,1334,2.0,7.0
+100-999,17595,14166,20.0,152.70833333333334,5186,2.0,6.0
+1k-9.9k,7266,6393,59.0,427.0,3836,2.0,9.0
+10k-99.9k,1923,1761,205.3333333333333,1077.0,1418,5.0,13.0
+100k+,206,199,472.0,1828.4,180,8.0,21.0

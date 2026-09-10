@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "baseline_validation_f1": 0.35933030455998655,
+  "results": [
+    {
+      "model": "geography_aware_province_threshold",
+      "class_weight": "None",
+      "threshold": "{\"Central Kalimantan\": 0.10999999999999999, \"East Kalimantan\": 0.24999999999999994, \"North Kalimantan\": 0.19, \"South Kalimantan\": 0.38999999999999996, \"West Kalimantan\": 0.13999999999999999}",
+      "roc_auc": NaN,
+      "pr_auc": NaN,
+      "precision": 0.2915459573347379,
+      "recall": 0.49025686448184236,
+      "f1": 0.3656482246077622,
+      "onset_rows": 217329,
+      "onset_f1": 0.18674019300664244,
+      "onset_recall": 0.18860759493670887
+    },
+    {
+      "model": "geography_aware",
+      "class_weight": "None",
+      "threshold": 0.16999999999999998,
+      "roc_auc": 0.9002724169341572,
+      "pr_auc": 0.31486319253717443,
+      "precision": 0.2861490643009778,
+      "recall": 0.4892604074402126,
+      "f1": 0.36110316649642493,
+      "onset_rows": 217329,
+      "onset_f1": 0.1954868470265553,
+      "onset_recall": 0.19848101265822785
+    },
+    {
+      "model": "geography_aware_balanced_province_threshold",
+      "class_weight": "None",
+      "threshold": "{\"Central Kalimantan\": 0.6699999999999999, \"East Kalimantan\": 0.8099999999999999, \"North Kalimantan\": 0.7699999999999999, \"South Kalimantan\": 0.8699999999999999, \"West Kalimantan\": 0.6499999999999999}",
+      "roc_auc": NaN,
+      "pr_auc": NaN,
+      "precision": 0.2846842206914311,
+      "recall": 0.4895925597874225,
+      "f1": 0.36002442499491144,
+      "onset_rows": 217329,
+      "onset_f1": 0.18680663247047596,
+      "onset_recall": 0.1982278481012658
+    },
+    {
+      "model": "geography_aware_balanced",
+      "class_weight": "balanced",
+      "threshold": 0.72,
+      "roc_auc": 0.8991968665337446,
+      "pr_auc": 0.2986596344502396,
+      "precision": 0.27641369047619047,
+      "recall": 0.49357838795394154,
+      "f1": 0.35437201907790145,
+      "onset_rows": 217329,
+      "onset_f1": 0.19244625217896572,
+      "onset_recall": 0.20962025316455696
+    },
+    {
+      "model": "geography_aware_history_threshold",
+      "class_weight": "None",
+      "threshold": "{\"1_to_4\": 0.21999999999999997, \"5_or_more\": 0.12, \"none\": 0.12}",
+      "roc_auc": NaN,
+      "pr_auc": NaN,
+      "precision": 0.27258083760887725,
+      "recall": 0.5058680248007086,
+      "f1": 0.35426843451965573,
+      "onset_rows": 217329,
+      "onset_f1": 0.2041915016343011,
+      "onset_recall": 0.2688607594936709
+    },
+    {
+      "model": "geography_aware_province_history_threshold",
+      "class_weight": "None",
+      "threshold": "{\"Central Kalimantan|1_to_4\": 0.13, \"Central Kalimantan|5_or_more\": 0.08, \"Central Kalimantan|none\": 0.05, \"East Kalimantan|1_to_4\": 0.24999999999999994, \"East Kalimantan|5_or_more\": 0.35999999999999993, \"East Kalimantan|none\": 0.09999999999999999, \"North Kalimantan|1_to_4\": 0.24, \"North Kalimantan|5_or_more\": 0.38999999999999996, \"North Kalimantan|none\": 0.12, \"South Kalimantan|1_to_4\": 0.32999999999999996, \"South Kalimantan|5_or_more\": 0.4699999999999999, \"South Kalimantan|none\": 0.13, \"West Kalimantan|1_to_4\": 0.13, \"West Kalimantan|5_or_more\": 0.10999999999999999, \"West Kalimantan|none\": 0.13999999999999999}",
+      "roc_auc": NaN,
+      "pr_auc": NaN,
+      "precision": 0.250225880935649,
+      "recall": 0.5519264836138176,
+      "f1": 0.3443392968156386,
+      "onset_rows": 217329,
+      "onset_f1": 0.19826440465952622,
+      "onset_recall": 0.3210126582278481
+    },
+    {
+      "model": "geography_aware_balanced_history_threshold",
+      "class_weight": "None",
+      "threshold": "{\"1_to_4\": 0.72, \"5_or_more\": 0.62, \"none\": 0.5499999999999999}",
+      "roc_auc": NaN,
+      "pr_auc": NaN,
+      "precision": 0.23109700421757468,
+      "recall": 0.5884632418069088,
+      "f1": 0.3318660048078424,
+      "onset_rows": 217329,
+      "onset_f1": 0.19833479997292358,
+      "onset_recall": 0.37088607594936707
+    },
+    {
+      "model": "geography_aware_balanced_province_history_threshold",
+      "class_weight": "None",
+      "threshold": "{\"Central Kalimantan|1_to_4\": 0.6499999999999999, \"Central Kalimantan|5_or_more\": 0.69, \"Central Kalimantan|none\": 0.33999999999999997, \"East Kalimantan|1_to_4\": 0.7999999999999999, \"East Kalimantan|5_or_more\": 0.8599999999999999, \"East Kalimantan|none\": 0.5599999999999999, \"North Kalimantan|1_to_4\": 0.7799999999999999, \"North Kalimantan|5_or_more\": 0.8599999999999999, \"North Kalimantan|none\": 0.57, \"South Kalimantan|1_to_4\": 0.8499999999999999, \"South Kalimantan|5_or_more\": 0.8999999999999999, \"South Kalimantan|none\": 0.6799999999999999, \"West Kalimantan|1_to_4\": 0.69, \"West Kalimantan|5_or_more\": 0.59, \"West Kalimantan|none\": 0.69}",
+      "roc_auc": NaN,
+      "pr_auc": NaN,
+      "precision": 0.22775030902348578,
+      "recall": 0.5711913197519929,
+      "f1": 0.32565332660017676,
+      "onset_rows": 217329,
+      "onset_f1": 0.19036549141159756,
+      "onset_recall": 0.37316455696202533
+    }
+  ]
+}

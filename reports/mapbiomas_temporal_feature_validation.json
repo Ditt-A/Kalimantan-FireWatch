@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "output": "/home/adit/projects/compfest_academy_2/data/interim/mapbiomas_province_year_features.parquet",
+  "rows": 10,
+  "years": [
+    2023,
+    2024
+  ],
+  "provinces": [
+    "Central Kalimantan",
+    "East Kalimantan",
+    "North Kalimantan",
+    "South Kalimantan",
+    "West Kalimantan"
+  ],
+  "feature_columns": [
+    "lc_natural_share_pct",
+    "lc_anthropic_share_pct",
+    "lc_peat_swamp_share_pct",
+    "lc_oil_palm_share_pct",
+    "lc_pulpwood_share_pct",
+    "lc_agriculture_share_pct",
+    "lc_water_share_pct",
+    "burned_share_pct"
+  ]
+}

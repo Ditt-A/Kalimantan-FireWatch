@@ -1,0 +1,823 @@
+{
+  "generated_at_utc": "2026-09-07T07:53:40.313268+00:00",
+  "inputs": {
+    "all_hazards_sitrep": "ics209plus-allhazards.zip::ics209plus-allhazards/ics209-plus_sitreps_1999to2020.csv",
+    "wildfire_incidents": "ics209plus-wildfire.zip::ics209plus-wildfire/ics209-plus-wf_incidents_1999to2020.csv"
+  },
+  "all_hazards_sitreps": {
+    "sitrep_count": 187115,
+    "unique_incident_ids": 35170,
+    "unique_event_ids": 35773,
+    "year_range": [
+      1999,
+      2020
+    ],
+    "annual_sitreps": [
+      {
+        "year": 1999,
+        "sitrep_count": 3150
+      },
+      {
+        "year": 2000,
+        "sitrep_count": 6586
+      },
+      {
+        "year": 2001,
+        "sitrep_count": 5464
+      },
+      {
+        "year": 2002,
+        "sitrep_count": 6917
+      },
+      {
+        "year": 2003,
+        "sitrep_count": 7665
+      },
+      {
+        "year": 2004,
+        "sitrep_count": 4638
+      },
+      {
+        "year": 2005,
+        "sitrep_count": 7298
+      },
+      {
+        "year": 2006,
+        "sitrep_count": 12681
+      },
+      {
+        "year": 2007,
+        "sitrep_count": 9984
+      },
+      {
+        "year": 2008,
+        "sitrep_count": 9559
+      },
+      {
+        "year": 2009,
+        "sitrep_count": 6719
+      },
+      {
+        "year": 2010,
+        "sitrep_count": 7276
+      },
+      {
+        "year": 2011,
+        "sitrep_count": 12910
+      },
+      {
+        "year": 2012,
+        "sitrep_count": 9488
+      },
+      {
+        "year": 2013,
+        "sitrep_count": 7920
+      },
+      {
+        "year": 2014,
+        "sitrep_count": 6196
+      },
+      {
+        "year": 2015,
+        "sitrep_count": 11203
+      },
+      {
+        "year": 2016,
+        "sitrep_count": 9802
+      },
+      {
+        "year": 2017,
+        "sitrep_count": 12956
+      },
+      {
+        "year": 2018,
+        "sitrep_count": 10839
+      },
+      {
+        "year": 2019,
+        "sitrep_count": 7034
+      },
+      {
+        "year": 2020,
+        "sitrep_count": 10830
+      }
+    ],
+    "incident_types": [
+      {
+        "incident_type": "Wildfire",
+        "sitrep_count": 174207
+      },
+      {
+        "incident_type": "Wildland Fire Used for Resource Benefit",
+        "sitrep_count": 6120
+      },
+      {
+        "incident_type": "Hurricane",
+        "sitrep_count": 2460
+      },
+      {
+        "incident_type": "Complex",
+        "sitrep_count": 2028
+      },
+      {
+        "incident_type": "Other",
+        "sitrep_count": 1107
+      },
+      {
+        "incident_type": "Prescribed Fire",
+        "sitrep_count": 490
+      },
+      {
+        "incident_type": "Flood",
+        "sitrep_count": 235
+      },
+      {
+        "incident_type": "Tornado",
+        "sitrep_count": 165
+      },
+      {
+        "incident_type": "Hazardous Materials",
+        "sitrep_count": 118
+      },
+      {
+        "incident_type": "Search and Rescue / Recovery",
+        "sitrep_count": 67
+      },
+      {
+        "incident_type": "Hurricane/Typhoon",
+        "sitrep_count": 38
+      },
+      {
+        "incident_type": "Biological or Toxic Conditions",
+        "sitrep_count": 34
+      },
+      {
+        "incident_type": "Winter Storm",
+        "sitrep_count": 23
+      },
+      {
+        "incident_type": "Earthquake",
+        "sitrep_count": 9
+      },
+      {
+        "incident_type": "Civil Unrest / People Gathering",
+        "sitrep_count": 8
+      },
+      {
+        "incident_type": "Thunderstorm",
+        "sitrep_count": 2
+      },
+      {
+        "incident_type": "Landslide/Mass Earth Movement/ Avalanche/ Sinkhole",
+        "sitrep_count": 2
+      },
+      {
+        "incident_type": "Community Event",
+        "sitrep_count": 2
+      }
+    ],
+    "states_by_sitrep": [
+      {
+        "state": "CA",
+        "sitrep_count": 32768
+      },
+      {
+        "state": "ID",
+        "sitrep_count": 15186
+      },
+      {
+        "state": "MT",
+        "sitrep_count": 13090
+      },
+      {
+        "state": "FL",
+        "sitrep_count": 11303
+      },
+      {
+        "state": "OR",
+        "sitrep_count": 10133
+      },
+      {
+        "state": "AK",
+        "sitrep_count": 10130
+      },
+      {
+        "state": "TX",
+        "sitrep_count": 9074
+      },
+      {
+        "state": "AZ",
+        "sitrep_count": 8841
+      },
+      {
+        "state": "OK",
+        "sitrep_count": 7609
+      },
+      {
+        "state": "WA",
+        "sitrep_count": 7123
+      },
+      {
+        "state": "UT",
+        "sitrep_count": 6988
+      },
+      {
+        "state": "CO",
+        "sitrep_count": 6517
+      },
+      {
+        "state": "NM",
+        "sitrep_count": 5823
+      },
+      {
+        "state": "NV",
+        "sitrep_count": 5315
+      },
+      {
+        "state": "WY",
+        "sitrep_count": 4687
+      },
+      {
+        "state": "MS",
+        "sitrep_count": 2743
+      },
+      {
+        "state": "NC",
+        "sitrep_count": 2299
+      },
+      {
+        "state": "KY",
+        "sitrep_count": 2069
+      },
+      {
+        "state": "GA",
+        "sitrep_count": 1748
+      },
+      {
+        "state": "MN",
+        "sitrep_count": 1706
+      },
+      {
+        "state": "LA",
+        "sitrep_count": 1557
+      },
+      {
+        "state": "AL",
+        "sitrep_count": 1444
+      },
+      {
+        "state": "VA",
+        "sitrep_count": 1404
+      },
+      {
+        "state": "AR",
+        "sitrep_count": 1337
+      },
+      {
+        "state": "MO",
+        "sitrep_count": 1232
+      },
+      {
+        "state": "TN",
+        "sitrep_count": 1020
+      },
+      {
+        "state": "SC",
+        "sitrep_count": 957
+      },
+      {
+        "state": "WV",
+        "sitrep_count": 897
+      },
+      {
+        "state": "SD",
+        "sitrep_count": 860
+      },
+      {
+        "state": "KS",
+        "sitrep_count": 556
+      },
+      {
+        "state": "PA",
+        "sitrep_count": 426
+      },
+      {
+        "state": "ND",
+        "sitrep_count": 328
+      },
+      {
+        "state": "MI",
+        "sitrep_count": 317
+      },
+      {
+        "state": "HI",
+        "sitrep_count": 252
+      },
+      {
+        "state": "WI",
+        "sitrep_count": 209
+      },
+      {
+        "state": "NE",
+        "sitrep_count": 198
+      },
+      {
+        "state": "OH",
+        "sitrep_count": 189
+      },
+      {
+        "state": "NJ",
+        "sitrep_count": 170
+      },
+      {
+        "state": "NY",
+        "sitrep_count": 165
+      },
+      {
+        "state": "PR",
+        "sitrep_count": 138
+      },
+      {
+        "state": "MD",
+        "sitrep_count": 120
+      },
+      {
+        "state": "MA",
+        "sitrep_count": 67
+      },
+      {
+        "state": "IN",
+        "sitrep_count": 48
+      },
+      {
+        "state": "IL",
+        "sitrep_count": 40
+      },
+      {
+        "state": "VI",
+        "sitrep_count": 33
+      },
+      {
+        "state": "ME",
+        "sitrep_count": 22
+      },
+      {
+        "state": "DC",
+        "sitrep_count": 20
+      },
+      {
+        "state": "CT",
+        "sitrep_count": 19
+      },
+      {
+        "state": "NH",
+        "sitrep_count": 14
+      },
+      {
+        "state": "IA",
+        "sitrep_count": 5
+      },
+      {
+        "state": "VT",
+        "sitrep_count": 2
+      }
+    ],
+    "missing_count": {
+      "CY": 0,
+      "INCIDENT_ID": 0,
+      "EVENT_ID": 0,
+      "INCTYP_ABBREVIATION": 0,
+      "INCTYP_DESC": 0,
+      "POO_STATE": 7917,
+      "DISCOVERY_DATE": 275,
+      "REPORT_TO_DATE": 0,
+      "POO_LATITUDE": 2819,
+      "POO_LONGITUDE": 2819,
+      "ACRES": 0,
+      "NEW_ACRES": 0,
+      "TOTAL_PERSONNEL": 26505,
+      "EST_IM_COST_TO_DATE": 41443,
+      "FATALITIES": 0,
+      "INJURIES": 0
+    },
+    "coordinate_pair_count": 184296,
+    "valid_coordinate_pair_count": 184296
+  },
+  "wildfire_incidents": {
+    "incident_row_count": 34622,
+    "unique_incident_ids": 34622,
+    "duplicate_incident_id_rows": 0,
+    "year_range": [
+      1999,
+      2020
+    ],
+    "annual": [
+      {
+        "year": 1999,
+        "incident_count": 822,
+        "final_acres_sum": 3751493.0
+      },
+      {
+        "year": 2000,
+        "incident_count": 1147,
+        "final_acres_sum": 5700251.0
+      },
+      {
+        "year": 2001,
+        "incident_count": 1059,
+        "final_acres_sum": 3021951.0
+      },
+      {
+        "year": 2002,
+        "incident_count": 1048,
+        "final_acres_sum": 4862629.100000005
+      },
+      {
+        "year": 2003,
+        "incident_count": 1133,
+        "final_acres_sum": 3443452.1000000006
+      },
+      {
+        "year": 2004,
+        "incident_count": 902,
+        "final_acres_sum": 4868937.199999997
+      },
+      {
+        "year": 2005,
+        "incident_count": 1528,
+        "final_acres_sum": 4947728.799999999
+      },
+      {
+        "year": 2006,
+        "incident_count": 2763,
+        "final_acres_sum": 8450179.099999998
+      },
+      {
+        "year": 2007,
+        "incident_count": 2113,
+        "final_acres_sum": 7269894.999999992
+      },
+      {
+        "year": 2008,
+        "incident_count": 1923,
+        "final_acres_sum": 3967315.100000001
+      },
+      {
+        "year": 2009,
+        "incident_count": 1710,
+        "final_acres_sum": 5111660.3999999985
+      },
+      {
+        "year": 2010,
+        "incident_count": 1687,
+        "final_acres_sum": 2772288.400000003
+      },
+      {
+        "year": 2011,
+        "incident_count": 2567,
+        "final_acres_sum": 8347821.3999999985
+      },
+      {
+        "year": 2012,
+        "incident_count": 1689,
+        "final_acres_sum": 8430146.6
+      },
+      {
+        "year": 2013,
+        "incident_count": 1090,
+        "final_acres_sum": 4070734.300000002
+      },
+      {
+        "year": 2014,
+        "incident_count": 1241,
+        "final_acres_sum": 3263886.7700000014
+      },
+      {
+        "year": 2015,
+        "incident_count": 2130,
+        "final_acres_sum": 10533601.429999987
+      },
+      {
+        "year": 2016,
+        "incident_count": 1957,
+        "final_acres_sum": 4546515.300000002
+      },
+      {
+        "year": 2017,
+        "incident_count": 1994,
+        "final_acres_sum": 10496551.0
+      },
+      {
+        "year": 2018,
+        "incident_count": 1540,
+        "final_acres_sum": 8400379.0
+      },
+      {
+        "year": 2019,
+        "incident_count": 1204,
+        "final_acres_sum": 4940851.329999997
+      },
+      {
+        "year": 2020,
+        "incident_count": 1375,
+        "final_acres_sum": 11110564.704999998
+      }
+    ],
+    "states": [
+      {
+        "state": "AK",
+        "incident_count": 1241,
+        "final_acres_sum": 21636355.91000001
+      },
+      {
+        "state": "CA",
+        "incident_count": 3233,
+        "final_acres_sum": 18540493.679999996
+      },
+      {
+        "state": "ID",
+        "incident_count": 2076,
+        "final_acres_sum": 11798352.979999978
+      },
+      {
+        "state": "NV",
+        "incident_count": 1051,
+        "final_acres_sum": 9639865.130000003
+      },
+      {
+        "state": "OR",
+        "incident_count": 1051,
+        "final_acres_sum": 9546626.65
+      },
+      {
+        "state": "TX",
+        "incident_count": 2149,
+        "final_acres_sum": 7897262.8100000005
+      },
+      {
+        "state": "MT",
+        "incident_count": 1448,
+        "final_acres_sum": 7186725.979999993
+      },
+      {
+        "state": "AZ",
+        "incident_count": 1283,
+        "final_acres_sum": 6487196.5
+      },
+      {
+        "state": "WA",
+        "incident_count": 887,
+        "final_acres_sum": 5811147.38
+      },
+      {
+        "state": "OK",
+        "incident_count": 3396,
+        "final_acres_sum": 5423223.579999998
+      },
+      {
+        "state": "NM",
+        "incident_count": 1051,
+        "final_acres_sum": 5054535.0
+      },
+      {
+        "state": "UT",
+        "incident_count": 1122,
+        "final_acres_sum": 3962530.700000002
+      },
+      {
+        "state": "FL",
+        "incident_count": 2423,
+        "final_acres_sum": 3167859.499999999
+      },
+      {
+        "state": "CO",
+        "incident_count": 833,
+        "final_acres_sum": 2807577.7500000023
+      },
+      {
+        "state": "WY",
+        "incident_count": 605,
+        "final_acres_sum": 2445969.9450000017
+      },
+      {
+        "state": "GA",
+        "incident_count": 229,
+        "final_acres_sum": 753770.2
+      },
+      {
+        "state": "SD",
+        "incident_count": 206,
+        "final_acres_sum": 719055.4799999999
+      },
+      {
+        "state": "MN",
+        "incident_count": 616,
+        "final_acres_sum": 717945.3
+      },
+      {
+        "state": "KS",
+        "incident_count": 369,
+        "final_acres_sum": 706911.0
+      },
+      {
+        "state": "NE",
+        "incident_count": 58,
+        "final_acres_sum": 560267.78
+      },
+      {
+        "state": "KY",
+        "incident_count": 1030,
+        "final_acres_sum": 462406.0
+      },
+      {
+        "state": "NC",
+        "incident_count": 566,
+        "final_acres_sum": 408156.9199999999
+      },
+      {
+        "state": "ND",
+        "incident_count": 106,
+        "final_acres_sum": 272898.0
+      },
+      {
+        "state": "MS",
+        "incident_count": 1351,
+        "final_acres_sum": 252765.1
+      },
+      {
+        "state": "VA",
+        "incident_count": 317,
+        "final_acres_sum": 230715.75
+      },
+      {
+        "state": "LA",
+        "incident_count": 228,
+        "final_acres_sum": 217274.26999999996
+      },
+      {
+        "state": "AL",
+        "incident_count": 742,
+        "final_acres_sum": 208995.52999999997
+      },
+      {
+        "state": "AR",
+        "incident_count": 586,
+        "final_acres_sum": 206731.3
+      },
+      {
+        "state": "TN",
+        "incident_count": 456,
+        "final_acres_sum": 186862.5
+      },
+      {
+        "state": "MO",
+        "incident_count": 540,
+        "final_acres_sum": 178138.56000000003
+      },
+      {
+        "state": "HI",
+        "incident_count": 42,
+        "final_acres_sum": 139321.0
+      },
+      {
+        "state": "WV",
+        "incident_count": 701,
+        "final_acres_sum": 116105.50000000004
+      },
+      {
+        "state": "SC",
+        "incident_count": 603,
+        "final_acres_sum": 93460.19999999997
+      },
+      {
+        "state": "MI",
+        "incident_count": 111,
+        "final_acres_sum": 82708.90000000001
+      },
+      {
+        "state": "NJ",
+        "incident_count": 70,
+        "final_acres_sum": 72072.4
+      },
+      {
+        "state": "PA",
+        "incident_count": 311,
+        "final_acres_sum": 43244.65000000001
+      },
+      {
+        "state": "MD",
+        "incident_count": 62,
+        "final_acres_sum": 36574.5
+      },
+      {
+        "state": "NY",
+        "incident_count": 32,
+        "final_acres_sum": 16697.6
+      },
+      {
+        "state": "WI",
+        "incident_count": 134,
+        "final_acres_sum": 14748.530000000004
+      },
+      {
+        "state": "OH",
+        "incident_count": 96,
+        "final_acres_sum": 11777.17
+      },
+      {
+        "state": "IN",
+        "incident_count": 21,
+        "final_acres_sum": 7865.0
+      },
+      {
+        "state": "MA",
+        "incident_count": 18,
+        "final_acres_sum": 5540.0
+      },
+      {
+        "state": "IL",
+        "incident_count": 16,
+        "final_acres_sum": 5515.0
+      },
+      {
+        "state": "PR",
+        "incident_count": 7,
+        "final_acres_sum": 3034.0
+      },
+      {
+        "state": "CT",
+        "incident_count": 6,
+        "final_acres_sum": 2665.0
+      },
+      {
+        "state": "ME",
+        "incident_count": 8,
+        "final_acres_sum": 2169.0
+      },
+      {
+        "state": "NH",
+        "incident_count": 4,
+        "final_acres_sum": 933.0
+      },
+      {
+        "state": "IA",
+        "incident_count": 2,
+        "final_acres_sum": 674.0
+      },
+      {
+        "state": "VT",
+        "incident_count": 1,
+        "final_acres_sum": 137.0
+      }
+    ],
+    "causes": [
+      {
+        "code": "H",
+        "label": "Human",
+        "incident_count": 16436
+      },
+      {
+        "code": "L",
+        "label": "Lightning/Natural",
+        "incident_count": 10835
+      },
+      {
+        "code": "U",
+        "label": "Unknown",
+        "incident_count": 6134
+      },
+      {
+        "code": "O",
+        "label": "Other",
+        "incident_count": 1011
+      }
+    ],
+    "missing_count": {
+      "INCIDENT_ID": 0,
+      "INCIDENT_NAME": 13,
+      "FINAL_ACRES": 0,
+      "CAUSE": 206,
+      "DISCOVERY_DATE": 5,
+      "START_YEAR": 0,
+      "POO_STATE": 1128,
+      "POO_LATITUDE": 422,
+      "POO_LONGITUDE": 422,
+      "INC_MGMT_NUM_SITREPS": 0,
+      "FATALITIES": 0,
+      "INJURIES_TOTAL": 0,
+      "STR_DESTROYED_TOTAL": 0,
+      "PROJECTED_FINAL_IM_COST": 12188,
+      "WF_PEAK_PERSONNEL": 7370,
+      "WF_GROWTH_DURATION": 575
+    },
+    "final_acres": {
+      "count": 34622,
+      "sum": 132308832.03500001,
+      "median": 309.0,
+      "p90": 4980.0,
+      "p99": 68953.3800000002,
+      "max": 1305592.0,
+      "top_1_percent_share": 0.4435331346170173
+    }
+  }
+}

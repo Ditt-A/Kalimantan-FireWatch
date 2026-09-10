@@ -1,0 +1,293 @@
+{
+  "status": "passed",
+  "verdict": "conditionally_plausible_for_planning_prototype_only",
+  "whole_matrix_output": {
+    "rows": 883,
+    "all_finite": true,
+    "positive_count": 883,
+    "nonpositive_count": 0,
+    "min": 8.93,
+    "median": 23.679,
+    "p95": 90.492,
+    "max": 194.587,
+    "above_100_count": 42
+  },
+  "controlled_area_monotonic_non_decreasing": {
+    "mineral_surface_low_accessible": true,
+    "peat_ground_high_constrained": true
+  },
+  "adverse_peat_vs_low_risk_mineral": [
+    {
+      "area_ha": 0.1,
+      "peat_high": 19.179,
+      "mineral_low": 9.434
+    },
+    {
+      "area_ha": 1.0,
+      "peat_high": 20.397,
+      "mineral_low": 10.832
+    },
+    {
+      "area_ha": 5.0,
+      "peat_high": 24.966,
+      "mineral_low": 15.047
+    },
+    {
+      "area_ha": 30.0,
+      "peat_high": 32.288,
+      "mineral_low": 20.134
+    },
+    {
+      "area_ha": 250.0,
+      "peat_high": 36.787,
+      "mineral_low": 24.688
+    },
+    {
+      "area_ha": 1000.0,
+      "peat_high": 80.398,
+      "mineral_low": 54.961
+    },
+    {
+      "area_ha": 10000.0,
+      "peat_high": 191.765,
+      "mineral_low": 169.343
+    }
+  ],
+  "controlled_scenarios": [
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 0.1,
+      "predicted_personnel": 19.179,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 0.5,
+      "predicted_personnel": 20.192,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 1.0,
+      "predicted_personnel": 20.397,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 2.0,
+      "predicted_personnel": 24.438,
+      "fire_engine_capacity_ceil_personnel_over_6": 5
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 5.0,
+      "predicted_personnel": 24.966,
+      "fire_engine_capacity_ceil_personnel_over_6": 5
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 10.0,
+      "predicted_personnel": 31.329,
+      "fire_engine_capacity_ceil_personnel_over_6": 6
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 30.0,
+      "predicted_personnel": 32.288,
+      "fire_engine_capacity_ceil_personnel_over_6": 6
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 60.0,
+      "predicted_personnel": 35.809,
+      "fire_engine_capacity_ceil_personnel_over_6": 6
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 100.0,
+      "predicted_personnel": 36.126,
+      "fire_engine_capacity_ceil_personnel_over_6": 7
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 250.0,
+      "predicted_personnel": 36.787,
+      "fire_engine_capacity_ceil_personnel_over_6": 7
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 500.0,
+      "predicted_personnel": 76.756,
+      "fire_engine_capacity_ceil_personnel_over_6": 13
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 1000.0,
+      "predicted_personnel": 80.398,
+      "fire_engine_capacity_ceil_personnel_over_6": 14
+    },
+    {
+      "scenario": "peat_ground_high_constrained",
+      "area_ha": 10000.0,
+      "predicted_personnel": 191.765,
+      "fire_engine_capacity_ceil_personnel_over_6": 32
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 0.1,
+      "predicted_personnel": 9.434,
+      "fire_engine_capacity_ceil_personnel_over_6": 2
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 0.5,
+      "predicted_personnel": 10.658,
+      "fire_engine_capacity_ceil_personnel_over_6": 2
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 1.0,
+      "predicted_personnel": 10.832,
+      "fire_engine_capacity_ceil_personnel_over_6": 2
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 2.0,
+      "predicted_personnel": 14.317,
+      "fire_engine_capacity_ceil_personnel_over_6": 3
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 5.0,
+      "predicted_personnel": 15.047,
+      "fire_engine_capacity_ceil_personnel_over_6": 3
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 10.0,
+      "predicted_personnel": 18.91,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 30.0,
+      "predicted_personnel": 20.134,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 60.0,
+      "predicted_personnel": 23.138,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 100.0,
+      "predicted_personnel": 23.342,
+      "fire_engine_capacity_ceil_personnel_over_6": 4
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 250.0,
+      "predicted_personnel": 24.688,
+      "fire_engine_capacity_ceil_personnel_over_6": 5
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 500.0,
+      "predicted_personnel": 52.432,
+      "fire_engine_capacity_ceil_personnel_over_6": 9
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 1000.0,
+      "predicted_personnel": 54.961,
+      "fire_engine_capacity_ceil_personnel_over_6": 10
+    },
+    {
+      "scenario": "mineral_surface_low_accessible",
+      "area_ha": 10000.0,
+      "predicted_personnel": 169.343,
+      "fire_engine_capacity_ceil_personnel_over_6": 29
+    }
+  ],
+  "real_holdout_output": [
+    {
+      "area_ha": 1.0,
+      "soil_class": "peat",
+      "fire_type_class": "mixed",
+      "actual_personnel": 13.0,
+      "boosting_hybrid": 16.885,
+      "boosting_error": 3.885
+    },
+    {
+      "area_ha": 8.0,
+      "soil_class": "mineral",
+      "fire_type_class": "crown",
+      "actual_personnel": 31.0,
+      "boosting_hybrid": 21.752,
+      "boosting_error": -9.248
+    },
+    {
+      "area_ha": 20.0,
+      "soil_class": "unknown",
+      "fire_type_class": "unknown",
+      "actual_personnel": 22.0,
+      "boosting_hybrid": 21.531,
+      "boosting_error": -0.469
+    },
+    {
+      "area_ha": 10.0,
+      "soil_class": "peat",
+      "fire_type_class": "unknown",
+      "actual_personnel": 61.0,
+      "boosting_hybrid": 23.117,
+      "boosting_error": -37.883
+    },
+    {
+      "area_ha": 1.5,
+      "soil_class": "peat",
+      "fire_type_class": "unknown",
+      "actual_personnel": 17.0,
+      "boosting_hybrid": 15.383,
+      "boosting_error": -1.617
+    },
+    {
+      "area_ha": 1.5,
+      "soil_class": "unknown",
+      "fire_type_class": "unknown",
+      "actual_personnel": 13.0,
+      "boosting_hybrid": 13.356,
+      "boosting_error": 0.356
+    },
+    {
+      "area_ha": 0.24,
+      "soil_class": "unknown",
+      "fire_type_class": "unknown",
+      "actual_personnel": 14.0,
+      "boosting_hybrid": 10.994,
+      "boosting_error": -3.006
+    },
+    {
+      "area_ha": 2.0,
+      "soil_class": "peat",
+      "fire_type_class": "unknown",
+      "actual_personnel": 10.0,
+      "boosting_hybrid": 19.544,
+      "boosting_error": 9.544
+    },
+    {
+      "area_ha": 0.7,
+      "soil_class": "peat",
+      "fire_type_class": "unknown",
+      "actual_personnel": 12.0,
+      "boosting_hybrid": 14.072,
+      "boosting_error": 2.072
+    }
+  ],
+  "required_ui_guardrails": [
+    "Display personnel as a planning estimate/range, never a guaranteed staffing order.",
+    "Display fire-engine output as capacity planning only; confirm actual fleet availability, road access, and operator judgement.",
+    "Show lower confidence where scenario context is unknown or outside observed local coverage."
+  ]
+}

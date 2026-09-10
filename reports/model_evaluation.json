@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "split_rows": {
+    "train_2023_2024": 448512,
+    "validation_2025": 242944,
+    "test_2026": 135488
+  },
+  "selected_models": {
+    "classification": "hist_gradient_boosting",
+    "count": "hist_gradient_boosting"
+  },
+  "classification_test_metrics": {
+    "roc_auc": 0.864770570760538,
+    "pr_auc": 0.3257100718419282,
+    "precision": 0.3677702433187076,
+    "recall": 0.33094041636755206,
+    "f1": 0.3483846589835632
+  },
+  "count_test_metrics": {
+    "mae": 0.17808044585431287,
+    "rmse": 1.234285568100708,
+    "poisson_deviance": 0.5147720450894886
+  },
+  "classification_threshold": 0.18,
+  "prediction_rows": 135488
+}

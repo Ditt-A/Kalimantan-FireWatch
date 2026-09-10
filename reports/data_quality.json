@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "mode": "feature_refresh",
+  "grid_count": 4672,
+  "weekly_rows": 868992,
+  "landcover_sample_nonnull_pct": 99.81,
+  "advanced_feature_count": 16
+}
