@@ -4,6 +4,12 @@ Kalimantan FireWatch is a decision-support dashboard for land and peat-fire moni
 
 It supports an operator's decision process; it does not automatically dispatch personnel or vehicles.
 
+## Dashboard preview
+
+![Kalimantan FireWatch dashboard showing monitoring priorities, NASA FIRMS detections, and the operational map](docs/images/dashboard-prioritization.png)
+
+The dashboard above uses the repository's validated snapshots: forecast week **20 July 2026** and NASA FIRMS detections from **3 September 2026**. These layers are historical snapshots, not a live incident feed; no model training or inference is required to display them.
+
 ## What is included
 
 ### 1. AI Incident Prioritization & Localization
@@ -53,8 +59,8 @@ These steps run the current dashboard without downloading data again.
 ### Clone and retrieve LFS data
 
 ```bash
-git clone https://github.com/Ditt-A/DSA_Compe.git
-cd DSA_Compe
+git clone https://github.com/Ditt-A/Kalimantan-FireWatch.git
+cd Kalimantan-FireWatch
 git lfs install
 git lfs pull
 ```
