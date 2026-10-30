@@ -1,7 +1,7 @@
 """Conservative SoilGrids non-Histosol context for Kalimantan planning."""
 from __future__ import annotations
 
-from functools import lru_cache
+from .releases import release_cached, release_path
 from pathlib import Path
 from typing import Any
 
@@ -9,13 +9,14 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-SOILGRID_CONTEXT_PATH = PROJECT_ROOT / "data" / "processed" / "soil" / "soilgrids_histosols_context_grid.parquet"
+SOILGRID_CONTEXT_RELATIVE = "data/processed/soil/soilgrids_histosols_context_grid.parquet"
 HISTOSOLS_MAX_FOR_MINERAL_REFERENCE_PCT = 20.0
 HISTOSOLS_MIN_FOR_ORGANIC_WATCH_PCT = 50.0
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def soilgrids_grid_context() -> pd.DataFrame:
+    SOILGRID_CONTEXT_PATH = release_path(SOILGRID_CONTEXT_RELATIVE)
     if not SOILGRID_CONTEXT_PATH.exists():
         raise FileNotFoundError(f"SoilGrids context file is missing: {SOILGRID_CONTEXT_PATH}")
     data = pd.read_parquet(SOILGRID_CONTEXT_PATH)

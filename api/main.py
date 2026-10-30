@@ -19,9 +19,15 @@ import joblib
 import numpy as np
 import pandas as pd
 import requests
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
+from fastapi.responses import JSONResponse
+from src.firewatch.releases import ReleaseDirectory, bind_snapshot, current_snapshot, release_cached, release_path
+from src.firewatch import auth
+from src.firewatch.area import polygon_area_ha
+from src.firewatch.freshness import layer_freshness
+from src.firewatch.operations import audit_event, latest_job_statuses
 from sklearn.cluster import DBSCAN
 from sklearn.neighbors import NearestNeighbors
 from shapely.geometry import Point
@@ -36,8 +42,8 @@ from src.firewatch.soil_context import soil_context_for_grid, soilgrids_grid_con
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROCESSED = ROOT / "data" / "processed"
-MODELS = ROOT / "models"
+PROCESSED = ReleaseDirectory("data/processed")
+MODELS = ReleaseDirectory("models")
 KALIMANTAN_BOUNDS = (108.0, -4.5, 119.5, 4.5)
 GROUND_RESPONSE_RADIUS_DEFAULT_KM = 100.0
 AIR_RESPONSE_RADIUS_DEFAULT_KM = 250.0
@@ -67,6 +73,56 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def pin_release_and_authorize(request: Request, call_next):
+    if request.url.path == "/health":
+        return await call_next(request)
+    protected = request.method == "POST" and request.url.path not in {"/api/v1/auth/login", "/api/v1/auth/logout"}
+    protected = protected or request.url.path == "/api/v1/field-observations" or bool(request.query_params.get("incident_id"))
+    if protected:
+        role = auth.session_role(request.cookies.get(auth.COOKIE))
+        if role is None:
+            return JSONResponse({"detail": "Operator login required"}, status_code=401)
+        request.state.actor = role
+        if auth.required() and request.headers.get("origin"):
+            from urllib.parse import urlsplit
+            if urlsplit(request.headers["origin"]).netloc != request.headers.get("host"):
+                return JSONResponse({"detail": "Cross-origin write rejected"}, status_code=403)
+    try:
+        snapshot = current_snapshot()
+    except (ValueError, OSError, KeyError):
+        return JSONResponse({"detail": "Active data release is unavailable"}, status_code=503)
+    expected = request.query_params.get("release_id") or request.headers.get("X-Firewatch-Release")
+    if expected and expected != snapshot.token:
+        return JSONResponse({"detail": "The map data release changed. Refresh the map and select the incident again."}, status_code=409)
+    with bind_snapshot(snapshot):
+        response = await call_next(request)
+        response.headers["X-Firewatch-Release"] = snapshot.token
+        return response
+
+
+class LoginRequest(BaseModel):
+    access_code: str = Field(min_length=1, max_length=256)
+
+
+@app.post("/api/v1/auth/login")
+def login(body: LoginRequest):
+    session = auth.issue_session(body.access_code)
+    if session is None:
+        raise HTTPException(status_code=401, detail="Invalid operator access code or authentication is not configured")
+    token, role = session
+    response = JSONResponse({"role": role})
+    response.set_cookie(auth.COOKIE, token, httponly=True, secure=auth.required(), samesite="strict", max_age=8 * 3600, path="/")
+    return response
+
+
+@app.post("/api/v1/auth/logout")
+def logout():
+    response = JSONResponse({"status": "signed_out"})
+    response.delete_cookie(auth.COOKIE, path="/")
+    return response
 
 
 def _json_value(value: Any) -> Any:
@@ -185,7 +241,7 @@ def _merged_alert_area_ha(
     return float(group["footprint_ha_proxy_total"])
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def predictions() -> pd.DataFrame:
     data = pd.read_parquet(PROCESSED / "prediction_grid_week.parquet")
     data["week_start"] = pd.to_datetime(data["week_start"])
@@ -195,7 +251,7 @@ def predictions() -> pd.DataFrame:
     ].copy()
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def alerts() -> pd.DataFrame:
     data = pd.read_parquet(PROCESSED / "firms_kalimantan_clean.parquet")
     data["acq_date"] = pd.to_datetime(data["acq_date"])
@@ -206,12 +262,12 @@ def alerts() -> pd.DataFrame:
     ].copy()
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def grids() -> gpd.GeoDataFrame:
     return gpd.read_parquet(PROCESSED / "dim_grid.parquet").to_crs("EPSG:4326")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def peat_context_grid_ids() -> frozenset[str]:
     """Return grid IDs eligible for the peat planning-context map mode.
 
@@ -240,7 +296,7 @@ def peat_context_grid_ids() -> frozenset[str]:
     return frozenset(mapped["grid_id"].astype(str)).union(coverage_ids)
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def water_grid() -> pd.DataFrame:
     required = [
         "grid_id", "nearest_permanent_surface_water_km", "nearest_any_surface_water_km",
@@ -253,39 +309,39 @@ def water_grid() -> pd.DataFrame:
     return data.loc[:, required].copy()
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def mineral_context_grid() -> pd.DataFrame:
     """Load the locally acquired SoilGrids context, one row per forecast grid."""
     return soilgrids_grid_context().reset_index().copy()
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def us_resource_reference() -> pd.DataFrame:
-    data = pd.read_csv(ROOT / "reports" / "us_fire_resource_eda" / "resource_by_final_acres_band.csv")
+    data = pd.read_csv(release_path("reports/us_fire_resource_eda/resource_by_final_acres_band.csv"))
     return data.set_index("final_acres_band")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def model_registry() -> dict[str, Any]:
     return json.loads((MODELS / "dashboard_model_registry.json").read_text(encoding="utf-8"))
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def personnel_model() -> Any:
     return joblib.load(MODELS / "feature2_personnel_hgb_pilot.joblib")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def engine_policy() -> dict[str, Any]:
     return json.loads((MODELS / "feature2_fire_engine_policy.json").read_text(encoding="utf-8"))
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def response_cases() -> pd.DataFrame:
     return pd.read_parquet(PROCESSED / "feature2_response_planning" / "feature2_response_planning_cohort.parquet")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def local_initial_area_default() -> dict[str, Any]:
     """Return an auditable starting area for map-selected, unperimetered events.
 
@@ -303,14 +359,14 @@ def local_initial_area_default() -> dict[str, Any]:
     }
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def vehicle_evidence() -> pd.DataFrame:
     return pd.read_parquet(PROCESSED / "feature2_vehicle_evidence" / "feature2_vehicle_subtype_evidence.parquet")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def fire_stations() -> pd.DataFrame:
-    path = ROOT / "data" / "responders" / "osm_fire_stations_kalimantan.csv"
+    path = release_path("data/responders/osm_fire_stations_kalimantan.csv")
     data = pd.read_csv(path)
     required = {"osm_type", "osm_id", "name", "latitude", "longitude", "province", "district", "source", "license", "osm_url"}
     missing = required - set(data.columns)
@@ -319,9 +375,9 @@ def fire_stations() -> pd.DataFrame:
     return data.loc[data["latitude"].between(KALIMANTAN_BOUNDS[1], KALIMANTAN_BOUNDS[3]) & data["longitude"].between(KALIMANTAN_BOUNDS[0], KALIMANTAN_BOUNDS[2])].copy()
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def air_response_locations() -> pd.DataFrame:
-    path = ROOT / "data" / "responders" / "osm_air_response_locations_kalimantan.csv"
+    path = release_path("data/responders/osm_air_response_locations_kalimantan.csv")
     data = pd.read_csv(path)
     required = {"osm_type", "osm_id", "name", "aeroway", "latitude", "longitude", "province", "district", "source", "license", "osm_url"}
     missing = required - set(data.columns)
@@ -439,6 +495,7 @@ def _nearest_grid_context(
     forecast = _records(latest.iloc[:1])[0] if not latest.empty else None
     return {
         "grid_id": selected["grid_id"], "province": selected.get("province"),
+        "grid_peat_pct": float(selected.get("peat_pct", 0.0)),
         "district": selected.get("district"), "grid_match_status": match_status,
         "nearest_permanent_surface_water_km": float(water["nearest_permanent_surface_water_km"]),
         "nearest_any_surface_water_km": float(water["nearest_any_surface_water_km"]),
@@ -493,11 +550,12 @@ def _planner_context(
     selected_grid_id: str | None = None,
     map_area_ha: float | None = None,
     map_merge_radius_km: float | None = None,
+    incident_id: str | None = None,
 ) -> dict[str, Any]:
     spatial = _nearest_grid_context(longitude, latitude, selected_grid_id)
     peat_context = _peat_lookup(longitude, latitude)
     forecast = spatial.get("forecast_grid") or {}
-    peat_coverage_pct = forecast.get("peat_pct")
+    peat_coverage_pct = forecast.get("peat_pct", spatial.get("grid_peat_pct"))
     peat_context["grid_peat_coverage_pct"] = peat_coverage_pct
     if (
         peat_context.get("mapped_as_peat") is not True
@@ -523,7 +581,7 @@ def _planner_context(
         big_recommends_peat=peat_context.get("recommended_soil_class") == "peat",
     )
     fire_weather = _fire_weather_lookup(longitude, latitude)
-    latest_observation = latest_fire_type_observation(str(spatial["grid_id"]))
+    latest_observation = latest_fire_type_observation(str(spatial["grid_id"]), incident_id)
     fire_type_context = {
         "lookup_status": "latest_grid_observation_available" if latest_observation else "no_field_observation_for_grid",
         "recommended_fire_type_class": latest_observation["fire_type_class"] if latest_observation else "unknown",
@@ -552,6 +610,8 @@ def _planner_context(
         "longitude": longitude,
         "grid_id": str(spatial["grid_id"]),
         "area_ha": initial_area_ha,
+        "area_basis": "firms_footprint" if map_area_ha is not None else "scenario",
+        "area_confirmed": False,
         "soil_class": soil_context.get("recommended_soil_class", "unknown"),
         "fire_type_class": fire_type_context["recommended_fire_type_class"],
         "fwi_class": fire_weather.get("recommended_fwi_class", "unknown"),
@@ -564,6 +624,12 @@ def _planner_context(
         },
     }
     return {
+        "release_id": current_snapshot().token,
+        "area_context": {
+            "sensor_footprint_ha": map_area_ha,
+            "incident_area_ha": None,
+            "requires_incident_area_confirmation": True,
+        },
         "coordinate": {"latitude": latitude, "longitude": longitude},
         "spatial_context": spatial,
         "peat_context": peat_context,
@@ -621,11 +687,28 @@ class ResponsePlanRequest(BaseModel):
     # The planning matrix includes scenario support through 10,000 ha.  FIRMS
     # supplies a detection point, not a perimeter, so the caller must supply
     # an independently estimated area within that envelope.
-    area_ha: float = Field(gt=0, le=10_000, examples=[2.0])
+    area_ha: float | None = Field(default=None, gt=0, le=10_000, allow_inf_nan=False, examples=[2.0])
+    area_basis: Literal["scenario", "firms_footprint", "field_report", "operator_polygon"] = "scenario"
+    area_confirmed: bool = False
+    incident_polygon: dict[str, Any] | None = None
+    incident_id: str | None = Field(default=None, max_length=128)
     soil_class: Literal["peat", "mineral", "unknown"] = "unknown"
     fire_type_class: Literal["surface", "ground_smouldering", "mixed", "crown", "unknown"] = "unknown"
     fwi_class: Literal["low", "moderate", "high", "very_high", "unknown"] = "unknown"
     field_water_note: str | None = Field(default=None, max_length=500)
+
+    @model_validator(mode="after")
+    def resolve_area(self):
+        if self.incident_polygon is not None:
+            self.area_ha = polygon_area_ha(self.incident_polygon)
+            self.area_basis = "operator_polygon"
+        elif self.area_basis == "operator_polygon":
+            raise ValueError("An operator polygon must include GeoJSON geometry")
+        if self.area_ha is None:
+            raise ValueError("Provide an incident area or a valid polygon")
+        if self.area_basis in {"scenario", "firms_footprint"}:
+            self.area_confirmed = False
+        return self
 
     @field_validator("field_water_note")
     @classmethod
@@ -634,6 +717,8 @@ class ResponsePlanRequest(BaseModel):
 
 
 class FieldObservationRequest(BaseModel):
+    incident_id: str = Field(min_length=1, max_length=128)
+    observed_at_utc: str | None = Field(default=None, max_length=64)
     latitude: float = Field(ge=-4.5, le=4.5)
     longitude: float = Field(ge=108.0, le=119.5)
     fire_type_class: Literal["surface", "ground_smouldering", "mixed", "crown"]
@@ -651,14 +736,35 @@ def health() -> dict[str, str]:
     return {"status": "ok", "service": "kalimantan-firewatch-api"}
 
 
+@app.get("/ready")
+def readiness():
+    errors = auth.configuration_errors()
+    try:
+        if predictions().empty or alerts().empty:
+            errors.append("Required runtime data is empty")
+        personnel_model()
+        from src.firewatch.operations import connection
+        with connection() as (database, _):
+            database.execute("SELECT 1")
+    except Exception as error:
+        errors.append(f"Runtime data/model unavailable: {type(error).__name__}")
+    if errors:
+        return JSONResponse({"status": "not_ready", "errors": errors}, status_code=503)
+    return {"status": "ready", "release_id": current_snapshot().token}
+
+
 @app.get("/api/v1/metadata/status")
 def metadata_status() -> dict[str, Any]:
     prediction = predictions()
     firms = alerts()
     registry = model_registry()
+    freshness = layer_freshness(prediction["week_start"].max(), firms["acq_datetime"].max(), current_snapshot().metadata)
     return {
+        "release_id": current_snapshot().token,
+        "layers": freshness,
+        "etl_jobs": latest_job_statuses(),
         "status": "validated_snapshot_with_live_weather_context", "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "not_live": False,
+        "not_live": freshness["forecast"]["status"] != "current" or freshness["firms"]["status"] != "recent_detection",
         "message": "Priority and FIRMS layers are validated snapshots; planner fire-weather context is retrieved from Open-Meteo and calculated locally.",
         "coverage": "Indonesian Kalimantan MVP extent",
         "prediction_snapshot": {"week_start_min": prediction["week_start"].min().date().isoformat(), "week_start_max": prediction["week_start"].max().date().isoformat(), "rows": int(len(prediction))},
@@ -711,6 +817,7 @@ def priority_grid(
     columns = ["grid_id", "week_start", "province", "district", "centroid_lat", "centroid_lon", "peat_pct", "histosols_probability_pct", "mineral_reference", "rainfall_30d", "hotspot_prev_30d", "predicted_fire_probability", "predicted_hotspot_count_next_7d", "risk_category", "count_category", "priority_category"]
     category_counts = matching["priority_category"].value_counts().to_dict()
     return {
+        "release_id": current_snapshot().token,
         "snapshot_week": selected_date.date().isoformat(),
         "total_matches": int(len(matching)), "returned": int(len(result)),
         "priority_summary": {key: int(category_counts.get(key, 0)) for key in ("Critical", "High", "Watch", "Low")},
@@ -751,6 +858,7 @@ def alert_display_groups(
     matching = _filter_place(data.loc[data["acq_date"].eq(selected_date)], province, district)
     items = _firms_display_groups(matching, minimum_footprint_ha, merge_radius_km)
     return {
+        "release_id": current_snapshot().token,
         "snapshot_date": selected_date.date().isoformat(), "total_detections": int(len(matching)),
         "display_group_count": int(len(items)), "minimum_footprint_ha": minimum_footprint_ha,
         "merge_radius_km": merge_radius_km,
@@ -868,11 +976,12 @@ def planner_context(
     latitude: float = Query(ge=-4.5, le=4.5),
     longitude: float = Query(ge=108.0, le=119.5),
     grid_id: str | None = Query(default=None, max_length=32),
-    alert_id: int | None = Query(default=None, ge=1),
+    alert_id: int | None = Query(default=None, ge=0),
     map_minimum_footprint_ha: float | None = Query(default=None, ge=0, le=10_000),
     map_area_ha: float | None = Query(default=None, gt=0, le=1_000_000),
     map_merge_radius_km: float | None = Query(default=None, gt=0, le=50),
     map_province: str | None = Query(default=None, max_length=64),
+    incident_id: str | None = Query(default=None, max_length=128),
 ) -> dict[str, Any]:
     """Return all source-backed context available for a map-selected point."""
     try:
@@ -883,7 +992,7 @@ def planner_context(
             map_area_ha = _merged_alert_area_ha(
                 alert_id, map_minimum_footprint_ha, map_merge_radius_km, map_province,
             )
-        return _planner_context(longitude, latitude, grid_id, map_area_ha, map_merge_radius_km)
+        return _planner_context(longitude, latitude, grid_id, map_area_ha, map_merge_radius_km, incident_id)
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
 
@@ -898,13 +1007,15 @@ def fire_weather(
 
 
 @app.post("/api/v1/field-observations")
-def create_field_observation(request: FieldObservationRequest) -> dict[str, Any]:
+def create_field_observation(request: FieldObservationRequest, http_request: Request) -> dict[str, Any]:
     """Persist an explicit operator fire-type observation with audit metadata."""
     try:
         spatial = _nearest_grid_context(request.longitude, request.latitude)
         observation = save_fire_type_observation(
             grid_id=str(spatial["grid_id"]), latitude=request.latitude, longitude=request.longitude,
             fire_type_class=request.fire_type_class, confidence=request.confidence, note=request.note,
+            incident_id=request.incident_id, observed_at_utc=request.observed_at_utc,
+            actor=getattr(http_request.state, "actor", "operator"),
         )
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
@@ -918,14 +1029,15 @@ def create_field_observation(request: FieldObservationRequest) -> dict[str, Any]
 def field_observations(
     grid_id: str = Query(min_length=1),
     limit: int = Query(default=25, ge=1, le=100),
+    incident_id: str | None = Query(default=None, max_length=128),
 ) -> dict[str, Any]:
-    return {"grid_id": grid_id, "items": list_fire_type_observations(grid_id, limit)}
+    return {"grid_id": grid_id, "items": list_fire_type_observations(grid_id, limit, incident_id)}
 
 
 @app.post("/api/v1/response-plans")
 def create_response_plan(request: ResponsePlanRequest) -> dict[str, Any]:
     try:
-        context = _planner_context(request.longitude, request.latitude, request.grid_id)
+        context = _planner_context(request.longitude, request.latitude, request.grid_id, incident_id=request.incident_id)
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
     spatial = context["spatial_context"]
@@ -970,6 +1082,12 @@ def create_response_plan(request: ResponsePlanRequest) -> dict[str, Any]:
     estimate = max(1, int(math.ceil(float(personnel_model().predict(feature_row)[0]))))
     policy = engine_policy()
     engines = int(math.ceil(estimate / policy["personnel_per_fire_engine"]))
+    audit_event("response_plan", {
+        "incident_id": request.incident_id, "release_id": current_snapshot().token,
+        "inputs": request.model_dump(), "planned_personnel": estimate,
+        "fire_engine_capacity": engines,
+        "personnel_model_sha256": model_registry()["artifacts"]["feature2_personnel"]["sha256"],
+    })
     relevant = response_cases().copy()
     relevant["soil_matches"] = relevant["soil_class_source"].fillna("unknown").eq(model_soil_class)
     relevant["area_distance"] = (pd.to_numeric(relevant["area_ha"], errors="coerce") - request.area_ha).abs()
@@ -977,6 +1095,13 @@ def create_response_plan(request: ResponsePlanRequest) -> dict[str, Any]:
     evidence_columns = ["incident_id", "province", "district", "area_ha", "soil_type", "fire_type", "personnel_total", "documented_ground_response_vehicle_total", "resource_mapping_confidence", "source_document_id", "source_document_url_retrieved", "source_page"]
     return {
         "status": "planning_reference", "automatic_dispatch_permitted": False,
+        "release_id": current_snapshot().token,
+        "area_context": {
+            "area_ha_used": request.area_ha, "basis": request.area_basis,
+            "confirmed_by_operator": request.area_confirmed,
+            "requires_confirmation": not request.area_confirmed,
+            "message": "Sensor footprint/scenario area is not a measured burned perimeter." if not request.area_confirmed else "Area supplied and confirmed by the operator.",
+        },
         "inputs": request.model_dump(), "spatial_context": {**spatial, "water_access_class": water_class}, "peat_context": peat_context,
         "soil_context": context["soil_context"], "fire_weather_context": context["fire_weather_context"], "fire_type_context": context["fire_type_context"],
         "planning_output": {"planned_personnel": estimate, "ground_response_fire_engine_capacity": engines, "fire_engine_formula": policy["formula"], "planning_confidence": "operator_confirmation_required", "complexity_level": complexity, "soil_class_used_by_model": model_soil_class, "fire_type_class_used_by_model": model_fire_type_class, "fwi_class_used_by_model": model_fwi_class},

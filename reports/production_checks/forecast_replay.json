@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "mode": "historical_replay_not_published",
+  "rows": 4553,
+  "target_labels_required": false,
+  "weather_lag_days": 7,
+  "precipitation_method": "era5_land_midnight_previous_day_v1",
+  "metadata": {
+    "issued_at": "2026-10-30T10:43:14.174021+00:00",
+    "feature_as_of": "2026-07-20T00:00:00",
+    "valid_from": "2026-07-20T00:00:00+00:00",
+    "valid_until": "2026-07-27T00:00:00+00:00",
+    "weather_complete_through": "2026-07-12",
+    "weather_lag_days": 7,
+    "historical": true,
+    "coverage": {
+      "predicted_grids": 4553,
+      "all_grids": 4672,
+      "weather_eligible_grids": 4553
+    },
+    "model_sha256": {
+      "occurrence": "2252aa7379c3d8961aac37564393e290a1386bd8d737a96ac4f8ea6febf4845a",
+      "count": "054b3112745c67009818cee16aab2fd030a603232d89b89fc9e5ddd963f0bb5c"
+    }
+  },
+  "serving_release_unchanged": true
+}

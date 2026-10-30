@@ -22,7 +22,7 @@ import xarray as xr
 from shapely.geometry import box
 from sklearn.neighbors import NearestNeighbors
 
-from firewatch.config import (
+from .config import (
     EQUAL_AREA_CRS,
     FIRMS_REQUIRED_COLUMNS,
     GRID_SIZE_DEGREES,
@@ -349,49 +349,9 @@ def _open_era5_month(path: Path) -> xr.Dataset:
 
 
 def _daily_weather_part(path: Path, grid: gpd.GeoDataFrame) -> pd.DataFrame:
-    """Sample hourly ERA5 at grid representative points and aggregate daily."""
-    dataset = _open_era5_month(path)
-    expected = {"tp", "t2m", "swvl1"}
-    if not expected.issubset(dataset.data_vars):
-        raise ValueError(f"ERA5 month {path.name} misses {sorted(expected - set(dataset.data_vars))}")
-
-    grid_ids = grid["grid_id"].to_numpy()
-    lat_indexer = xr.DataArray(
-        grid["centroid_lat"].to_numpy(),
-        dims="grid",
-        coords={"grid": grid_ids},
-    )
-    lon_indexer = xr.DataArray(
-        grid["centroid_lon"].to_numpy(),
-        dims="grid",
-        coords={"grid": grid_ids},
-    )
-    selected = dataset[["tp", "t2m", "swvl1"]].sel(
-        latitude=lat_indexer,
-        longitude=lon_indexer,
-        method="nearest",
-    )
-    time_name = "valid_time"
-    daily = xr.Dataset(
-        {
-            "rainfall_mm": (selected["tp"] * 1000).resample({time_name: "1D"}).sum(
-                skipna=True
-            ),
-            "temperature_mean_c": (selected["t2m"] - 273.15).resample(
-                {time_name: "1D"}
-            ).mean(skipna=True),
-            "temperature_max_c": (selected["t2m"] - 273.15).resample(
-                {time_name: "1D"}
-            ).max(skipna=True),
-            "soil_moisture": selected["swvl1"].resample({time_name: "1D"}).mean(
-                skipna=True
-            ),
-        }
-    ).rename({time_name: "date"})
-    frame = daily.to_dataframe().reset_index().rename(columns={"grid": "grid_id"})
-    frame = frame[["date", "grid_id", "rainfall_mm", "temperature_mean_c", "temperature_max_c", "soil_moisture"]]
-    frame["date"] = pd.to_datetime(frame["date"]).dt.normalize()
-    return frame
+    """Summarise hourly data with ERA5-Land's cumulative rainfall convention."""
+    from .weather_processing import summarise_dataset
+    return summarise_dataset(_open_era5_month(path), grid)
 
 
 def build_daily_weather(grid: gpd.GeoDataFrame, force: bool = False) -> pd.DataFrame:
@@ -410,15 +370,18 @@ def build_daily_weather(grid: gpd.GeoDataFrame, force: bool = False) -> pd.DataF
     for source in source_files:
         suffix = source.stem.replace("era5_land_", "")
         destination = parts_dir / f"era5_daily_{suffix}.parquet"
-        if destination.exists() and not force:
+        version = destination.with_suffix(".manifest.json")
+        expected = {"method": "era5_land_midnight_previous_day_v1", "source_size": source.stat().st_size, "source_mtime_ns": source.stat().st_mtime_ns}
+        if destination.exists() and version.exists() and not force and json.loads(version.read_text()) == expected:
             continue
         LOGGER.info("Summarising %s", source.name)
         _daily_weather_part(source, grid).to_parquet(destination, index=False)
+        version.write_text(json.dumps(expected))
 
     parts = [pd.read_parquet(path) for path in sorted(parts_dir.glob("era5_daily_*.parquet"))]
     # Files cover non-overlapping, consecutive calendar months in chronological
     # order, so a global sort/deduplication would only create large transient copies.
-    daily = pd.concat(parts, ignore_index=True)
+    daily = pd.concat(parts, ignore_index=True).groupby(["grid_id", "date"], as_index=False).first().sort_values(["grid_id", "date"]).reset_index(drop=True)
     del parts
     daily["grid_id"] = daily["grid_id"].astype("category")
     monday_rows = daily["date"].dt.dayofweek.eq(0)
@@ -491,10 +454,11 @@ def _add_fire_lags(master: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_master_table(
-    grid: gpd.GeoDataFrame, fires: pd.DataFrame, daily_weather: pd.DataFrame
+    grid: gpd.GeoDataFrame, fires: pd.DataFrame, daily_weather: pd.DataFrame,
+    *, target_week: pd.Timestamp | None = None,
 ) -> pd.DataFrame:
     """Build the one-record-per-grid-per-complete-week master dataset."""
-    last_complete = _latest_complete_week(fires["acq_date"].max())
+    last_complete = pd.Timestamp(target_week) if target_week is not None else _latest_complete_week(fires["acq_date"].max())
     first_week = pd.Timestamp(MIN_DATE)
     weeks = pd.date_range(first_week, last_complete, freq="W-MON")
     weekly = _weekly_fire_aggregation(fires)

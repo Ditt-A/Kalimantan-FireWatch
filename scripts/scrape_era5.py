@@ -75,7 +75,8 @@ def validate_download_coverage(path: Path, requested_start: pd.Timestamp, reques
         time_name = 'valid_time' if 'valid_time' in dataset.coords else 'time'
         values = pd.to_datetime(dataset[time_name].values)
         required = set(VARIABLES)
-        missing = sorted(required.difference(dataset.data_vars))
+        aliases = {"total_precipitation": "tp", "2m_temperature": "t2m", "volumetric_soil_water_layer_1": "swvl1"}
+        missing = sorted(name for name in required if name not in dataset.data_vars and aliases[name] not in dataset.data_vars)
     expected_start = requested_start.normalize()
     expected_end = requested_end.normalize() + pd.Timedelta(hours=23)
     expected_hours = int((expected_end - expected_start) / pd.Timedelta(hours=1)) + 1
@@ -84,7 +85,7 @@ def validate_download_coverage(path: Path, requested_start: pd.Timestamp, reques
         'hour_count': int(len(values)), 'expected_hour_count': expected_hours,
         'missing_variables': missing,
     }
-    if missing or values.min() != expected_start or values.max() != expected_end or len(values) != expected_hours:
+    if missing or pd.DatetimeIndex(values).has_duplicates or values.min() != expected_start or values.max() != expected_end or len(values) != expected_hours:
         raise RuntimeError(f'CDS response did not cover the requested period: {coverage}')
     return coverage
 

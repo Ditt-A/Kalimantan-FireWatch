@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "project": "firewatch-check",
+  "checks": {
+    "health": 200,
+    "readiness": 200,
+    "next_dashboard": 200,
+    "forecast_grid": 200,
+    "anonymous_write_rejected": 401,
+    "operator_login": 200,
+    "personnel_model": 200,
+    "postgres_observation_write": 200,
+    "postgres_observation_read": 200,
+    "stale_selection_rejected": 409,
+    "next_api_proxy": "passed",
+    "postgres_backup_restore": {
+      "status": "passed",
+      "restore_database": "firewatch_restore_check",
+      "operational_events": 1,
+      "incident_observations": 1,
+      "live_database_unchanged": true
+    }
+  },
+  "provider_acquisition_started": false,
+  "temporary_stack_removed_after_test": true
+}

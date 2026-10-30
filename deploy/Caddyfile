@@ -1,0 +1,17 @@
+{$FIREWATCH_DOMAIN} {
+    request_body {
+        max_size 2MB
+    }
+    handle /api/* {
+        reverse_proxy api:8000
+    }
+    handle /health {
+        reverse_proxy api:8000
+    }
+    handle /ready {
+        reverse_proxy api:8000
+    }
+    handle {
+        reverse_proxy web:3000
+    }
+}

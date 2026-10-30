@@ -15,6 +15,11 @@ __pycache__/
 web/node_modules/
 web/.next/
 *.tsbuildinfo
+*.partial
+*.pending
+*.part
+data/operational/
+deploy/.env
 
 # Local runtime noise and notebook editor checkpoints.
 .streamlit/

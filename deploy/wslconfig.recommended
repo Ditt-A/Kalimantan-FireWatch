@@ -1,0 +1,10 @@
+# Proposed host setting; not applied automatically.
+# Preserves the current networking and swap settings.
+[wsl2]
+networkingMode=mirrored
+dnsTunneling=false
+memory=3GB
+swap=3GB
+
+[experimental]
+autoMemoryReclaim=gradual

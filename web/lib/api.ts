@@ -10,6 +10,9 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
   });
   if (!response.ok) {
+    if (response.status === 401 && typeof window !== "undefined") {
+      window.location.assign(`/login?next=${encodeURIComponent(window.location.pathname + window.location.search)}`);
+    }
     const body = await response.json().catch(() => ({}));
     throw new Error(body.detail ?? `API request failed (${response.status})`);
   }
@@ -18,6 +21,8 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
 
 export type MetadataStatus = {
   status: string;
+  release_id: string;
+  layers: { forecast: { status: string; valid_from: string; valid_until: string }; firms: { status: string; age_hours: number } };
   not_live: boolean;
   message: string;
   prediction_snapshot: { week_start_min: string; week_start_max: string; rows: number };
@@ -34,6 +39,7 @@ export type PriorityCell = {
 };
 
 export type PriorityResponse = {
+  release_id: string;
   snapshot_week: string; total_matches: number; returned: number;
   priority_summary: { Critical: number; High: number; Watch: number; Low: number };
   map_scope: "all_priority_grids" | "big_peat_context_grids" | "soilgrids_mineral_reference_grids";
@@ -53,11 +59,13 @@ export type Alert = {
 export type AlertResponse = { snapshot_date: string; total_matches: number; items: Alert[] };
 
 export type AlertDisplayGroupsResponse = {
+  release_id: string;
   snapshot_date: string; total_detections: number; display_group_count: number;
   minimum_footprint_ha: number; merge_radius_km: number; footprint_note: string; items: Alert[];
 };
 
 export type ResponsePlan = {
+  area_context: { area_ha_used: number; basis: string; requires_confirmation: boolean; message: string };
   status: string; automatic_dispatch_permitted: boolean;
   spatial_context: { grid_id: string; province: string; district: string; grid_match_status: string; nearest_permanent_surface_water_km: number; nearest_any_surface_water_km: number; water_access_index_relative_0_100: number; water_access_class: string };
   planning_output: { planned_personnel: number; ground_response_fire_engine_capacity: number; fire_engine_formula: string; planning_confidence: string; complexity_level: string };
@@ -67,6 +75,8 @@ export type ResponsePlan = {
 };
 
 export type PlannerContext = {
+  release_id: string;
+  area_context: { sensor_footprint_ha: number | null; incident_area_ha: number | null; requires_incident_area_confirmation: boolean };
   coordinate: { latitude: number; longitude: number };
   data_status: string;
   spatial_context: {
@@ -97,6 +107,7 @@ export type PlannerContext = {
   };
   model_input_defaults: {
     latitude: number; longitude: number; grid_id: string; area_ha: number | null;
+    area_basis: "scenario" | "firms_footprint" | "field_report" | "operator_polygon"; area_confirmed: boolean;
     soil_class: "peat" | "mineral" | "unknown";
     fire_type_class: "surface" | "ground_smouldering" | "mixed" | "crown" | "unknown";
     fwi_class: "low" | "moderate" | "high" | "very_high" | "unknown";

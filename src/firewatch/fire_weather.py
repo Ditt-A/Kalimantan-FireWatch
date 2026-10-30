@@ -12,11 +12,16 @@ from datetime import datetime, timezone
 from functools import lru_cache
 import math
 from typing import Any
+import hashlib
+import json
+import os
+from pathlib import Path
+from .releases import atomic_json
 
 import requests
 
 
-OPEN_METEO_FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
+OPEN_METEO_FORECAST_URL = os.environ.get("FIREWATCH_WEATHER_URL", "https://api.open-meteo.com/v1/forecast")
 OPEN_METEO_DOCUMENTATION_URL = "https://open-meteo.com/en/docs"
 CANADIAN_FWI_SOURCE_URL = "https://cwfis.cfs.nrcan.gc.ca/index.php/background/dsm/fwi"
 INITIAL_FFMC = 85.0
@@ -137,9 +142,10 @@ def fwi_class(fwi_value: float) -> str:
     return "very_high"
 
 
-def calculate_fwi_series(daily_weather: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def calculate_fwi_series(daily_weather: list[dict[str, Any]], initial_state: dict[str, float] | None = None) -> list[dict[str, Any]]:
     """Calculate daily FWI state from noon weather and previous-24h rain."""
-    ffmc, dmc, dc = INITIAL_FFMC, INITIAL_DMC, INITIAL_DC
+    state = initial_state or {"ffmc": INITIAL_FFMC, "dmc": INITIAL_DMC, "dc": INITIAL_DC}
+    ffmc, dmc, dc = state["ffmc"], state["dmc"], state["dc"]
     results: list[dict[str, Any]] = []
     for weather in daily_weather:
         timestamp = weather["timestamp"]
@@ -160,21 +166,31 @@ def _hour_key() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H")
 
 
+def _weather_directory() -> Path:
+    return Path(os.environ.get("FIREWATCH_WEATHER_CACHE", Path(__file__).resolve().parents[2] / "data/operational/weather"))
+
+
 @lru_cache(maxsize=512)
 def _open_meteo_payload(latitude: float, longitude: float, cache_hour: str) -> dict[str, Any]:
-    response = requests.get(
-        OPEN_METEO_FORECAST_URL,
-        params={
-            "latitude": latitude, "longitude": longitude, "timezone": "auto", "past_days": HISTORY_DAYS,
-            "forecast_days": 1, "wind_speed_unit": "kmh",
-            "current": "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation",
-            "hourly": "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation",
-        }, timeout=30,
-    )
+    key = hashlib.sha256(f"{latitude}:{longitude}:{cache_hour}".encode()).hexdigest()
+    path = _weather_directory() / "payloads" / (key + ".json")
+    if path.exists():
+        return json.loads(path.read_text())
+    params = {
+        "latitude": latitude, "longitude": longitude, "timezone": "auto", "past_days": HISTORY_DAYS,
+        "forecast_days": 1, "wind_speed_unit": "kmh",
+        "current": "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation",
+        "hourly": "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation",
+    }
+    if os.environ.get("FIREWATCH_WEATHER_API_KEY"):
+        params["apikey"] = os.environ["FIREWATCH_WEATHER_API_KEY"]
+    response = requests.get(OPEN_METEO_FORECAST_URL, params=params, timeout=30)
     response.raise_for_status()
     payload = response.json()
     if "hourly" not in payload or "time" not in payload["hourly"]:
-        raise ValueError("Open-Meteo response does not include the requested hourly series.")
+        raise ValueError("Open-Meteo hourly series is unavailable")
+    payload["_fetched_at_utc"] = datetime.now(timezone.utc).isoformat()
+    atomic_json(path, payload)
     return payload
 
 
@@ -213,16 +229,31 @@ def fire_weather_context(latitude: float, longitude: float) -> dict[str, Any]:
     daily, current_local = _noon_weather(payload)
     if len(daily) < 30:
         raise ValueError("Open-Meteo did not return enough complete noon weather days for FWI.")
-    latest = calculate_fwi_series(daily)[-1]
+    # Today's future noon must not replace the most recent available noon.
+    reference_time = current_local or datetime.now(timezone.utc).replace(tzinfo=None)
+    available = [row for row in daily if row["timestamp"] <= reference_time]
+    if len(available) < 30:
+        raise ValueError("Not enough complete past noon observations")
+    state_key = hashlib.sha256(f"{round(latitude, 3)}:{round(longitude, 3)}".encode()).hexdigest()
+    state_path = _weather_directory() / "states" / (state_key + ".json")
+    stored = json.loads(state_path.read_text()) if state_path.exists() else {}
+    from datetime import timedelta
+    boundary = (available[0]["timestamp"] - timedelta(days=1)).date().isoformat()
+    initial = stored.get("days", {}).get(boundary)
+    series = calculate_fwi_series(available, initial)
+    states = stored.get("days", {})
+    states.update({row["timestamp"].date().isoformat(): {name: row[name] for name in ("ffmc", "dmc", "dc")} for row in series})
+    atomic_json(state_path, {"days": states, "updated_at_utc": datetime.now(timezone.utc).isoformat(), "initialization": "persistent_boundary" if initial else "standard_state_warmup"})
+    latest = series[-1]
     target_time = latest["timestamp"]
     target_mode = "forecast" if current_local and target_time > current_local else "model_weather"
     return {
         "lookup_status": "available", "recommended_fwi_class": latest["fwi_class"],
         "fwi": latest["fwi"], "ffmc": latest["ffmc"], "dmc": latest["dmc"], "dc": latest["dc"], "isi": latest["isi"], "bui": latest["bui"],
         "weather_at_local_noon": {"timestamp": target_time.isoformat(), "temperature_c": latest["temperature_c"], "relative_humidity_pct": latest["relative_humidity_pct"], "wind_kmh": latest["wind_kmh"], "rainfall_previous_24h_mm": latest["rainfall_24h_mm"], "mode": target_mode},
-        "timezone": payload.get("timezone"), "utc_offset_seconds": payload.get("utc_offset_seconds"), "history_days_used": len(daily),
+        "timezone": payload.get("timezone"), "utc_offset_seconds": payload.get("utc_offset_seconds"), "history_days_used": len(available), "state_initialization": "persistent_boundary" if initial else "standard_state_warmup",
         "initial_state": {"ffmc": INITIAL_FFMC, "dmc": INITIAL_DMC, "dc": INITIAL_DC},
         "classification": {"bands": "FWI <5 low; 5–<12 moderate; 12–<21 high; ≥21 very high", "note": "Dashboard screening band; not an official local warning threshold."},
-        "source": {"provider": "Open-Meteo Forecast API", "provider_documentation": OPEN_METEO_DOCUMENTATION_URL, "fwi_method": "Canadian Forest Fire Weather Index System; daily noon weather with previous-24h precipitation", "fwi_method_source": CANADIAN_FWI_SOURCE_URL, "fetched_at_utc": datetime.now(timezone.utc).isoformat(), "cache_key_hour_utc": _hour_key()},
+        "source": {"provider": "Open-Meteo Forecast API", "provider_documentation": OPEN_METEO_DOCUMENTATION_URL, "fwi_method": "Canadian Forest Fire Weather Index System; daily noon weather with previous-24h precipitation", "fwi_method_source": CANADIAN_FWI_SOURCE_URL, "fetched_at_utc": payload.get("_fetched_at_utc"), "cache_key_hour_utc": _hour_key()},
         "limitations": ["Open-Meteo is model weather, not a field observation or an official Indonesian warning.", "The calculation uses a standard initial FWI state and the complete prior-period history returned by the provider; ERA5/BMKG backfill can later replace the initialisation.", "FWI is a fire-weather indicator; peat fuel, incident perimeter, and fire type still need field confirmation."],
     }

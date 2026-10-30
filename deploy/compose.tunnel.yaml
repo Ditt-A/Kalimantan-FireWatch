@@ -1,0 +1,7 @@
+# HTTPS terminates at ngrok; the local proxy is restricted to loopback.
+services:
+  proxy:
+    environment:
+      FIREWATCH_DOMAIN: ":80"
+    ports: !override
+      - "127.0.0.1:8080:80"

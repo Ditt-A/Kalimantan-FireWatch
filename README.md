@@ -1,66 +1,109 @@
-# Kalimantan FireWatch
+# Kalimantan FireWatch — FIRELINE
 
-Kalimantan FireWatch is a decision-support dashboard for land and peat-fire monitoring across the five Indonesian Kalimantan provinces. It combines satellite detections, historical fire context, peat and water-access mapping, a fire-weather calculation, local Indonesian response evidence, and trained planning models.
+FIRELINE adalah dashboard pendukung keputusan untuk monitoring karhutla di lima provinsi Kalimantan Indonesia. Sistem menggabungkan hotspot NASA FIRMS, cuaca, gambut, tutupan lahan, akses air, dan bukti respons insiden untuk menghasilkan prioritas monitoring serta referensi kebutuhan personel dan kapasitas mobil damkar.
 
-It supports an operator's decision process; it does not automatically dispatch personnel or vehicles.
+![Dashboard Kalimantan FireWatch](docs/images/dashboard-prioritization.png)
 
-## Dashboard preview
+## Dua fitur utama
 
-![Kalimantan FireWatch dashboard showing monitoring priorities, NASA FIRMS detections, and the operational map](docs/images/dashboard-prioritization.png)
+### AI Incident Prioritization & Localization
 
-The dashboard above uses the repository's validated snapshots: forecast week **20 July 2026** and NASA FIRMS detections from **3 September 2026**. These layers are historical snapshots, not a live incident feed; no model training or inference is required to display them.
+- Menampilkan deteksi aktif NASA FIRMS VIIRS NOAA-20 dan grid prioritas.
+- Mengestimasi probabilitas serta jumlah hotspot pada window mingguan.
+- Menggabungkan histori hotspot/FRP, ERA5-Land, gambut BIG, MapBiomas, dan batas administrasi.
+- Mengelompokkan deteksi berdekatan melalui minimum sensor footprint dan merge radius.
+- Menyediakan filter prioritas Critical, High, Watch, dan Low serta konteks gambut/mineral.
+- Memetakan lokasi pos damkar dan referensi rute respons.
 
-## What is included
+### AI Response Planning & Resource Calculator
 
-### 1. AI Incident Prioritization & Localization
+- Memuat koordinat dan konteks langsung dari pilihan pada peta.
+- Mengestimasi personel berdasarkan luas, tanah, tipe api, FWI, akses air, dan benchmark historis.
+- Menggunakan model Histogram Gradient Boosting dengan bukti lokal Indonesia dan referensi ICS-209-PLUS.
+- Menghitung kapasitas mobil damkar menggunakan `ceil(personel / 6)`.
+- Membedakan footprint satelit, skenario luas, laporan lapangan, dan polygon insiden.
+- Menghitung luas geodesik polygon GeoJSON di backend.
+- Menyediakan sumber kasus historis, konfirmasi operator, dan audit perencanaan.
 
-- NASA FIRMS VIIRS active-fire detections for Kalimantan;
-- weekly hotspot-priority grid with predicted occurrence probability and expected hotspot count;
-- BIG peat context and SoilGrids mineral-reference context;
-- configurable nearby-detection grouping using a minimum sensor-footprint threshold and kilometre merge radius;
-- OSM fire-station landmarks and road/helicopter-reference routing.
+## Pipeline ETL dan pembaruan near-real-time
 
-### 2. AI Response Planning & Resource Calculator
+Pipeline ETL menjadi jalur pembaruan data FIRELINE: sumber diambil secara terjadwal, divalidasi, ditransformasikan, dibentuk menjadi fitur, kemudian dipublikasikan sebagai release yang konsisten untuk API dan dashboard.
 
-- personnel and fire-engine-capacity planning output;
-- local Indonesian incident-resource evidence, supplemented by ICS-209 benchmark context;
-- peat, fire-weather FWI, surface-water access, fire-type observation, and spatial grid context;
-- traceable source documents and rulebook for planning conditions.
+Mode near-real-time mengikuti deteksi yang sudah tersedia dari provider satelit. Forecast merupakan produk mingguan dengan waktu penerbitan, cutoff fitur, dan masa berlaku tersendiri. Keduanya dapat diperbarui secara independen.
 
-## Production ETL plan
-
-See [the production ETL design](docs/PRODUCTION_ETL_PLAN.md) for source schedules, incremental ingestion, point-in-time features, scoring, atomic releases, monitoring, and the remaining data/model limitations. This is an implementation plan; the repository currently serves validated snapshots.
-
-## Repository contents
-
-All dashboard-ready data, raw spatial/source data, trained model weights, and reports are versioned in this repository. Large files use **Git LFS**. Virtual environments, `node_modules`, caches, logs, and credentials are deliberately excluded because they are machine-specific or reproducible from the files below.
-
-```text
-api/                    FastAPI service used by the dashboard
-web/                    Next.js / React dashboard
-src/firewatch/          Data processing, modeling, FWI, soil, water, and planning code
-scripts/                Acquisition, preprocessing, training, audit, and promotion scripts
-data/raw/               Source spatial, satellite, weather, OSM, and evidence data (Git LFS)
-data/interim/           Reusable feature-engineering outputs (Git LFS)
-data/processed/         Dashboard-ready tables and spatial layers (Git LFS)
-models/                 Serialized Feature 1 and Feature 2 model artifacts (Git LFS)
-reports/                Audit, evaluation, and provenance reports
-docs/                   PRD, methodology, data dictionary, and evidence documentation
-secrets.example.txt     Credential placeholder only; never contains a real key
+```mermaid
+flowchart TD
+    A["NASA FIRMS / VIIRS NOAA-20"] --> D["Extract terjadwal"]
+    B["ERA5-Land / Open-Meteo"] --> D
+    C["BIG · MapBiomas · JRC · OSM · Batas wilayah"] --> D
+    D --> E["Raw data + manifest sumber + checksum"]
+    E --> F["Quality gate: schema, waktu, koordinat, duplikasi, coverage"]
+    F --> G["Transformasi: clip Kalimantan, normalisasi, spatial join"]
+    G --> H["Feature engineering: histori hotspot, cuaca, gambut, akses air"]
+    H --> I["Scoring model forecast"]
+    G --> J["Layer deteksi near-real-time"]
+    I --> K["Validasi dan publish release atomik"]
+    J --> K
+    K --> L["FastAPI + cache berbasis release"]
+    L --> M["Next.js Priority Map"]
+    M --> N["Response Planner"]
+    N --> O["Model personel + policy kapasitas mobil damkar"]
+    D --> P["Watermark, retry, job lock, audit"]
+    K --> Q["Freshness, health check, backup, rollback"]
 ```
 
-## Quick start
+### Jadwal pemrosesan
 
-These steps run the current dashboard without downloading data again.
+| Jalur | Jadwal awal | Hasil |
+|---|---|---|
+| FIRMS NOAA-20 NRT | Setiap 30 menit | Deteksi baru, rekonsiliasi revisi, layer peta |
+| ERA5-Land | Harian sesuai ketersediaan provider | Cuaca harian dan fitur rolling |
+| Open-Meteo / FWI | Setiap 3 jam untuk lokasi terkonfigurasi, serta saat lookup planner | Konteks fire weather |
+| Forecast | Window mingguan | Probabilitas, expected hotspot count, prioritas |
+| Backup operasional | Harian | Database backup dan manifest checksum |
 
-### Prerequisites
+Cadence tersebut dapat diatur sesuai operasi. Polling tidak mengubah jadwal lintasan satelit atau keterlambatan sumber. Status masing-masing layer tersedia melalui `/api/v1/metadata/status`.
 
-- Git 2.40+ and [Git LFS](https://git-lfs.com/)
-- Python 3.10 or later
-- Node.js 20 or later and npm
-- On Windows, WSL2 is recommended for the geospatial Python dependencies.
+### Aturan data dan model
 
-### Clone and retrieve LFS data
+- Respons provider yang gagal dibedakan dari respons sukses tanpa deteksi.
+- Observasi FIRMS direkonsiliasi menggunakan identitas deteksi; perubahan FRP/confidence tidak dianggap insiden baru.
+- Data spasial dibatasi ke lima provinsi Kalimantan Indonesia.
+- Agregasi hujan ERA5-Land mengikuti total akumulasi pukul 00 UTC untuk hari sebelumnya.
+- Model forecast dengan kontrak lag tujuh hari menjaga konsistensi ketersediaan cuaca saat prediksi.
+- Label masa depan tidak diperlukan untuk menjalankan scorer.
+- Setiap request API menggunakan satu release. Selection peta dari release berbeda mendapat respons 409 agar operator memuat ulang konteks.
+- Publish yang gagal mempertahankan release terakhir yang valid.
+- Provenance asli/sintetis disimpan sebagai sidecar dan tidak menjadi fitur model. Eksperimen jitter dievaluasi menggunakan kasus asli dengan nested grouped validation.
+
+## Struktur repository
+
+```text
+api/                         FastAPI, auth operator, planner, metadata, health
+web/                         Next.js / React dashboard
+src/firewatch/               ETL, feature engineering, model, FWI, release, audit
+scripts/                     Akuisisi, training, scoring, validasi, backup
+deploy/                      Dockerfiles, Compose, proxy, konfigurasi contoh
+data/raw/                    Sumber satelit, cuaca dan spasial — Git LFS
+data/interim/                Hasil transformasi dan fitur reusable — Git LFS
+data/processed/              Dataset siap dashboard — Git LFS
+models/                      Bobot serving dan kandidat model — Git LFS
+reports/                     Hasil evaluasi, quality checks dan provenance
+tests/                       Regression tests pipeline/API
+docs/                        Arsitektur, metodologi dan runbook
+secrets.example.txt          Placeholder credential
+```
+
+## Menjalankan secara lokal
+
+### Prasyarat
+
+- Git dan Git LFS.
+- Python 3.14 untuk environment yang sesuai dengan artefak model tersimpan.
+- Node.js 22 dan npm.
+- Windows: gunakan WSL2 untuk dependency geospasial.
+
+### Clone dan ambil data/model
 
 ```bash
 git clone https://github.com/Ditt-A/Kalimantan-FireWatch.git
@@ -69,92 +112,161 @@ git lfs install
 git lfs pull
 ```
 
-Do not skip `git lfs pull`; without it, large data/model files are only small pointer files.
+File besar disimpan dengan Git LFS. Pastikan bobot model, Parquet, dan raster telah terunduh sebagai file utuh.
 
-### Install Python dependencies
+### Install dependency
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate                 # Windows PowerShell: .venv\Scripts\Activate.ps1
+python3.14 -m venv .venv
+source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
-```
+python -m pip install -r requirements-production.txt
 
-### Install the web application
-
-```bash
 cd web
 npm ci
-cp .env.example .env.local                # Windows PowerShell: Copy-Item .env.example .env.local
+cp .env.example .env.local
 cd ..
 ```
 
-Leave `NEXT_PUBLIC_API_BASE_URL` unset to use `/api/v1` on the dashboard's origin. Next.js proxies requests to `http://127.0.0.1:8000`; set `FIREWATCH_INTERNAL_API_BASE_URL` on the Next.js server if the backend runs at another internal address. This also supports a single public tunnel to port 3000. No API key is needed for the packaged dashboard snapshot.
+### Jalankan backend dan frontend
 
-### Run the dashboard
-
-Open two terminals from the repository root.
-
-Terminal 1 — API:
+Terminal backend:
 
 ```bash
 source .venv/bin/activate
 python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
-Terminal 2 — Next.js:
+Terminal frontend:
 
 ```bash
 cd web
 npm run dev -- --hostname 0.0.0.0 --port 3000
 ```
 
-Open [http://localhost:3000/prioritization](http://localhost:3000/prioritization). The API health check is [http://localhost:8000/health](http://localhost:8000/health).
+Dashboard: [localhost:3000/prioritization](http://localhost:3000/prioritization).
 
-For a production-style local run, execute `npm run build` then `npm run start` in `web/`.
+Biarkan `NEXT_PUBLIC_API_BASE_URL` tidak diisi untuk memakai proxy same-origin `/api/v1`. Alamat backend internal dapat diatur melalui `FIREWATCH_INTERNAL_API_BASE_URL` pada server Next.js.
 
-## Credentials for optional data refreshes
+## Deployment Docker
 
-The included dashboard runs from the versioned snapshot. A key is needed only to acquire new NASA FIRMS or Copernicus ERA5 data.
+Buat konfigurasi privat dengan access code dan session secret yang digenerate:
 
 ```bash
-cp secrets.example.txt secrets.local.txt
-# Edit secrets.local.txt locally with your own values. It is ignored by Git.
+python scripts/configure_deployment.py
 ```
 
-Use the same local file with the acquisition scripts:
+Isi credential provider di `deploy/.env` untuk menjalankan refresh sumber. Nilai credential tidak dicantumkan di repository.
 
 ```bash
-python scripts/scrape_firms.py --start 2026-09-01 --end 2026-09-03 --secrets-file secrets.local.txt
-python scripts/scrape_era5.py --start 2026-09-01 --end 2026-09-03 --secrets-file secrets.local.txt
+docker compose --env-file deploy/.env -f deploy/compose.yaml config --quiet
+docker compose --env-file deploy/.env -f deploy/compose.yaml up -d --build
 ```
 
-Never commit `secrets.local.txt`, `env.txt`, `.env.local`, `.cdsapirc`, API keys, or access tokens.
+Stack berisi PostgreSQL, FastAPI, Next.js standalone, reverse proxy, dan worker ETL. Domain diatur menggunakan `FIREWATCH_DOMAIN`.
 
-## Data and modeling notes
-
-- A FIRMS point is an active-fire satellite detection, not a confirmed incident perimeter.
-- The map's grouped area is the accumulated VIIRS sensor-footprint proxy (`scan × track`), used as an initial planner value and requiring field/perimeter verification.
-- BIG peat context is retained when a forecast grid overlaps peat by at least 10%, even when its centroid is outside a peat polygon.
-- Fire-weather context uses Open-Meteo weather with a local Canadian FWI calculation. It is a planning indicator, not an official warning product.
-- Resource outputs cover personnel and fire-engine capacity. Fleet availability, water supply, access, perimeter, and command authority require operational confirmation.
-
-## Validation and reproducibility
+Untuk akses publik melalui ngrok:
 
 ```bash
-# Rebuild feature/data outputs when intentionally refreshing sources.
-python scripts/build_dataset.py --refresh-features --force
+docker compose --env-file deploy/.env \
+  -f deploy/compose.yaml -f deploy/compose.tunnel.yaml up -d --build
+ngrok http 8080
+```
 
-# Retrain Feature 1 and Feature 2 artifacts.
-python scripts/train_models.py
-python scripts/train_feature2_models.py
+HTTPS publik diterminasi oleh ngrok. Gunakan URL HTTPS tersebut untuk session operator production. Monitoring dapat dibaca sebagai viewer; pembuatan rencana dan penulisan observasi memerlukan login operator pada profil production.
 
-# Build the web dashboard for type checking and production output.
+Untuk laptop, worker default menjalankan satu job setiap kali. Konfigurasi memori/CPU per layanan berada di Compose.
+
+## Menjalankan ETL
+
+Credential sumber dibaca dari environment:
+
+| Variabel | Kegunaan |
+|---|---|
+| `FIRMS_MAP_KEY` | NASA FIRMS Area API |
+| `CDSAPI_URL`, `CDSAPI_KEY` | Copernicus CDS / ERA5-Land |
+| `FIREWATCH_WEATHER_URL`, `FIREWATCH_WEATHER_API_KEY` | Konfigurasi provider cuaca |
+| `FIREWATCH_DATABASE_URL` | PostgreSQL operasional |
+| `FIREWATCH_OPERATOR_TOKEN`, `FIREWATCH_SESSION_SECRET` | Akses operator dan signed session |
+| `FIREWATCH_RELEASE_ROOT` | Lokasi release data yang diaktifkan |
+
+```bash
+# Akuisisi, validasi, dan pembaruan layer deteksi.
+python scripts/etl_worker.py --job firms
+
+# Refresh ERA5 dan bangun ringkasan harian terkoreksi.
+python scripts/etl_worker.py --job era5
+
+# Refresh fire weather untuk lokasi yang dikonfigurasi.
+python scripts/etl_worker.py --job weather
+
+# Feature snapshot, scoring model, dan publish forecast.
+python scripts/etl_worker.py --job forecast
+
+# Backup database operasional.
+python scripts/etl_worker.py --job backup
+
+# Scheduler berulang.
+python scripts/etl_worker.py --loop
+```
+
+Lokasi cuaca terjadwal diatur di `deploy/weather_locations.json`. Dataset statis diperbarui menurut versi sumbernya. Jalur ingest menyimpan watermark serta manifest yang memuat rentang tanggal, jumlah baris, dan checksum.
+
+## Training, scoring, dan release
+
+Forecast menggunakan dua pipeline: `HistGradientBoostingClassifier` untuk probabilitas dan `HistGradientBoostingRegressor` untuk jumlah hotspot.
+
+```bash
+# Bangun data cuaca terkoreksi dari arsip hourly.
+python scripts/rebuild_operational_weather.py
+
+# Latih kandidat pada direktori versi baru.
+python scripts/forecast_pipeline.py train --model-dir models/candidates/forecast_new_version
+
+# Gunakan kontrak kandidat untuk membuat fitur dan prediksi.
+python scripts/forecast_pipeline.py features --week YYYY-MM-DD
+python scripts/forecast_pipeline.py score
+
+# Aktifkan release lengkap atau kembalikan release sebelumnya.
+python scripts/forecast_pipeline.py publish --release-id forecast-YYYYMMDD
+python scripts/forecast_pipeline.py rollback --release-id RELEASE_ID
+```
+
+Window forecast dimulai hari Senin. Jalur scoring menggunakan versi model dan definisi fitur yang sama, serta memeriksa kelengkapan input sebelum publikasi.
+
+Eksperimen model personel:
+
+```bash
+python scripts/evaluate_personnel_grouped.py
+python scripts/train_personnel_jitter_candidate.py
+```
+
+Hasil evaluasi dan bobot kandidat disimpan terpisah dari bobot serving. Bukti sumber lokal, benchmark AS, dan provenance data dapat ditelusuri melalui `reports/` dan halaman Evidence.
+
+## Pemeriksaan layanan
+
+| Endpoint | Fungsi |
+|---|---|
+| `GET /health` | Liveness API |
+| `GET /ready` | Kesiapan konfigurasi, database, data dan model |
+| `GET /api/v1/metadata/status` | Freshness per layer, release dan status ETL |
+| `GET /api/v1/priority/grid` | Grid prioritas |
+| `GET /api/v1/planner-context` | Autofill konteks perencanaan |
+| `POST /api/v1/response-plans` | Estimasi personel dan kapasitas mobil |
+| `POST /api/v1/auth/login` | Session operator |
+
+```bash
+python -m pip install -r requirements-dev.txt
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -v
 cd web && npm run build
 ```
 
-The traceability material in `reports/`, source metadata in the processed tables, and the Evidence page identify the provenance of resource and spatial context used by the dashboard.
+Pemeriksaan stack Docker dapat dijalankan dengan `python scripts/check_docker_stack.py`. Pemeriksaan tersebut menggunakan stack dan database fixture terpisah, termasuk uji backup–restore.
 
-## Security
+## Interpretasi hasil
 
-Before every push, audit staged files for credentials. This repository intentionally contains only `secrets.example.txt` and `web/.env.example` as placeholders.
+Deteksi FIRMS adalah observasi panas satelit. Footprint piksel, luas grid forecast, dan perimeter insiden mempunyai arti berbeda. Kebutuhan personel dan kapasitas kendaraan merupakan referensi perencanaan yang diverifikasi operator berdasarkan kondisi lokasi, luas aktual, akses air/jalan, serta kesiapan kru dan armada.
+
+Dokumentasi teknis: [ETL architecture](docs/PRODUCTION_ETL_PLAN.md), [operational runbook](docs/PRODUCTION_RUNBOOK.md), serta laporan pada `reports/`.
+
+API key, access code, token ngrok, database runtime, virtual environment, dependency terpasang, dan cache build dikecualikan dari Git. Gunakan file contoh untuk mengatur credential pada environment masing-masing.

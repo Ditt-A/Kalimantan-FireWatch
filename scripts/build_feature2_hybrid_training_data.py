@@ -227,6 +227,8 @@ def synthetic_scenarios(
     real_personnel: pd.DataFrame,
     water: pd.DataFrame,
     us_reference: pd.DataFrame,
+    *,
+    minimum_real_rows: int = 30,
 ) -> pd.DataFrame:
     """Generate a balanced scenario lattice with targets from explicit rules.
 
@@ -235,8 +237,8 @@ def synthetic_scenarios(
     direct Indonesian staffing standard.
     """
     rng = np.random.default_rng(SEED)
-    if len(real_personnel) < 30:
-        raise RuntimeError("At least 30 real area/personnel rows are required for local calibration")
+    if len(real_personnel) < minimum_real_rows:
+        raise RuntimeError(f"At least {minimum_real_rows} training-only real area/personnel rows are required for local calibration")
     x = real_personnel[["log_area_ha"]].to_numpy()
     y = real_personnel["target_value"].to_numpy(dtype=float)
     robust = HuberRegressor().fit(x, y)

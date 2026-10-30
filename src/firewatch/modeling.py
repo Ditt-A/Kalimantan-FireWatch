@@ -33,7 +33,7 @@ from sklearn.metrics import (
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder, StandardScaler
 
-from firewatch.config import MODELS_DIR, PROCESSED_DIR, REPORTS_DIR
+from .config import MODELS_DIR, PROCESSED_DIR, REPORTS_DIR
 
 LOGGER = logging.getLogger(__name__)
 

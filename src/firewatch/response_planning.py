@@ -7,7 +7,7 @@ shift roster, water volume, and road-condition data needed for that are absent.
 """
 from __future__ import annotations
 
-from functools import lru_cache
+from .releases import release_cached, release_path
 from pathlib import Path
 from typing import Any
 
@@ -25,9 +25,9 @@ AREA_BANDS = ("<100", "100-999", "1k-9.9k", "10k-99.9k", "100k+")
 FWI_CLASSES = ("low", "moderate", "high", "very_high")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def _benchmarks() -> pd.DataFrame:
-    data = pd.read_csv(BENCHMARK_PATH)
+    data = pd.read_csv(release_path("reports/us_fire_resource_eda/resource_by_final_acres_band.csv"))
     expected = {
         "final_acres_band",
         "incident_count",
@@ -42,9 +42,9 @@ def _benchmarks() -> pd.DataFrame:
     return data.set_index("final_acres_band")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def _water_context() -> pd.DataFrame:
-    data = pd.read_parquet(WATER_PATH)
+    data = pd.read_parquet(release_path("data/processed/water_access_grid.parquet"))
     required = {
         "grid_id",
         "nearest_permanent_surface_water_km",
@@ -63,10 +63,10 @@ def _water_context() -> pd.DataFrame:
     return data.set_index("grid_id")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def _peat_function_context() -> gpd.GeoDataFrame:
     """Load the public BIG 1:50k peat-function layer with derived classes."""
-    data = gpd.read_parquet(PEAT_FUNCTION_PATH)
+    data = gpd.read_parquet(release_path("data/processed/peatland/big_peat_function_kalimantan.parquet"))
     required = {
         "objectid_1",
         "kode_khg",
@@ -87,10 +87,10 @@ def _peat_function_context() -> gpd.GeoDataFrame:
     return data.to_crs("EPSG:4326")
 
 
-@lru_cache(maxsize=1)
+@release_cached
 def _peat_location_context() -> gpd.GeoDataFrame:
     """Load BIG's broad peat-location layer separately from depth classes."""
-    data = gpd.read_parquet(PEAT_LOCATION_PATH)
+    data = gpd.read_parquet(release_path("data/processed/peatland/big_peat_extent_kalimantan.parquet"))
     required = {"objectid", "namobj", "geometry"}
     missing = required - set(data.columns)
     if missing:

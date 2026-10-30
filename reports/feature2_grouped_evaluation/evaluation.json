@@ -1,0 +1,65 @@
+{
+  "evaluation": "real-only out-of-fold; union(document, incident); fold-local synthesis",
+  "real_rows": 43,
+  "independent_groups": 18,
+  "folds": [
+    {
+      "fold": 1,
+      "real_train": 34,
+      "real_test": 9,
+      "synthetic_train": 840,
+      "groups_disjoint": true
+    },
+    {
+      "fold": 2,
+      "real_train": 34,
+      "real_test": 9,
+      "synthetic_train": 840,
+      "groups_disjoint": true
+    },
+    {
+      "fold": 3,
+      "real_train": 34,
+      "real_test": 9,
+      "synthetic_train": 840,
+      "groups_disjoint": true
+    },
+    {
+      "fold": 4,
+      "real_train": 35,
+      "real_test": 8,
+      "synthetic_train": 840,
+      "groups_disjoint": true
+    },
+    {
+      "fold": 5,
+      "real_train": 35,
+      "real_test": 8,
+      "synthetic_train": 840,
+      "groups_disjoint": true
+    }
+  ],
+  "metrics": {
+    "baseline_area_huber": {
+      "mae": 7.765,
+      "rmse": 13.263,
+      "median_ae": 3.922,
+      "r2": -0.048,
+      "underestimate_rate": 0.46511627906976744,
+      "mean_shortfall_personnel": 5.551669586720029
+    },
+    "boosting_hybrid": {
+      "mae": 8.794,
+      "rmse": 13.716,
+      "median_ae": 4.639,
+      "r2": -0.121,
+      "underestimate_rate": 0.3953488372093023,
+      "mean_shortfall_personnel": 5.227807293532399
+    }
+  },
+  "limitations": [
+    "This evaluates historical deployed personnel, not optimal required staffing.",
+    "Sparse real weather/water labels and limited provinces remain unresolved.",
+    "The existing mixed-holdout serving model is not replaced by this audit."
+  ]
+}

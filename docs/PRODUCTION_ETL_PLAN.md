@@ -1,6 +1,6 @@
 # Rancangan ETL Production — Kalimantan FireWatch
 
-Tanggal audit: 30 Oktober 2026. Status: rancangan implementasi; scheduler, database production, dan deployment yang dijelaskan di sini belum dibangun oleh dokumen ini.
+Tanggal audit: 30 Oktober 2026. Dokumen ini menyimpan rancangan awal. Implementasi scheduler, scorer, release/cache, deployment, dan hasil pemeriksaan terbaru dijelaskan di [Production Runbook](PRODUCTION_RUNBOOK.md); sebagian kebutuhan data/validasi tetap terbuka.
 
 ## 1. Keputusan dan batas penggunaan
 
@@ -15,7 +15,7 @@ Scope yang dipertahankan:
 - Lokasi pos, air, gambut, dan cuaca sebagai konteks keputusan.
 - Empat bobot 35/25/25/15 belum termasuk pipeline aktif. Pembangunannya membutuhkan kontrak scoring dan layer exposure tersendiri.
 
-## 2. Kondisi repository yang diaudit
+## 2. Kondisi awal repository sebelum implementasi
 
 | Komponen | Implementasi sekarang | Gap menuju production |
 |---|---|---|

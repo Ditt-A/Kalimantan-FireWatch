@@ -1,0 +1,108 @@
+name: firewatch
+x-runtime: &runtime
+  FIREWATCH_ENV: production
+  FIREWATCH_AUTH_REQUIRED: "1"
+  FIREWATCH_DATABASE_URL: postgresql://firewatch:${FIREWATCH_POSTGRES_PASSWORD:?Set a database password}@database:5432/firewatch
+  FIREWATCH_SESSION_SECRET: ${FIREWATCH_SESSION_SECRET:?Set a random 32-character minimum secret}
+  FIREWATCH_OPERATOR_TOKEN: ${FIREWATCH_OPERATOR_TOKEN:?Set a random 24-character minimum access code}
+  FIREWATCH_ADMIN_TOKEN: ${FIREWATCH_ADMIN_TOKEN:-}
+  FIREWATCH_WEATHER_URL: ${FIREWATCH_WEATHER_URL:-https://api.open-meteo.com/v1/forecast}
+  FIREWATCH_WEATHER_API_KEY: ${FIREWATCH_WEATHER_API_KEY:-}
+  FIREWATCH_OSRM_ROUTER_URL: ${FIREWATCH_OSRM_ROUTER_URL:-https://router.project-osrm.org}
+  OMP_NUM_THREADS: "1"
+  OPENBLAS_NUM_THREADS: "1"
+services:
+  database:
+    image: postgres:17
+    mem_limit: 256m
+    cpus: 0.5
+    command: ["postgres", "-c", "shared_buffers=64MB", "-c", "max_connections=30"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: firewatch
+      POSTGRES_DB: firewatch
+      POSTGRES_PASSWORD: ${FIREWATCH_POSTGRES_PASSWORD:?Set a database password}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U firewatch -d firewatch"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  api:
+    mem_limit: 768m
+    cpus: 1.0
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    restart: unless-stopped
+    environment: *runtime
+    volumes:
+      - ../data:/app/data:ro
+      - ../models:/app/models:ro
+      - ../reports:/app/reports:ro
+      - ../data/operational:/app/data/operational
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=20)"]
+      interval: 30s
+      timeout: 25s
+      start_period: 60s
+      retries: 3
+  web:
+    mem_limit: 256m
+    cpus: 0.5
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+  proxy:
+    image: caddy:2
+    mem_limit: 96m
+    cpus: 0.5
+    restart: unless-stopped
+    environment:
+      FIREWATCH_DOMAIN: ${FIREWATCH_DOMAIN:-localhost}
+    ports:
+      - "${FIREWATCH_BIND_ADDRESS:-127.0.0.1}:80:80"
+      - "${FIREWATCH_BIND_ADDRESS:-127.0.0.1}:443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - certificates:/data
+    depends_on:
+      - web
+  worker:
+    mem_limit: 1536m
+    cpus: 1.0
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    restart: unless-stopped
+    command: ["python", "scripts/etl_worker.py", "--loop"]
+    environment:
+      <<: *runtime
+      FIRMS_MAP_KEY: ${FIRMS_MAP_KEY:-}
+      CDSAPI_URL: ${CDSAPI_URL:-https://cds.climate.copernicus.eu/api}
+      CDSAPI_KEY: ${CDSAPI_KEY:-}
+      FIREWATCH_BACKUP_DIR: /backups
+      FIREWATCH_WORKER_CONCURRENCY: "1"
+    volumes:
+      - ../data:/app/data
+      - ../models:/app/models:ro
+      - ../reports:/app/reports:ro
+      - ../data/operational:/app/data/operational
+      - ./weather_locations.json:/app/deploy/weather_locations.json:ro
+      - backups:/backups
+    depends_on:
+      database:
+        condition: service_healthy
+volumes:
+  database:
+  operational:
+  certificates:
+  backups:

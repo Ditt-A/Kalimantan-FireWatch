@@ -4,8 +4,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { api, type PlannerContext, type ResponsePlan } from "@/lib/api";
 
-type FormState = { latitude: string; longitude: string; area_ha: string; soil_class: string; fire_type_class: string; fwi_class: string; field_water_note: string };
-const defaultForm: FormState = { latitude: "-2.2100", longitude: "113.9100", area_ha: "", soil_class: "unknown", fire_type_class: "unknown", fwi_class: "unknown", field_water_note: "" };
+type FormState = { latitude: string; longitude: string; area_ha: string; area_basis: string; area_confirmed: boolean; soil_class: string; fire_type_class: string; fwi_class: string; field_water_note: string };
+const defaultForm: FormState = { latitude: "-2.2100", longitude: "113.9100", area_ha: "", area_basis: "scenario", area_confirmed: false, soil_class: "unknown", fire_type_class: "unknown", fwi_class: "unknown", field_water_note: "" };
 const normaliseCoordinate = (value: string) => {
   const numeric = Number(value);
   return Number.isFinite(numeric) ? String(Math.round(numeric * 100_000) / 100_000) : value;
@@ -14,12 +14,14 @@ const normaliseCoordinate = (value: string) => {
 export function ResponsePlanner() {
   const params = useSearchParams();
   const [form, setForm] = useState<FormState>(defaultForm);
+  const [polygon, setPolygon] = useState("");
   const [plan, setPlan] = useState<ResponsePlan | null>(null);
   const [mapContext, setMapContext] = useState<PlannerContext | null>(null);
   const [contextError, setContextError] = useState("");
   const [contextLoading, setContextLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const mapReleaseId = params.get("releaseId");
   const mapLatitude = params.get("lat");
   const mapLongitude = params.get("lon");
   const mapGridId = params.get("gridId");
@@ -28,14 +30,14 @@ export function ResponsePlanner() {
   const mapAreaHa = params.get("areaHa");
   const mapMergeRadiusKm = params.get("mergeRadiusKm");
   const mapProvince = params.get("province");
-  const validMapAlertId = mapAlertId && Number.isInteger(Number(mapAlertId)) && Number(mapAlertId) > 0 ? Number(mapAlertId) : null;
+  const validMapAlertId = mapAlertId && Number.isInteger(Number(mapAlertId)) && Number(mapAlertId) >= 0 ? Number(mapAlertId) : null;
   const validMapMinimumFootprintHa = mapMinimumFootprintHa && Number.isFinite(Number(mapMinimumFootprintHa)) && Number(mapMinimumFootprintHa) >= 0 ? Number(mapMinimumFootprintHa) : null;
   const validMapAreaHa = mapAreaHa && Number.isFinite(Number(mapAreaHa)) && Number(mapAreaHa) > 0 ? Number(mapAreaHa) : null;
   const validMapMergeRadiusKm = mapMergeRadiusKm && Number.isFinite(Number(mapMergeRadiusKm)) && Number(mapMergeRadiusKm) > 0 ? Number(mapMergeRadiusKm) : null;
   // A marker selection can change its grouped footprint while retaining the
   // same representative coordinate. Keep every selection-setting in this
   // token so form defaults cannot remain stale after a new map click.
-  const mapSelectionKey = [mapLatitude, mapLongitude, mapGridId, mapAlertId, mapMinimumFootprintHa, mapAreaHa, mapMergeRadiusKm, mapProvince].join("|");
+  const mapSelectionKey = [mapReleaseId, mapLatitude, mapLongitude, mapGridId, mapAlertId, mapMinimumFootprintHa, mapAreaHa, mapMergeRadiusKm, mapProvince].join("|");
   useEffect(() => {
     if (!mapLatitude || !mapLongitude || !Number.isFinite(Number(mapLatitude)) || !Number.isFinite(Number(mapLongitude))) return;
     // A new map selection is a new incident scenario. Reset prior map-derived
@@ -50,8 +52,10 @@ export function ResponsePlanner() {
       latitude: normaliseCoordinate(mapLatitude),
       longitude: normaliseCoordinate(mapLongitude),
       area_ha: validMapAreaHa === null ? "" : String(validMapAreaHa),
+      area_basis: params.get("source") === "firms-alert" ? "firms_footprint" : "scenario",
+      area_confirmed: false,
     });
-    setPlan(null); setError("");
+    setPolygon(""); setPlan(null); setError("");
   }, [mapSelectionKey, mapLatitude, mapLongitude, validMapAreaHa]);
   useEffect(() => {
     if (!mapLatitude || !mapLongitude || !Number.isFinite(Number(mapLatitude)) || !Number.isFinite(Number(mapLongitude))) {
@@ -61,13 +65,14 @@ export function ResponsePlanner() {
     }
     let active = true;
     setContextError(""); setMapContext(null); setContextLoading(true);
+    const releaseQuery = mapReleaseId ? `&release_id=${encodeURIComponent(mapReleaseId)}` : "";
     const gridQuery = mapGridId ? `&grid_id=${encodeURIComponent(mapGridId)}` : "";
     const alertQuery = validMapAlertId !== null ? `&alert_id=${encodeURIComponent(String(validMapAlertId))}` : "";
     const minimumFootprintQuery = validMapMinimumFootprintHa !== null ? `&map_minimum_footprint_ha=${encodeURIComponent(String(validMapMinimumFootprintHa))}` : "";
     const areaQuery = validMapAreaHa !== null ? `&map_area_ha=${encodeURIComponent(String(validMapAreaHa))}` : "";
     const radiusQuery = validMapMergeRadiusKm !== null ? `&map_merge_radius_km=${encodeURIComponent(String(validMapMergeRadiusKm))}` : "";
     const provinceQuery = mapProvince ? `&map_province=${encodeURIComponent(mapProvince)}` : "";
-    api<PlannerContext>(`/planner-context?latitude=${encodeURIComponent(mapLatitude)}&longitude=${encodeURIComponent(mapLongitude)}${gridQuery}${alertQuery}${minimumFootprintQuery}${areaQuery}${radiusQuery}${provinceQuery}`)
+    api<PlannerContext>(`/planner-context?latitude=${encodeURIComponent(mapLatitude)}&longitude=${encodeURIComponent(mapLongitude)}${gridQuery}${alertQuery}${minimumFootprintQuery}${areaQuery}${radiusQuery}${provinceQuery}${releaseQuery}`)
       .then((context) => {
         if (!active) return;
         setMapContext(context);
@@ -81,20 +86,21 @@ export function ResponsePlanner() {
           // group's footprint. Never replace a valid visible map value with
           // an empty/invalid response.
           area_ha: Number.isFinite(resolvedAreaHa) && resolvedAreaHa > 0 ? String(resolvedAreaHa) : current.area_ha,
+          area_basis: defaults.area_basis, area_confirmed: false,
           soil_class: defaults.soil_class, fire_type_class: defaults.fire_type_class, fwi_class: defaults.fwi_class,
         }));
       })
       .catch((err) => { if (active) setContextError(err instanceof Error ? err.message : "Map context could not be loaded."); })
       .finally(() => { if (active) setContextLoading(false); });
     return () => { active = false; };
-  }, [mapSelectionKey, mapLatitude, mapLongitude, mapGridId, validMapAlertId, validMapMinimumFootprintHa, validMapAreaHa, validMapMergeRadiusKm, mapProvince]);
-  const update = (key: keyof FormState, value: string) => {
+  }, [mapSelectionKey, mapLatitude, mapLongitude, mapGridId, validMapAlertId, validMapMinimumFootprintHa, validMapAreaHa, validMapMergeRadiusKm, mapProvince, mapReleaseId]);
+  const update = (key: keyof FormState, value: string | boolean) => {
     if (key === "latitude" || key === "longitude") { setMapContext(null); setContextError(""); }
-    setForm((current) => ({ ...current, [key]: value }));
+    setForm((current) => ({ ...current, [key]: value, ...(key === "area_ha" || key === "area_basis" ? { area_confirmed: false } : {}) }));
   };
   async function submit(event: FormEvent) {
     event.preventDefault(); setLoading(true); setError("");
-    try { setPlan(await api<ResponsePlan>("/response-plans", { method: "POST", body: JSON.stringify({ ...form, grid_id: mapContext?.model_input_defaults.grid_id ?? null, latitude: Number(form.latitude), longitude: Number(form.longitude), area_ha: Number(form.area_ha), field_water_note: form.field_water_note || null }) })); }
+    try { setPlan(await api<ResponsePlan>("/response-plans", { method: "POST", headers: mapContext?.release_id ? { "X-Firewatch-Release": mapContext.release_id } : {}, body: JSON.stringify({ ...form, grid_id: mapContext?.model_input_defaults.grid_id ?? null, latitude: Number(form.latitude), longitude: Number(form.longitude), area_ha: form.area_ha ? Number(form.area_ha) : null, incident_polygon: form.area_basis === "operator_polygon" ? JSON.parse(polygon) : null, incident_id: mapAlertId && mapReleaseId ? `firms:${mapReleaseId}:${mapAlertId}` : null, field_water_note: form.field_water_note || null }) })); }
     catch (err) { setError(err instanceof Error ? err.message : "The plan could not be generated."); }
     finally { setLoading(false); }
   }
@@ -105,7 +111,7 @@ export function ResponsePlanner() {
     {mapContext && <MapContextSummary context={mapContext} />}
     {mapContext && <section className="field-source-note"><b>Context autofill:</b> Soil condition is set to <b>{mapContext.soil_context.recommended_soil_class === "peat" ? "Peat" : mapContext.soil_context.recommended_soil_class === "mineral" ? "Mineral reference" : "Not yet confirmed"}</b>. Fire-weather FWI is calculated locally from Open-Meteo weather. Fire type is only filled when a saved operator observation exists for this grid; confirm all values against the current incident.</section>}
     {contextError && <p className="error-banner">Map context unavailable: {contextError}</p>}
-    <section className="planner-layout"><form className="planner-form stack-md" onSubmit={submit}><div className="panel-heading"><div><p className="eyebrow">SCENARIO INPUT</p><h2>Describe the field situation</h2></div></div><p className="muted">FIRMS provides a detection point, not a burned perimeter. Enter a field- or perimeter-derived area; the planning reference supports 0.01–10,000 ha.</p><div className="field-grid"><Field label="Latitude"><input required type="number" step="any" min="-4.5" max="4.5" value={form.latitude} onChange={(e) => update("latitude", e.target.value)} /></Field><Field label="Longitude"><input required type="number" step="any" min="108" max="119.5" value={form.longitude} onChange={(e) => update("longitude", e.target.value)} /></Field></div><Field label="Estimated incident area (ha)"><input required type="number" min="0.01" max="10000" step="any" placeholder="Example: 2" value={form.area_ha} onChange={(e) => update("area_ha", e.target.value)} />{mapContext?.model_input_defaults.area_ha != null && <small className="field-help">Initial map value: {mapContext.model_input_defaults.sources.area_ha}</small>}</Field><Field label="Soil condition"><Select value={form.soil_class} onChange={(v) => update("soil_class", v)} options={[["unknown", "Not yet confirmed"], ["peat", "Peat"], ["mineral", "Mineral"]]} /></Field><Field label="Observed fire type"><Select value={form.fire_type_class} onChange={(v) => update("fire_type_class", v)} options={[["unknown", "Not yet confirmed"], ["surface", "Surface"], ["ground_smouldering", "Ground / smouldering"], ["mixed", "Mixed"], ["crown", "Crown"]]} /></Field><Field label="Fire-weather FWI context"><Select value={form.fwi_class} onChange={(v) => update("fwi_class", v)} options={[["unknown", "Not supplied"], ["low", "Low"], ["moderate", "Moderate"], ["high", "High"], ["very_high", "Very high"]]} /></Field><Field label="Field water note (optional)"><textarea value={form.field_water_note} placeholder="Example: canal at 800 m, access not yet confirmed" onChange={(e) => update("field_water_note", e.target.value)} /></Field><button disabled={loading} className="button button-primary full-width" type="submit">{loading ? "Calculating…" : "Generate planning reference"} <span>→</span></button>{error && <p className="error-banner">{error}</p>}</form><PlanResult plan={plan} /></section>
+    <section className="planner-layout"><form className="planner-form stack-md" onSubmit={submit}><div className="panel-heading"><div><p className="eyebrow">SCENARIO INPUT</p><h2>Describe the field situation</h2></div></div><p className="muted">FIRMS provides a detection point, not a burned perimeter. Enter a field- or perimeter-derived area; the planning reference supports 0.01–10,000 ha.</p><div className="field-grid"><Field label="Latitude"><input required type="number" step="any" min="-4.5" max="4.5" value={form.latitude} onChange={(e) => update("latitude", e.target.value)} /></Field><Field label="Longitude"><input required type="number" step="any" min="108" max="119.5" value={form.longitude} onChange={(e) => update("longitude", e.target.value)} /></Field></div><Field label="Estimated incident area (ha)"><input required={form.area_basis !== "operator_polygon"} type="number" min="0.01" max="10000" step="any" placeholder="Example: 2" value={form.area_ha} onChange={(e) => update("area_ha", e.target.value)} />{mapContext?.model_input_defaults.area_ha != null && <small className="field-help">Initial map value: {mapContext.model_input_defaults.sources.area_ha}</small>}</Field><Field label="Area source"><Select value={form.area_basis} onChange={(v) => update("area_basis", v)} options={[["scenario", "Planning scenario"], ["firms_footprint", "FIRMS sensor footprint — unverified"], ["field_report", "Field incident report"], ["operator_polygon", "Mapped incident polygon"]]} /></Field>{form.area_basis === "operator_polygon" && <Field label="Incident polygon (GeoJSON)"><textarea required value={polygon} onChange={(e) => { setPolygon(e.target.value); update("area_confirmed", false); }} placeholder='{"type":"Polygon","coordinates":[...]}' /><small>Area is calculated by the backend from the WGS84 polygon.</small></Field>}{["field_report", "operator_polygon"].includes(form.area_basis) && <label><input type="checkbox" checked={form.area_confirmed} onChange={(e) => update("area_confirmed", e.target.checked)} /> I have checked this incident area against the report or mapped perimeter.</label>}{mapContext?.area_context.sensor_footprint_ha != null && <p className="muted small">Selected sensor footprint: {mapContext.area_context.sensor_footprint_ha.toFixed(2)} ha. This is separate from the measured incident area.</p>}<Field label="Soil condition"><Select value={form.soil_class} onChange={(v) => update("soil_class", v)} options={[["unknown", "Not yet confirmed"], ["peat", "Peat"], ["mineral", "Mineral"]]} /></Field><Field label="Observed fire type"><Select value={form.fire_type_class} onChange={(v) => update("fire_type_class", v)} options={[["unknown", "Not yet confirmed"], ["surface", "Surface"], ["ground_smouldering", "Ground / smouldering"], ["mixed", "Mixed"], ["crown", "Crown"]]} /></Field><Field label="Fire-weather FWI context"><Select value={form.fwi_class} onChange={(v) => update("fwi_class", v)} options={[["unknown", "Not supplied"], ["low", "Low"], ["moderate", "Moderate"], ["high", "High"], ["very_high", "Very high"]]} /></Field><Field label="Field water note (optional)"><textarea value={form.field_water_note} placeholder="Example: canal at 800 m, access not yet confirmed" onChange={(e) => update("field_water_note", e.target.value)} /></Field><button disabled={loading} className="button button-primary full-width" type="submit">{loading ? "Calculating…" : "Generate planning reference"} <span>→</span></button>{error && <p className="error-banner">{error}</p>}</form><PlanResult plan={plan} /></section>
     <section className="info-strip"><span className="info-icon">!</span><p><b>Non-dispatch safeguard:</b> this result does not assign people, trucks, water, routes, or command authority. Verify perimeter, water, access, roster, and fleet availability before mobilisation.</p></section>
   </main>;
 }
@@ -113,7 +119,7 @@ export function ResponsePlanner() {
 function PlanResult({ plan }: { plan: ResponsePlan | null }) {
   if (!plan) return <aside className="planner-result empty-result"><p className="eyebrow">OUTPUT</p><h2>Awaiting a scenario</h2><p>Enter a coordinate and estimated area to generate a reproducible planning reference.</p><div className="empty-bars"><i /><i /><i /></div></aside>;
   const output = plan.planning_output;
-  return <aside className="planner-result stack-lg"><div className="result-warning"><span>!</span><p>Planning reference only · automatic dispatch disabled</p></div><div><p className="eyebrow">RECOMMENDED PLANNING CAPACITY</p><div className="result-cards"><article><strong>{output.planned_personnel}</strong><span>Personnel</span></article><article><strong>{output.ground_response_fire_engine_capacity}</strong><span>Fire-engine capacity</span></article></div><p className="muted small">Vehicle capacity uses <code>{output.fire_engine_formula}</code>; it is not an availability or deployment order.</p></div><div className="context-card"><p className="eyebrow">SPATIAL CONTEXT</p><dl><div><dt>Coverage grid</dt><dd>{plan.spatial_context.grid_id}</dd></div><div><dt>Water access</dt><dd>{plan.spatial_context.water_access_class} · index {plan.spatial_context.water_access_index_relative_0_100.toFixed(1)}</dd></div><div><dt>Nearest permanent water</dt><dd>{plan.spatial_context.nearest_permanent_surface_water_km.toFixed(2)} km</dd></div><div><dt>Complexity</dt><dd>{output.complexity_level.replaceAll("_", " ")}</dd></div></dl></div><div><p className="eyebrow">CONDITIONS & VERIFICATION</p><ul className="checklist">{[...plan.applied_conditions, ...plan.requirements].map((text) => <li key={text}>{text}</li>)}</ul></div><div><p className="eyebrow">CLOSEST LOCAL EVIDENCE</p><div className="evidence-mini-list">{plan.evidence_cases.map((item) => <article key={item.incident_id}><div><b>{item.area_ha} ha · {item.soil_type ?? "soil not reported"}</b><p>{item.personnel_total ?? "—"} personnel · {item.documented_ground_response_vehicle_total ?? "—"} documented vehicles</p></div><a href={item.source_document_url_retrieved} target="_blank">p. {item.source_page}</a></article>)}</div></div></aside>;
+  return <aside className="planner-result stack-lg"><div className="result-warning"><span>!</span><p>{plan.area_context.requires_confirmation ? "Incident area needs confirmation · planning scenario" : "Operator-confirmed area · planning reference"}</p></div><div><p className="eyebrow">RECOMMENDED PLANNING CAPACITY</p><div className="result-cards"><article><strong>{output.planned_personnel}</strong><span>Personnel</span></article><article><strong>{output.ground_response_fire_engine_capacity}</strong><span>Fire-engine capacity</span></article></div><p className="muted small">Vehicle capacity uses <code>{output.fire_engine_formula}</code>; it is not an availability or deployment order.</p></div><div className="context-card"><p className="eyebrow">SPATIAL CONTEXT</p><dl><div><dt>Coverage grid</dt><dd>{plan.spatial_context.grid_id}</dd></div><div><dt>Water access</dt><dd>{plan.spatial_context.water_access_class} · index {plan.spatial_context.water_access_index_relative_0_100.toFixed(1)}</dd></div><div><dt>Nearest permanent water</dt><dd>{plan.spatial_context.nearest_permanent_surface_water_km.toFixed(2)} km</dd></div><div><dt>Complexity</dt><dd>{output.complexity_level.replaceAll("_", " ")}</dd></div></dl></div><div><p className="eyebrow">CONDITIONS & VERIFICATION</p><ul className="checklist">{[...plan.applied_conditions, ...plan.requirements].map((text) => <li key={text}>{text}</li>)}</ul></div><div><p className="eyebrow">CLOSEST LOCAL EVIDENCE</p><div className="evidence-mini-list">{plan.evidence_cases.map((item) => <article key={item.incident_id}><div><b>{item.area_ha} ha · {item.soil_type ?? "soil not reported"}</b><p>{item.personnel_total ?? "—"} personnel · {item.documented_ground_response_vehicle_total ?? "—"} documented vehicles</p></div><a href={item.source_document_url_retrieved} target="_blank">p. {item.source_page}</a></article>)}</div></div></aside>;
 }
 
 function MapContextSummary({ context }: { context: PlannerContext }) {
