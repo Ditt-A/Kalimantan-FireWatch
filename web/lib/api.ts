@@ -1,4 +1,7 @@
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
+// Keep browser requests on the current origin by default. Next.js proxies this
+// path to the local FastAPI service, which also makes a single public tunnel
+// work without sending visitors to their own localhost:8000.
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/v1";
 
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {

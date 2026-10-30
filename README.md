@@ -27,6 +27,10 @@ The dashboard above uses the repository's validated snapshots: forecast week **2
 - peat, fire-weather FWI, surface-water access, fire-type observation, and spatial grid context;
 - traceable source documents and rulebook for planning conditions.
 
+## Production ETL plan
+
+See [the production ETL design](docs/PRODUCTION_ETL_PLAN.md) for source schedules, incremental ingestion, point-in-time features, scoring, atomic releases, monitoring, and the remaining data/model limitations. This is an implementation plan; the repository currently serves validated snapshots.
+
 ## Repository contents
 
 All dashboard-ready data, raw spatial/source data, trained model weights, and reports are versioned in this repository. Large files use **Git LFS**. Virtual environments, `node_modules`, caches, logs, and credentials are deliberately excluded because they are machine-specific or reproducible from the files below.
@@ -85,7 +89,7 @@ cp .env.example .env.local                # Windows PowerShell: Copy-Item .env.e
 cd ..
 ```
 
-`web/.env.local` defaults to `http://localhost:8000/api/v1`; no API key is needed for the packaged dashboard snapshot.
+Leave `NEXT_PUBLIC_API_BASE_URL` unset to use `/api/v1` on the dashboard's origin. Next.js proxies requests to `http://127.0.0.1:8000`; set `FIREWATCH_INTERNAL_API_BASE_URL` on the Next.js server if the backend runs at another internal address. This also supports a single public tunnel to port 3000. No API key is needed for the packaged dashboard snapshot.
 
 ### Run the dashboard
 
@@ -143,6 +147,7 @@ python scripts/build_dataset.py --refresh-features --force
 
 # Retrain Feature 1 and Feature 2 artifacts.
 python scripts/train_models.py
+python scripts/train_feature2_models.py
 
 # Build the web dashboard for type checking and production output.
 cd web && npm run build

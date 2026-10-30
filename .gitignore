@@ -14,6 +14,7 @@ __pycache__/
 *.py[cod]
 web/node_modules/
 web/.next/
+*.tsbuildinfo
 
 # Local runtime noise and notebook editor checkpoints.
 .streamlit/

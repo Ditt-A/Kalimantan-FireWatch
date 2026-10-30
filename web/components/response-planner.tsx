@@ -32,14 +32,27 @@ export function ResponsePlanner() {
   const validMapMinimumFootprintHa = mapMinimumFootprintHa && Number.isFinite(Number(mapMinimumFootprintHa)) && Number(mapMinimumFootprintHa) >= 0 ? Number(mapMinimumFootprintHa) : null;
   const validMapAreaHa = mapAreaHa && Number.isFinite(Number(mapAreaHa)) && Number(mapAreaHa) > 0 ? Number(mapAreaHa) : null;
   const validMapMergeRadiusKm = mapMergeRadiusKm && Number.isFinite(Number(mapMergeRadiusKm)) && Number(mapMergeRadiusKm) > 0 ? Number(mapMergeRadiusKm) : null;
+  // A marker selection can change its grouped footprint while retaining the
+  // same representative coordinate. Keep every selection-setting in this
+  // token so form defaults cannot remain stale after a new map click.
+  const mapSelectionKey = [mapLatitude, mapLongitude, mapGridId, mapAlertId, mapMinimumFootprintHa, mapAreaHa, mapMergeRadiusKm, mapProvince].join("|");
   useEffect(() => {
     if (!mapLatitude || !mapLongitude || !Number.isFinite(Number(mapLatitude)) || !Number.isFinite(Number(mapLongitude))) return;
     // A new map selection is a new incident scenario. Reset prior map-derived
     // inputs before the new backend defaults arrive, preventing stale peat/FWI
     // values from a previously clicked grid from remaining in the form.
-    setForm({ ...defaultForm, latitude: normaliseCoordinate(mapLatitude), longitude: normaliseCoordinate(mapLongitude) });
+    // The link already carries the active marker group's footprint. Showing
+    // it immediately avoids a blank required area field while the richer
+    // planner-context request (peat, weather, water, and re-grouping) runs.
+    // The authoritative backend default replaces this value below.
+    setForm({
+      ...defaultForm,
+      latitude: normaliseCoordinate(mapLatitude),
+      longitude: normaliseCoordinate(mapLongitude),
+      area_ha: validMapAreaHa === null ? "" : String(validMapAreaHa),
+    });
     setPlan(null); setError("");
-  }, [mapLatitude, mapLongitude, mapGridId]);
+  }, [mapSelectionKey, mapLatitude, mapLongitude, validMapAreaHa]);
   useEffect(() => {
     if (!mapLatitude || !mapLongitude || !Number.isFinite(Number(mapLatitude)) || !Number.isFinite(Number(mapLongitude))) {
       setMapContext(null);
@@ -59,17 +72,22 @@ export function ResponsePlanner() {
         if (!active) return;
         setMapContext(context);
         const defaults = context.model_input_defaults;
+        const resolvedAreaHa = Number(defaults.area_ha);
         setForm((current) => ({
           ...current,
           latitude: normaliseCoordinate(String(defaults.latitude)), longitude: normaliseCoordinate(String(defaults.longitude)),
-          area_ha: defaults.area_ha === null ? current.area_ha : String(defaults.area_ha),
+          // For forecast-grid links the API supplies the documented-local
+          // starting value; for FIRMS links it recomputes the current display
+          // group's footprint. Never replace a valid visible map value with
+          // an empty/invalid response.
+          area_ha: Number.isFinite(resolvedAreaHa) && resolvedAreaHa > 0 ? String(resolvedAreaHa) : current.area_ha,
           soil_class: defaults.soil_class, fire_type_class: defaults.fire_type_class, fwi_class: defaults.fwi_class,
         }));
       })
       .catch((err) => { if (active) setContextError(err instanceof Error ? err.message : "Map context could not be loaded."); })
       .finally(() => { if (active) setContextLoading(false); });
     return () => { active = false; };
-  }, [mapLatitude, mapLongitude, mapGridId, validMapAlertId, validMapMinimumFootprintHa, validMapAreaHa, validMapMergeRadiusKm, mapProvince]);
+  }, [mapSelectionKey, mapLatitude, mapLongitude, mapGridId, validMapAlertId, validMapMinimumFootprintHa, validMapAreaHa, validMapMergeRadiusKm, mapProvince]);
   const update = (key: keyof FormState, value: string) => {
     if (key === "latitude" || key === "longitude") { setMapContext(null); setContextError(""); }
     setForm((current) => ({ ...current, [key]: value }));
