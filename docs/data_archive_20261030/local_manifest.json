@@ -1,0 +1,650 @@
+{
+  "project": "/home/adit/projects/compfest_academy_2",
+  "minimum_file_bytes": 10485760,
+  "files": [
+    {
+      "path": "data/figshare_all_hazards/ics209plus-allhazards.zip",
+      "size": 40480366,
+      "md5": "8bf3b9c8321552e506ccbe23eac01145",
+      "sha256": "369f53924c9bdbd288783bd42d190d3a82f7cf16760132a5308324f91c795cac",
+      "existing_drive_path": "figshare_all_hazards/ics209plus-allhazards.zip",
+      "drive_file_id": "19psKc5oKwmmKUqka3Xn7iI1ybv1yWCEi"
+    },
+    {
+      "path": "data/figshare_all_hazards/ics209plus-source.zip",
+      "size": 426904378,
+      "md5": "9c1c59ee0211f6ead689cad01b5dba2b",
+      "sha256": "684cb28a83c94e323b7cad7924660b836427d1548b558efcc9e62d8c8315c21a",
+      "existing_drive_path": "figshare_all_hazards/ics209plus-source.zip",
+      "drive_file_id": "1PfqrzTVHFfaLk4SXP4Ahg3g9CFQSDXJA"
+    },
+    {
+      "path": "data/figshare_all_hazards/ics209plus-wildfire.zip",
+      "size": 48717736,
+      "md5": "564b028f2c724ab7855f95bbaca74683",
+      "sha256": "a17c08ede2824e9002fcda112301793c9e59ce1f7ed7eb1e16a762be85ade30f",
+      "existing_drive_path": "figshare_all_hazards/ics209plus-wildfire.zip",
+      "drive_file_id": "1vsLrpHeyoojO4k_xOcL_w6YUAJSd0CuI"
+    },
+    {
+      "path": "data/interim/era5_daily_grid.parquet",
+      "size": 405996956,
+      "md5": "f414a46e0b54bf85cd4dc6d5cdbe9cd7",
+      "sha256": "f9e0842167e22142a8ce6eeb380762cb9935326a7663ff779f0792430c0bf34a",
+      "existing_drive_path": "current_dashboard_snapshot_2026-09-10/data/interim/era5_daily_grid.parquet",
+      "drive_file_id": "1TcytSMd5-TwJE1cO1_hCgxbVkJCL-x_k"
+    },
+    {
+      "path": "data/interim/era5_weekly_grid.parquet",
+      "size": 46563993,
+      "md5": "88fd5b551067e9cc2321c73462a5edb6",
+      "sha256": "314856137f564b472c18d2a603afdf8eb7a8dab845e23d8f9a15b55d8ef6f0c1",
+      "existing_drive_path": "current_dashboard_snapshot_2026-09-10/data/interim/era5_weekly_grid.parquet",
+      "drive_file_id": "112qNzufZ2lx_3cVu4PLYWvphuifNmFNo"
+    },
+    {
+      "path": "data/processed/boundaries/kelurahan_desa_kalimantan.parquet",
+      "size": 54576247,
+      "md5": "8466167de76c8e8b6f749b4340e64278",
+      "sha256": "55a9c28fcb33fcf2b4892a09a24755cd2fa815abbd64a2f2ae63426a49eae06c",
+      "existing_drive_path": "boundaries/kelurahan_desa_kalimantan.parquet",
+      "drive_file_id": "1UQFcDtxr7BEcxvsM1OlYjoLhg0EA8mIU"
+    },
+    {
+      "path": "data/processed/fact_grid_week.parquet",
+      "size": 67442874,
+      "md5": "d0f6639192c488877d98290bfe478112",
+      "sha256": "788ace6a2e8f2d32d0a7c2b4f9ee2073f6621d16fe176cd65fa3f7e9f236a47e",
+      "existing_drive_path": "current_dashboard_snapshot_2026-09-10/data/processed/fact_grid_week.parquet",
+      "drive_file_id": "1hfWAWPJJGDWTIE229ABGFU4WveHf3_Pt"
+    },
+    {
+      "path": "data/processed/osm_operational/roads_kalimantan.parquet",
+      "size": 131414931,
+      "md5": "349b554005745e62104c9ceac3e0cdbd",
+      "sha256": "345f533772a4ea440951abb917ea68b4480f362090cc7d2a6b647ca5277509e9",
+      "existing_drive_path": "osm/operational/roads_kalimantan.parquet",
+      "drive_file_id": "1ZGvHDsnHh4TPavCuNYYRde396mBiPBT4"
+    },
+    {
+      "path": "data/processed/osm_operational/waterbodies_kalimantan.parquet",
+      "size": 12306630,
+      "md5": "41b6e1ab539adffc780bf486eb6a7a52",
+      "sha256": "608c47ebf6acc2edff0949c38804904d229fe9ba57d124f6753d755d1b5889ae",
+      "existing_drive_path": "osm/operational/waterbodies_kalimantan.parquet",
+      "drive_file_id": "1caYVPxP_J8Jaw5MqHeYHsYmPXCeKu15R"
+    },
+    {
+      "path": "data/processed/osm_operational/waterways_kalimantan.parquet",
+      "size": 29134683,
+      "md5": "f834b53d823f5b9be392fe594f4a72ad",
+      "sha256": "c3d0b60b0024db5fc14ce3e4da72c16195abfcdc778a94ed67a34dcf5cafdc35",
+      "existing_drive_path": "osm/operational/waterways_kalimantan.parquet",
+      "drive_file_id": "1QdmM7wndwPkrVoXr9LLRJ884Tqc8OOHa"
+    },
+    {
+      "path": "data/raw/boundaries/idn_adm1.geojson",
+      "size": 15316278,
+      "md5": "46ffeb4cb6fa3737edee8081bc066b43",
+      "sha256": "9a2c93ed5c956d7b9afeab4882e9aab9c3fceb8be4cafaae6e198223c2cbb3af",
+      "existing_drive_path": "boundaries/idn_adm1.geojson",
+      "drive_file_id": "1li0NTvc7ZdrKiDuzKS1OGkihMtdzBn-v"
+    },
+    {
+      "path": "data/raw/boundaries/idn_adm2.geojson",
+      "size": 158892831,
+      "md5": "fd4a6a57a99048655181ea89991ab3cf",
+      "sha256": "947cedc058888c0c2b2628071d289956c85fe279adb369dcf1327ce2236a5602",
+      "existing_drive_path": "boundaries/idn_adm2.geojson",
+      "drive_file_id": "1L_yh-34JP2A83VWgpt6Qkod3ef4s87A6"
+    },
+    {
+      "path": "data/raw/boundaries/kelurahan_desa_geoit/kelurahan_desa_61.json.gz",
+      "size": 13463063,
+      "md5": "5067cb320c5b33e60f40916c6cf4bf97",
+      "sha256": "4191653ed6c64780eba8ae7c233fd65ea53d4d5d7b118266f3d3e33011574610",
+      "existing_drive_path": "boundaries/kelurahan_desa_geoit/kelurahan_desa_61.json.gz",
+      "drive_file_id": "1OYTXK79JaXpZSnQ8dXk4nkXG8FzPiRWE"
+    },
+    {
+      "path": "data/raw/boundaries/kelurahan_desa_geoit/kelurahan_desa_64.json.gz",
+      "size": 10822309,
+      "md5": "0612d0b0aafa2275ea9284e1a9f56888",
+      "sha256": "43ed1edd1e00d734e098c5c8dd187e4d201a0b5efbe7ec44acd8faf6d261f2f1",
+      "existing_drive_path": "boundaries/kelurahan_desa_geoit/kelurahan_desa_64.json.gz",
+      "drive_file_id": "1wBGje2VQ1IodyCatQzbKK-Avi0byI1fI"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2018_08.nc",
+      "size": 34518210,
+      "md5": "06c16ed63fa6390404a99010fcf92c3e",
+      "sha256": "b86e698425cf5de0741f65bf1b7f9d50393f890329a2341afbce7106d398901c",
+      "existing_drive_path": "era5_land/historical_kalteng_resource_context/era5_land_2018_08.nc",
+      "drive_file_id": "104t0Dx5w7ENWhhkdpK4O0zmvG0RJHAQb"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_01.nc",
+      "size": 36611345,
+      "md5": "6c00265c1728cf3840ac7a19a1bc7d73",
+      "sha256": "8d4221e8bae97f075bb4780e586d3fbf14024ba526e65a0a738f9a55118c2dec",
+      "existing_drive_path": "era5_land/era5_land_2023_01.nc",
+      "drive_file_id": "1cQ4iW1Ds3_IFhxPibCePA2WFCMzgmK2Y"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_02.nc",
+      "size": 33872880,
+      "md5": "3388d88295758f864ac70421f215790f",
+      "sha256": "1aa4e041586c82e3fdab4ad021f941ad1df10fce440730f325e74ead4fbbcc9d",
+      "existing_drive_path": "era5_land/era5_land_2023_02.nc",
+      "drive_file_id": "1X432PlkRoMQqeENP5PEgarHieSPLSF5N"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_03.nc",
+      "size": 37181095,
+      "md5": "bd023e8a05ec0a787d339efc30bd3f8f",
+      "sha256": "79903a48b36d3cd797e45ae763fcc4061ddf153477de4f59e0eb703db5755c6d",
+      "existing_drive_path": "era5_land/era5_land_2023_03.nc",
+      "drive_file_id": "1OeBUkTDr5qlvvg80L9XuzBYW94OZl3V4"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_04.nc",
+      "size": 34288360,
+      "md5": "14cd00314460d4ad819c5f0bc9032141",
+      "sha256": "7484f88dd867bea18247336bc79d1bf091c889c2b52c5620eb29a233fc4f8bc0",
+      "existing_drive_path": "era5_land/era5_land_2023_04.nc",
+      "drive_file_id": "1vZo6EDv3XgmTGdT5b4MgSgJ-ZvF-sKf-"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_05.nc",
+      "size": 35331978,
+      "md5": "df6862cf2224fcdf9082acc1371e58c6",
+      "sha256": "75f5690e25826c3ca2aa20b6b4fd91c4180c6a4f1b263b9704117887e212b7a5",
+      "existing_drive_path": "era5_land/era5_land_2023_05.nc",
+      "drive_file_id": "1Q0n4Uj7mZmVkxAbxIknoml1FdSvIZwTf"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_06.nc",
+      "size": 34324415,
+      "md5": "dcc989889d7e879dc838c74b02e02c07",
+      "sha256": "12886ed982fcdd90e8f8a0f0cc6852962465261e1ed391505b0101f7443a754b",
+      "existing_drive_path": "era5_land/era5_land_2023_06.nc",
+      "drive_file_id": "1I-znDSXUCPpI3zm2r0ZWrorJMfYw-RHF"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_07.nc",
+      "size": 35508258,
+      "md5": "e73c1e01d2dac390aa752960eda24778",
+      "sha256": "41216530c8933a196ee61a1324dc4f5db1f818ea208541467dc73d26f9fe59b7",
+      "existing_drive_path": "era5_land/era5_land_2023_07.nc",
+      "drive_file_id": "1DN9yEve0gLfesk1YodbeCt8oSoaKWacC"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_08.nc",
+      "size": 35532688,
+      "md5": "f295e955e4744b91f245071d04650bc0",
+      "sha256": "30144cc8d57175fee6afa170c9a2b98bc77f2f27e3478d7b6c37b783ca54267f",
+      "existing_drive_path": "era5_land/era5_land_2023_08.nc",
+      "drive_file_id": "1nUH-03yeXDDD_Y5UT36Y-D2LdgS5opa5"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_09.nc",
+      "size": 29891214,
+      "md5": "5db0d3473eb7e277c472413f4ec45d43",
+      "sha256": "7dabe82b8651efcf7a1770ee21078e693cbc1295c1eec565f55aa5f92301c301",
+      "existing_drive_path": "era5_land/era5_land_2023_09.nc",
+      "drive_file_id": "1ra3lEU92kHDfB14Af159XyaoqhuO8bdx"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_10.nc",
+      "size": 33440574,
+      "md5": "aeb6c66b4ac774f87a65cd4eb60bfb85",
+      "sha256": "e4aa784c7678e83eb1800410ca6b0ac7ea3a59289962b4efe59f87385c0cb768",
+      "existing_drive_path": "era5_land/era5_land_2023_10.nc",
+      "drive_file_id": "1hRrByMn64yq40UBPXdPAin99EITxBRoN"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_11.nc",
+      "size": 35805457,
+      "md5": "a45da8e9bd51c1ab2af3734f50b84f67",
+      "sha256": "7e74ea3de4b4bd076cc2920007b70a3e5bd2ce1a897c8670dd7ff779b4a12a20",
+      "existing_drive_path": "era5_land/era5_land_2023_11.nc",
+      "drive_file_id": "1C07OdxL0kFjjtXw9g6bJyX2Bx7KtyRJW"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2023_12.nc",
+      "size": 37594360,
+      "md5": "29063ca01b4a760f2a827dd3730c3a4e",
+      "sha256": "4add06a669d8c978baf1aab72a55855c3515c7f827d94a3f2a731cc81f391cfa",
+      "existing_drive_path": "era5_land/era5_land_2023_12.nc",
+      "drive_file_id": "1OlxmiAoq4R05w_Df6Fk5nMM6iQJ4vo9l"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_01.nc",
+      "size": 34826490,
+      "md5": "7566565e2fad5364aa17402bc172f3f5",
+      "sha256": "f3f648d8fdb3dc9f92517c584638ed3d0bd113bd3b6edd275610f75df04f2ffb",
+      "existing_drive_path": "era5_land/era5_land_2024_01.nc",
+      "drive_file_id": "17YHFAqkl3fOifegn6TZnEz0xApAz6FbJ"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_02.nc",
+      "size": 33944841,
+      "md5": "c9aaa4ea3659b97aa298bfdbbe5a9d84",
+      "sha256": "cf118cfe7ba67ad5fa865b05953bbb6a9fcf9249ca163adfb20e2a9a35dc9280",
+      "existing_drive_path": "era5_land/era5_land_2024_02.nc",
+      "drive_file_id": "12xLDJlBILLhxYtuRPTAv74kJWBETRlee"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_03.nc",
+      "size": 36882613,
+      "md5": "7cac25614707c2972ab188e75b4beb6c",
+      "sha256": "7772185850d4838afe0259fc93f0c3b53a5a6f35a3771755c8831e33d9df7767",
+      "existing_drive_path": "era5_land/era5_land_2024_03.nc",
+      "drive_file_id": "1TOEb9_KtDNeEQ0FGSWsb_iiKwBjIVz3D"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_04.nc",
+      "size": 35954290,
+      "md5": "a5387b7cbb22e43ae5b091d7abf31837",
+      "sha256": "633f38fc257eac6fa6d96953a54ce2ba4dee32e749e7ee9a6f951895fcfbfb58",
+      "existing_drive_path": "era5_land/era5_land_2024_04.nc",
+      "drive_file_id": "1ISrrTmGAkKSn7urBmytpgfzeXaYRUH0o"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_05.nc",
+      "size": 36583482,
+      "md5": "d4a7e68c78cbcaf2c5d6e078ec950477",
+      "sha256": "8e288fa8054ea17989ee75c8ace33f36ade1ce3ae4c6f2ca853856a6e9256e13",
+      "existing_drive_path": "era5_land/era5_land_2024_05.nc",
+      "drive_file_id": "1C_8HgpqjzjquGRW2IUQxIGC7G_Du50--"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_06.nc",
+      "size": 34898843,
+      "md5": "405f3995c374baab68394354df543b21",
+      "sha256": "d308455d845c9c23a44c69ed80767fc74adcb1e77e0da3d0c6bb23c795d1869f",
+      "existing_drive_path": "era5_land/era5_land_2024_06.nc",
+      "drive_file_id": "1mlu18GyvxcZVXzzpOfJQ7Dbm11pzncBL"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_07.nc",
+      "size": 33650675,
+      "md5": "d1f0fb4cd673e3a0927dc4f609ed3d1c",
+      "sha256": "f0431af0cd2a9eab36f2390a1c22fabc62b79c4de26f6a0ed929fd67501fa4ed",
+      "existing_drive_path": "era5_land/era5_land_2024_07.nc",
+      "drive_file_id": "1EAsmo5ivyKrTP-JTv7WawvI8q0IAWYZs"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_08.nc",
+      "size": 36453487,
+      "md5": "1a4596f0b0dd5b2d5333d249226956ed",
+      "sha256": "27be2069231e709f3c8806fa9fda19e64cd970279d8e180680de1d32a65c54d3",
+      "existing_drive_path": "era5_land/era5_land_2024_08.nc",
+      "drive_file_id": "1OUXleTBHvDo89CwEnERDtpRa9JMut3wR"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_09.nc",
+      "size": 32624395,
+      "md5": "158838331b5245f83e84c131a5de402b",
+      "sha256": "e4b0ff0d4aead94c3e907ebc51637409b1e424fbbe288f191d368d19b7240404",
+      "existing_drive_path": "era5_land/era5_land_2024_09.nc",
+      "drive_file_id": "1WFrDfmXZ6cd44Mjjy24Ix-UXqTblY2YJ"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_10.nc",
+      "size": 34949699,
+      "md5": "bf1f43135f0febec79835a1ca51ff54c",
+      "sha256": "7ce41c3e3052a2abd9cb1b28feac5b4940e8deaa88a343888033d7ba1cb80ee7",
+      "existing_drive_path": "era5_land/era5_land_2024_10.nc",
+      "drive_file_id": "1UmEWkj6wYnn9owJFDZqyAvvXeuRaXpry"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_11.nc",
+      "size": 35859392,
+      "md5": "847f37d5cdaa5472fe6379c0dba5e0ad",
+      "sha256": "8973193b7242e6933e0dc64630e603e6afc41ff649cce57558f5b28ef419f508",
+      "existing_drive_path": "era5_land/era5_land_2024_11.nc",
+      "drive_file_id": "1RNYgBMbJ7ce8KEmnD6LfisIGFmhLYRxV"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2024_12.nc",
+      "size": 37012362,
+      "md5": "9630cfe70f7ca59160c579217d4b75c7",
+      "sha256": "5e3da3646788053ca57b884009339d49ee1a4167a9340371e21c9bac92a60ccf",
+      "existing_drive_path": "era5_land/era5_land_2024_12.nc",
+      "drive_file_id": "1dJS8cA8yiGmaBRr9FPBEcMmtCn5ZjTAB"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_01.nc",
+      "size": 40347965,
+      "md5": "ebcaf93296a76f5e72a4fa26c65dd0c5",
+      "sha256": "5b794f7171220b56ec781d8bd5880a1c92a2401cba4d22bd52c12216badd856e",
+      "existing_drive_path": "era5_land/era5_land_2025_01.nc",
+      "drive_file_id": "1xWCk0CoOAWLDbuNfAIqwldhCi2HMbTER"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_02.nc",
+      "size": 33604389,
+      "md5": "08c3ca4140f6e4116e43eb98e48dfd9f",
+      "sha256": "d3d5cd42c71c62798adce622a9ecc5ebcacd94f00f52a467d301e6de69d3c3bc",
+      "existing_drive_path": "era5_land/era5_land_2025_02.nc",
+      "drive_file_id": "1JwSsRyZ4LMRoX4HaxrCUtVlQXTZDrDwD"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_03.nc",
+      "size": 36853485,
+      "md5": "113e9d0f4e523b83430da8cb14f50e7a",
+      "sha256": "20c54d95e8baac59c81964581fbf53ad7aac11a6e0226ec9b0f2123d74e57068",
+      "existing_drive_path": "era5_land/era5_land_2025_03.nc",
+      "drive_file_id": "1an86NkJbTF6mvkFnDwhjH0361TALNmGd"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_04.nc",
+      "size": 33516616,
+      "md5": "27cebb1f6ccffa2a7313089c9ff26ed4",
+      "sha256": "8e6ad2e279c710c32e00d853c5d8fff342d6edbb9d444aa7051768b8154de7cf",
+      "existing_drive_path": "era5_land/era5_land_2025_04.nc",
+      "drive_file_id": "11-A2kvjXmkgmB5EpFXkAhP9AESyBJjW3"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_05.nc",
+      "size": 36256544,
+      "md5": "aaf44a4061006e6c32725d58656fb668",
+      "sha256": "c330ddd0bc82bd0d3ff568140639ce87cb88f06362cef0a777176c050fb1a99a",
+      "existing_drive_path": "era5_land/era5_land_2025_05.nc",
+      "drive_file_id": "1gUAejbY-kkDah-3Zqnxzsd4YPUPpPf67"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_06.nc",
+      "size": 31997278,
+      "md5": "91e34f6a1bad63d5825032a630121dfa",
+      "sha256": "870aa23f12caf6d0a372d2acb907ba33a01caa28179266ee92fe4d7aafc6dea6",
+      "existing_drive_path": "era5_land/era5_land_2025_06.nc",
+      "drive_file_id": "1Pw_CAwJIFcWzzmTaSKxOY80FvcAHxxGG"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_07.nc",
+      "size": 32149890,
+      "md5": "f12d3f27014e1c3d01084e118d215141",
+      "sha256": "cfc66e81617fad8a36119753c76ec0223b34debcb554eb03e8c992b4ab657f69",
+      "existing_drive_path": "era5_land/era5_land_2025_07.nc",
+      "drive_file_id": "10Avci4yVY0pnKJ2W_tRd9C9eVYwhbuRx"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_08.nc",
+      "size": 37127150,
+      "md5": "9092b49edbf294fedd0ec17bc0e6c732",
+      "sha256": "051c5c65ad0e47854ca94369d11df1bc3a6b0029f897a00c46b84a91ecd9fed2",
+      "existing_drive_path": "era5_land/era5_land_2025_08.nc",
+      "drive_file_id": "1LlzOs67FC9r29QQi3pcTt3-KGtjyHlOE"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_09.nc",
+      "size": 35636845,
+      "md5": "b60d483dbdd5c35c0717971ad70818e3",
+      "sha256": "223d856d6a4ad26580853e858937936818b0e58f3ce56e3fa4cea021b8c1d791",
+      "existing_drive_path": "era5_land/era5_land_2025_09.nc",
+      "drive_file_id": "1NAAo9Gb0mChA3GH8WbQF6k7c1Dcdz2PY"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_10.nc",
+      "size": 35786015,
+      "md5": "476f2898305db3d402273bfc882b0ca4",
+      "sha256": "f74b7e5d1045d9e4a7c9f92ce7277723e1cb7b023514cb0dc54e3c551b42c8cc",
+      "existing_drive_path": "era5_land/era5_land_2025_10.nc",
+      "drive_file_id": "12MqZHAOYy9yvPoT1fvKcnnmg1mFtjmUK"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_11.nc",
+      "size": 36869162,
+      "md5": "48dc514344b40349d214d017b70e3d3d",
+      "sha256": "583433d26a56bcfee3a935835865fc7379895b47f243f3d89ee34581bb42b18b",
+      "existing_drive_path": "era5_land/era5_land_2025_11.nc",
+      "drive_file_id": "1hQeYF6VvIQb1UPN17UcoZePQhBwK5ZdW"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2025_12.nc",
+      "size": 37337126,
+      "md5": "7598152312e80d5ff38a61ed88ec2b52",
+      "sha256": "024aef39a405af34f08b619f6529f3a6f158b46d18aa698938376dccfc3738a6",
+      "existing_drive_path": "era5_land/era5_land_2025_12.nc",
+      "drive_file_id": "1xMX89AqsvD2AtoX2dpUbipNIOP1BWsNo"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_01.nc",
+      "size": 34027040,
+      "md5": "ca455ecdd269e7f215f95a5b2282b74d",
+      "sha256": "f5489516734b26a4b3022d4c2f5ba079c0c9a7903e5bb134508592c53c2580c3",
+      "existing_drive_path": "era5_land/era5_land_2026_01.nc",
+      "drive_file_id": "1nXZpQwRVqRXJzBqJBjxgVDgGi10Y7Dge"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_02.nc",
+      "size": 30668201,
+      "md5": "b8919457d36452ea61032b37305a4e03",
+      "sha256": "fb4113d17520078d0a18889fe5a7c4dac24cf330abab1385eee15c466f867374",
+      "existing_drive_path": "era5_land/era5_land_2026_02.nc",
+      "drive_file_id": "1o1tobiIeAk7dYYxHIECujjg7FBmk1j8p"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_03.nc",
+      "size": 33296111,
+      "md5": "7b51a573bd9ca411a374709c3efccb96",
+      "sha256": "12fe41873803889da89e73950eb3c353a12252c1f761f40931329d16e8d44597",
+      "existing_drive_path": "era5_land/era5_land_2026_03.nc",
+      "drive_file_id": "13R9ZnsHyZPHfGBAwdSOILvJ7fbEBIGaL"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_04.nc",
+      "size": 35337523,
+      "md5": "04c2e23d189f302554ec50298013e020",
+      "sha256": "049c760b28e2e6559f8685cb22fe4d9c99372fd8d516cbc4c06266136cb62088",
+      "existing_drive_path": "era5_land/era5_land_2026_04.nc",
+      "drive_file_id": "1FuwLYhGRGtZ-xW982TD3xQkcM5Yg3oTS"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_05.nc",
+      "size": 37453515,
+      "md5": "60738da595e295f7d39ab578c3e863ae",
+      "sha256": "9c43d2d6c895cdb7fa025c1fd8e5d0307d68cb6b3164c590811551632821bacb",
+      "existing_drive_path": "era5_land/era5_land_2026_05.nc",
+      "drive_file_id": "1b2h0-5OM13YAYoeijTX6x7pRkW8V3Zjo"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_06.nc",
+      "size": 33484424,
+      "md5": "8c4210b878d9dd8e8a8933b4deb7622a",
+      "sha256": "45bc99c524eb4ecf676f55215bedc1aeb0656dd785a847f8b8b90bf2b8ba8293",
+      "existing_drive_path": "era5_land/era5_land_2026_06.nc",
+      "drive_file_id": "1XfpfmbjW2iPxUxjgWOVB7tp5KAgeNFDx"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_07.nc",
+      "size": 32523637,
+      "md5": "e2717465adf4a05e1c23322ca4bdd36a",
+      "sha256": "d44b23035a9721bb58a7b21e019a3c445a4835314f48c08eee241af2b1eb37c7",
+      "existing_drive_path": "era5_land/era5_land_2026_07.nc",
+      "drive_file_id": "1mlxEGOdooCDVRdMAEHttrQBwpd4E9Ka5"
+    },
+    {
+      "path": "data/raw/era5_land/era5_land_2026_08.nc",
+      "size": 27721926,
+      "md5": "597832e9bb5666449c5774e4265875e9",
+      "sha256": "1db3425b3570cea8c9505856a82c53e3f2778e21fe63ceeb692e987b21079f14",
+      "existing_drive_path": "era5_land/2026/era5_land_2026_08.nc",
+      "drive_file_id": "1LW2P-rMO2t35kt8WsDbdsh00TE9TxgsI"
+    },
+    {
+      "path": "data/raw/jrc_surface_water/occurrence_100E_0N_v1_5_2024.tif",
+      "size": 55294962,
+      "md5": "b57dba8fd515d0a992a1008f50e3cbea",
+      "sha256": "b20090f4441fbcdc66987857a9a272b1ac6143cae740eb8e27779a4edc9ff5ff",
+      "existing_drive_path": "water/jrc_global_surface_water/occurrence_100E_0N_v1_5_2024.tif",
+      "drive_file_id": "162fkEMnHYgDyzjEhi3QhvkLrPAVVmZ98"
+    },
+    {
+      "path": "data/raw/jrc_surface_water/occurrence_100E_10N_v1_5_2024.tif",
+      "size": 69202896,
+      "md5": "a3fa3f4e9b3effc8669f459852b5199b",
+      "sha256": "800b982a9716af1af304295755fd33757af6cf536d33286f19fb27fbf6f899e7",
+      "existing_drive_path": "water/jrc_global_surface_water/occurrence_100E_10N_v1_5_2024.tif",
+      "drive_file_id": "18ql8LlOeqYYa1znaPqlu-3WPcyeQr6OI"
+    },
+    {
+      "path": "data/raw/jrc_surface_water/occurrence_110E_0N_v1_5_2024.tif",
+      "size": 74222460,
+      "md5": "603d89999b00a0d7999f75d8af6fbd5b",
+      "sha256": "5ce4951d950f98da050bf151665a9865b8e3d769a93b1284786c3227675296c9",
+      "existing_drive_path": "water/jrc_global_surface_water/occurrence_110E_0N_v1_5_2024.tif",
+      "drive_file_id": "1rpNU_CFYF3EJmi6HyLLJqWryZX9ZvfCd"
+    },
+    {
+      "path": "data/raw/jrc_surface_water/occurrence_110E_10N_v1_5_2024.tif",
+      "size": 36866076,
+      "md5": "3b8acd8b935151ae62e1dd2d4de86191",
+      "sha256": "5b341f3c69d67df788e795ec76e2867a153e47677dafa6c349f8bfc2035f8137",
+      "existing_drive_path": "water/jrc_global_surface_water/occurrence_110E_10N_v1_5_2024.tif",
+      "drive_file_id": "1Kc-7asqmwuaN15ArpRymXSoAZ7qv4YHP"
+    },
+    {
+      "path": "data/raw/jrc_surface_water/seasonality_100E_10N_v1_5_2024.tif",
+      "size": 12009791,
+      "md5": "1170daf0c667d0c7c4d7af7962d755b2",
+      "sha256": "1fd2a5f5e455c38a274c9a0df37ac1e746f4efb48b9a1f732cf170dc0efe8ae4",
+      "existing_drive_path": "water/jrc_global_surface_water/seasonality_100E_10N_v1_5_2024.tif",
+      "drive_file_id": "1xdhMggt4AKbioGC9zQwfNBwvllKRnPeB"
+    },
+    {
+      "path": "data/raw/mapbiomas/burned_area_monthly_2026_01.tif",
+      "size": 149775342,
+      "md5": "f0b1c2a1fcbb83a5f6422deea078a6ab",
+      "sha256": "f42757e4c261cb1df649300801c303b818aa532ea5038b7000c816bb1983f954",
+      "existing_drive_path": "mapbiomas/burned_area_monthly_2026_01.tif",
+      "drive_file_id": "1rMDmz7-BLYZDu_5nmI1XsvpHMdDNKDdL"
+    },
+    {
+      "path": "data/raw/mapbiomas/burned_area_monthly_2026_02.tif",
+      "size": 149655186,
+      "md5": "402397dcb4de5d86f971627cb5f9e6f7",
+      "sha256": "9052327521539ff741b18b3d6a332a6482f7c396e5ff5563deda2eeb7090cd5c",
+      "existing_drive_path": "mapbiomas/burned_area_monthly_2026_02.tif",
+      "drive_file_id": "1cKF4mOIH4h242vHitl1OLpK-zP0_iRy3"
+    },
+    {
+      "path": "data/raw/mapbiomas/burned_area_monthly_2026_03.tif",
+      "size": 149975002,
+      "md5": "aee3bb3e7bc7bddb3aefa263cf112e1f",
+      "sha256": "9584ffd23bf286792a6e6a77e1dae56802bd6a0e3071ed957c2625eb6a40a5bd",
+      "existing_drive_path": "mapbiomas/burned_area_monthly_2026_03.tif",
+      "drive_file_id": "1WJRyIkKGfL_4haiXCU26RvDg9Yr0o1cf"
+    },
+    {
+      "path": "data/raw/mapbiomas/burned_area_monthly_2026_04.tif",
+      "size": 150136079,
+      "md5": "af4ae5979f299ce482772719c3f89dc5",
+      "sha256": "f69769bfca413543a06b73b5db090a1ed11e90f65f7166bcfc5f857d1a081d51",
+      "existing_drive_path": "mapbiomas/burned_area_monthly_2026_04.tif",
+      "drive_file_id": "1R4ZA5BQsSrev4j8r3RkK3N9GFmhIIF6o"
+    },
+    {
+      "path": "data/raw/mapbiomas/burned_area_monthly_2026_05.tif",
+      "size": 149967178,
+      "md5": "f72b122dce50731a35137dde81c5eb9b",
+      "sha256": "18959abbf7b05c170b43e6cdc2651ef84c6a0a86f875aede52ae755851f036c6",
+      "existing_drive_path": "mapbiomas/burned_area_monthly_2026_05.tif",
+      "drive_file_id": "1VRpR0fXfBMrNp1uxG2yHZZ4H5wo6mE1e"
+    },
+    {
+      "path": "data/raw/mapbiomas/burned_area_monthly_2026_06.tif",
+      "size": 150621456,
+      "md5": "dc6eee2c2b53cc7d424e1653cec3a6c4",
+      "sha256": "28efa97cc2166a47623bd97ec8feea4ebbb7667e3081da6193ea3908edfa8597",
+      "existing_drive_path": "mapbiomas/burned_area_monthly_2026_06.tif",
+      "drive_file_id": "1yY78jXAf_SEohaY7aP2hXE4COO48Jz42"
+    },
+    {
+      "path": "data/raw/mapbiomas/landcover_2022_collection2.tif",
+      "size": 233720355,
+      "md5": "d49e06158f2d74352b37c2b8433f82e9",
+      "sha256": "bbac1049c11822612dd6f1c16a4bd4b8c8319c4ebfd28245e84ae66b33358772",
+      "existing_drive_path": "mapbiomas/landcover_2022_collection2.tif",
+      "drive_file_id": "1Y67DRbCDN0rik1Kpt0kqP21KklpOfIbI"
+    },
+    {
+      "path": "data/raw/mapbiomas/landcover_statistics_2023_2024_collection4_1.xlsx",
+      "size": 21883093,
+      "md5": "39631e7f17abb9f0531770ad3ae1ed3e",
+      "sha256": "f6951577d1abb29c44b198a8772965313d739a65e6c98fdb1202b97fb3e80837",
+      "existing_drive_path": "mapbiomas/landcover_statistics_2023_2024_collection4_1.xlsx",
+      "drive_file_id": "1XMTxyRXWCBaiyeNheEfnTJCz02cMYM0d"
+    },
+    {
+      "path": "data/raw/osm/kalimantan-260906.osm.pbf",
+      "size": 147350449,
+      "md5": "10a9db5a43f5cca3cbc2a7075c425996",
+      "sha256": "94421a3fc47819657c4c84a3c8a9297f7d68158d3875ec440306e3a65a52162b",
+      "existing_drive_path": "osm/source/kalimantan_260906.osm.pbf",
+      "drive_file_id": "12yB9n3Jq6YYR2U2uPGlgQn2fj9eiwC_A"
+    },
+    {
+      "path": "data/raw/peatland/big_peat_extent_kalimantan.geojson",
+      "size": 30907547,
+      "md5": "0e15f772eb7f524f66872dbbc2e07fee",
+      "sha256": "25139e9af794b3d323c7e1c848b384cf1209891556ff1d175a70ea209121364a",
+      "existing_drive_path": "peatland/big_official/raw/big_peat_extent_kalimantan.geojson",
+      "drive_file_id": "1985dXsx5CAzoqbjqg-FdIOUiTGc3UmQt"
+    },
+    {
+      "path": "data/raw/peatland/big_peat_function_kalimantan.geojson",
+      "size": 21245474,
+      "md5": "b4c67dd8dea53d2a00fd667a81bfbb9c",
+      "sha256": "a78acadd2394a6bdd747c02606d4a7ca840d845028cef7b673c7c55008f3e540",
+      "existing_drive_path": "peatland/big_official/raw/big_peat_function_kalimantan.geojson",
+      "drive_file_id": "11cwTDgso39Ne5dalrHvz28b1EdaxPWXf"
+    },
+    {
+      "path": "data/raw/peatland/kalimantan_peatlands.geojson",
+      "size": 10526643,
+      "md5": "c13ffa9f300fa962c0395f9a96567885",
+      "sha256": "77094087e7bebd3644e85dbf4f2c6bd6d51dfcec81773be9b96786e8c3e6dfd4",
+      "existing_drive_path": "peatland/wri/kalimantan_peatlands_wri.geojson",
+      "drive_file_id": "1ZGEapljJj-cOq4o00b4-Cebaknhldo7M"
+    },
+    {
+      "path": "data/raw/pupr_geoapi/pupr_sumur_bor_nasional.geojson",
+      "size": 15787585,
+      "md5": "9d01f09bff72b1b123f313a347191993",
+      "sha256": "83a293faff20fd591ee1ff06bb0f3f19d4e52ebbd986d866a961fcb89446e1ac",
+      "existing_drive_path": "infrastructure/pupr_geoapi_kalimantan/raw/pupr_sumur_bor_nasional.geojson",
+      "drive_file_id": "1aFzseCfogyCHcXZMQ2D74aWaDtMC-bjD"
+    },
+    {
+      "path": "kalimantan_firewatch/data/interim/kalimantan_adm2.geojson",
+      "size": 23076827,
+      "md5": "217514e514d28c212c37756207da82c7",
+      "sha256": "9a724e1912f68475d6775e17dfae330f7eefbae349fd0359940084463f2ada5b",
+      "existing_drive_path": "current_dashboard_snapshot_2026-09-10/kalimantan_firewatch/data/interim/kalimantan_adm2.geojson",
+      "drive_file_id": "1uObpP-eOEDIREi4GjzkT8PW8RltOayt5"
+    },
+    {
+      "path": "kalimantan_firewatch/data/raw/boundaries/idn_adm1.geojson",
+      "size": 15316298,
+      "md5": "2eb49ffa069ae1c0dbb3a3318586d0ea",
+      "sha256": "c2ef322cc86d451d352ab0b7fa914e53c162ead3799d4da0635b0c95372b3c49",
+      "existing_drive_path": "current_dashboard_snapshot_2026-09-10/kalimantan_firewatch/data/raw/boundaries/idn_adm1.geojson",
+      "drive_file_id": "1EegZJmcNjLTO7me1rb4aD9i9vc0-AAHm"
+    },
+    {
+      "path": "kalimantan_firewatch/data/raw/boundaries/idn_adm2.geojson",
+      "size": 158892851,
+      "md5": "2c3702c6d0d8a8ccddedb7579bce24f6",
+      "sha256": "93f4cc3bf5f3a1bb6f86b963bdb10ce212cf5ae7fc52ae9bc5844ae36ac07c12",
+      "existing_drive_path": "current_dashboard_snapshot_2026-09-10/kalimantan_firewatch/data/raw/boundaries/idn_adm2.geojson",
+      "drive_file_id": "1zqVCrdRaYDngIqmEFkvcV4cCHP4WaE-d"
+    }
+  ],
+  "total_bytes": 4858003070,
+  "verified_at_utc": "2026-10-30T12:07:39.676201+00:00",
+  "drive_root_folder_id": "1OsHEAWEAl57AKlB6iIkKYiDlof6-hV0E",
+  "archive_path": "metadata/project_archives/compfest_academy_2_2026-10-30"
+}

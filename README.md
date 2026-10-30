@@ -269,4 +269,6 @@ Deteksi FIRMS adalah observasi panas satelit. Footprint piksel, luas grid foreca
 
 Dokumentasi teknis: [ETL architecture](docs/PRODUCTION_ETL_PLAN.md), [operational runbook](docs/PRODUCTION_RUNBOOK.md), serta laporan pada `reports/`.
 
+Arsip file data besar di Google Drive beserta indeks checksum dan skrip pemulihannya dijelaskan pada [panduan pemulihan data](docs/data_archive_20261030/README.md). Untuk salinan lokal yang sudah dibersihkan, pulihkan file tersebut sebelum menjalankan dashboard atau pipeline.
+
 API key, access code, token ngrok, database runtime, virtual environment, dependency terpasang, dan cache build dikecualikan dari Git. Gunakan file contoh untuk mengatur credential pada environment masing-masing.

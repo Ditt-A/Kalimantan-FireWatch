@@ -1,0 +1,648 @@
+{
+  "commit": "a3b57bbd45619237287f42641869378c9933443f",
+  "files": [
+    {
+      "path": "data/interim/era5_daily_corrected/daily_complete.parquet",
+      "size": 92655135,
+      "md5": "194b6e32c8973992685949a7da54a6b0",
+      "sha256": "73bff98ac120da3a67fa30477898b9875f5fc96d9ec4dcf701d338d9cc08c957"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2018_08.json",
+      "size": 175,
+      "md5": "0a6baa38e5c894190d8360eba229f375",
+      "sha256": "a2b5358333b642cfb4fc80a5f5bce001a2dcf3c125974e4e32e72a64c2a531d3"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2018_08.parquet",
+      "size": 2868292,
+      "md5": "ee3bf5d85f33a89bfaa5c5489887298a",
+      "sha256": "23026b96b873b1d1c534b7fa94e19001184ca1ae8bd79f6d5608c0cc2313150b"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_01.json",
+      "size": 175,
+      "md5": "83f32f0accaef77943d75ac44b725c3a",
+      "sha256": "367ab0345b3f0e5c456fddf1aec80250eb25dd3fc42a9cad24b8352d51fff777"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_01.parquet",
+      "size": 2828632,
+      "md5": "c164ccb6dedb104b28a817f769e137e7",
+      "sha256": "a0a0896a3d0740c089cd9efa9eecc03b8dda445b544ae4c7355ef5f8f0f26144"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_02.json",
+      "size": 175,
+      "md5": "1720218c45c330273ca559995290fb1e",
+      "sha256": "adab23bee25be852fbcec199161560cb69eddf22f94eb4fb90fa92dc65f53d3c"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_02.parquet",
+      "size": 2554612,
+      "md5": "04537f8dd314d169b70239676dc1c9f1",
+      "sha256": "8e00ef1006f158e09219f267cbee729ccbcbfd45b53e82971f78770111d545ce"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_03.json",
+      "size": 175,
+      "md5": "38572815598bb1f41fb82fdba14ab6ff",
+      "sha256": "8bb47848ae8bea9fcef9411e965833a2583142d368b8076f6ac74a64774d223e"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_03.parquet",
+      "size": 2753031,
+      "md5": "6320323087d54742fba1c96702e862ee",
+      "sha256": "e3ef3d75614d5917ade53c79f68b0479733879c2abb774e20afeef1424d6ff53"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_04.json",
+      "size": 175,
+      "md5": "8525f40887647c364f4dccd12ab63386",
+      "sha256": "f0184d9a24a2f11e1d2f87278e9c97be3ba1c693decd0c4fcdfecf4f08395442"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_04.parquet",
+      "size": 2700030,
+      "md5": "834e96889f9836b0dfb85ff0c5712cfc",
+      "sha256": "bcd6c8ac28495264bdf17ef82a5c5a6670240b9c34c63b1ae24d53f6e4051a7d"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_05.json",
+      "size": 175,
+      "md5": "8ee57be8a58e7c6c04da2ca5592b0204",
+      "sha256": "cbcd95d2d1aa3033579e0d405903e193ce43f7f8b404ffa1843c9167762750dc"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_05.parquet",
+      "size": 2800233,
+      "md5": "cba7fd74594a392444fac0d40dd904fa",
+      "sha256": "2dbd89aaf0aaf4742340dd8255abf56eeb9b2cd44b502b9cb98d2bef01bc2385"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_06.json",
+      "size": 175,
+      "md5": "d7951a832346755b225efc1e86423a7b",
+      "sha256": "546bf53f69f6ba551d9d37d8389a76ecdf6f01a2fed47f47f1adb20d7acf8a7b"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_06.parquet",
+      "size": 2720080,
+      "md5": "a3ee7896bf6f2d7cdbe77f03b4c4057f",
+      "sha256": "8a313a49380f6ef6b1d1085ea76d593a95c78fa51ee91a8c6dbe41bba619725c"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_07.json",
+      "size": 175,
+      "md5": "85394d27b12ad117b652104f771768c8",
+      "sha256": "11da03b28cef5d53f5faf5b57a85f71596caab98a5a6e529b8b70362393b5c48"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_07.parquet",
+      "size": 2804418,
+      "md5": "bb30de7473a62082d125cb152da7c60b",
+      "sha256": "fb505a9e3894a413eed77fd860405139b2ae1f7a68f74da425b014240ed7be1d"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_08.json",
+      "size": 175,
+      "md5": "e2a06225dc1813e9b217a55f815dce71",
+      "sha256": "0fff3af14fc76672f3a8cf44e7743b52605ea75db8134f1f7c1e8ee1b2c6d5cb"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_08.parquet",
+      "size": 2843642,
+      "md5": "a2ace1238aeae667c1c8ba01af55445f",
+      "sha256": "de3530da85c95710d4a655bd491615102740f6ebc94c7180e280d40cd0a62f83"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_09.json",
+      "size": 175,
+      "md5": "1f6fb6c9344e3899dde69cab0ece44e5",
+      "sha256": "d2b3bdc3744b0a25511cc6e15fb14152828505bbdec385525dfee89b48f0133a"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_09.parquet",
+      "size": 2741140,
+      "md5": "1e5b77590d36d7e025096ec85eec9604",
+      "sha256": "7a68ae8b43449585b9991c5b5f7889aeeda8274a26f8d27b9ae8322673090224"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_10.json",
+      "size": 175,
+      "md5": "9884c2582aa28030739c5b9980a73f70",
+      "sha256": "7e77294f31f9f255bbf77bcf3aa4416c81dee665947b2891e3eb6453197d815f"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_10.parquet",
+      "size": 2883751,
+      "md5": "96fc5b7ca5b91ca3ef0e90050502fb8a",
+      "sha256": "5cfe6411a8480e555472ad476c4adaea9596140ae97a623aa772cafd111b60d3"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_11.json",
+      "size": 175,
+      "md5": "6412391015ee5e6e19c1f4c0ac8837ee",
+      "sha256": "558cc4469245399382c7a61578936bb3b2aec94e7e9a4722bf8702f802cbed17"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_11.parquet",
+      "size": 2716180,
+      "md5": "00b8b01701833516fb4ff6a71f995fdf",
+      "sha256": "963776b835dfe9cbe4c74eeb2821bd0f990d6dbef1dc4abe075826feaa3a01b5"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_12.json",
+      "size": 175,
+      "md5": "007482d17cbf965e46933414fbdf7eef",
+      "sha256": "5cd9fe43a7fcd1a8705eb449956a7eeddf9f04a0b0ef4808bb5e6b113caefbb1"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2023_12.parquet",
+      "size": 2764495,
+      "md5": "e133eb3432d89bdd9b9a6fda99899d12",
+      "sha256": "23fa034948fc6afdf727656e284108b2a00bd5c8d2d208c0dd095b4e073227b3"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_01.json",
+      "size": 175,
+      "md5": "39d4de58bb5ebedd831997cdc97d0d89",
+      "sha256": "42b9be005530d6c0ca5e43be602be4d1b6031e0e636b4b1e380787454646e5a2"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_01.parquet",
+      "size": 2777935,
+      "md5": "074af9b32e89308001384d1ce6cf62da",
+      "sha256": "b687d1961486a913c9c31e9893d99bdea6f55966b3f0b8b5a5dcc8201ec036c6"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_02.json",
+      "size": 175,
+      "md5": "d286857fa0213a07ced9de4837eb07a2",
+      "sha256": "1e59277731e4417f9e2f1a9fae36fa300f2ee4ba03a4fc2b8852d170b0a32c10"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_02.parquet",
+      "size": 2640999,
+      "md5": "7de5c5f74c436c00a1d759f66f2d13cc",
+      "sha256": "deb5be0154c5dc68be7d978131fd611cc87050fd8afc2bf74c2c19783b1d6cd5"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_03.json",
+      "size": 175,
+      "md5": "ab0fbb434a4a82015a1a2423b730a0bf",
+      "sha256": "f0e4645d9cbfe3750f08360e61680449845619b4313ea3b7e9df3cabb95cef60"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_03.parquet",
+      "size": 2814548,
+      "md5": "43780666e36374698b58610dd74a2cb7",
+      "sha256": "b1407398acf074cec7d44c358219495f09ad533dbd43742bf7c152b795bc635e"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_04.json",
+      "size": 175,
+      "md5": "1ac748067671fd0ef1e63bb188ce6cb6",
+      "sha256": "92c0e83238f781bf81d3f2b1eb7d90e176f5846a921836a6af29346eb403168c"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_04.parquet",
+      "size": 2720249,
+      "md5": "429e43abb57fe6a369ee2327c46e300b",
+      "sha256": "aa57441c837298f6cddb3e7cac5a5e18f7d47965a962ccb80e916038b3d72154"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_05.json",
+      "size": 175,
+      "md5": "6e5a3a816bfe2bdb03ad46f16ab58db5",
+      "sha256": "48fb8d0ad2a9fc67e29f1bf06b520c4a43dc6bafa888fdff8deba518bbdb4981"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_05.parquet",
+      "size": 2759537,
+      "md5": "d4c4a27a73b0c445ef4c577dce27e2d0",
+      "sha256": "1a7cd1de4dcbaf43e6744f10c5c96cb4409648ad3a6e20f302672a572afd2339"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_06.json",
+      "size": 175,
+      "md5": "dcbf1c27f530350a92a140e704e8782e",
+      "sha256": "f251a6e122e466863caadc97924c088d5647f3ae37f08f6012c1972724136f48"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_06.parquet",
+      "size": 2692982,
+      "md5": "7d7d159fa52b8bb00eec7e54e22b6e22",
+      "sha256": "45c7e0f3e33e3cff26645dc781e4edbef1d274c06e00cb4a9b956646ac8460df"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_07.json",
+      "size": 175,
+      "md5": "bba54d8b16d5f2214a1d437eb9483084",
+      "sha256": "f4766d290e22b36dc566dcf36fa52bf59f2d512155257cb01f50e38cf8d3e251"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_07.parquet",
+      "size": 2836786,
+      "md5": "642bc0aea436bbb8961e028875b09766",
+      "sha256": "a1514d58c0cf5f90ec9ec6da9b838e568c9769125949cd300bb0a77daa546b7d"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_08.json",
+      "size": 175,
+      "md5": "5bc3a777a5222f85ffdd495d55803359",
+      "sha256": "6b8ee022fcd4970257e850e4d75854f4719c65ee9dba5f86085f70b177e4fcff"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_08.parquet",
+      "size": 2820209,
+      "md5": "f6684e3a9ea9e954a148784273e331a3",
+      "sha256": "67b1c038f6d24e27ae8acae3d36f674fcba0dd78a2e0963741f88648ff4bf684"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_09.json",
+      "size": 175,
+      "md5": "24707f1d0830cc2ab38b7384c7dedaf5",
+      "sha256": "39317870f7b51053965cd89c7c1da8b59b8d19716c212cf9fc27dec1f3d6c2c1"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_09.parquet",
+      "size": 2708941,
+      "md5": "00a28ae10ae63bc386e150eceaa66417",
+      "sha256": "e5da97447aa60e9413d9110d70a065173e62bf44834a7e5eb5bf1b54ce1896a9"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_10.json",
+      "size": 175,
+      "md5": "73958544890f4bd8a3eb914f93b82d58",
+      "sha256": "12a08c5e3ff80b0a2b87c5838b49c24fac346bfe7484db11e2a026310bb5f15f"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_10.parquet",
+      "size": 2833214,
+      "md5": "924f546a62aa2e4316ea338aa43e131a",
+      "sha256": "f454785b6d046f28b197aa1112b13e30d70b984dfa2f6065a1a8bfc509ccefd7"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_11.json",
+      "size": 175,
+      "md5": "86bcbe02e1ab4201fa8b9c87c79b4367",
+      "sha256": "a09035205caa90a2e9806c1912931ed37e172dda20b9ac55f49791c62a99291c"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_11.parquet",
+      "size": 2684306,
+      "md5": "257661f78b5101d3404ecf5a5e1a1a1a",
+      "sha256": "0cdcdd4e88d4058436283e2cfee489d98c109fa822fd5a50c3e0729373164823"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_12.json",
+      "size": 175,
+      "md5": "bdc9a023c0f0bbb2b34e71e574b7c219",
+      "sha256": "aae5a397db2b6846a0f612949889b9889b7f751bf67e408b7285510933469990"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2024_12.parquet",
+      "size": 2768043,
+      "md5": "7f6c93ef798975c675933ee214f832d2",
+      "sha256": "41206b46611edff7f6197364f83cbdbaf0e46cafd0b96c34956de5aa659f8528"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_01.json",
+      "size": 175,
+      "md5": "78886512d66e083f8c16ed7269ff2c89",
+      "sha256": "70db26cebbb2e18185b4ec9d8a14cbc78b702d33a6959f21b22380fe48416154"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_01.parquet",
+      "size": 2744179,
+      "md5": "5a9c8bfecca3d0aa1bc813de603c885a",
+      "sha256": "c98d9ce68bc0f8e42e38565ca1fc9b99d16847b7a496810f180b8f4136ebce79"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_02.json",
+      "size": 175,
+      "md5": "a0602fa4fee6e873f81ad885333d5bf5",
+      "sha256": "ac0d0b7199716bba99491a094cca0683d580babd6a3e0060902e618a08654346"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_02.parquet",
+      "size": 2552890,
+      "md5": "c381147a72a26a67725b9f8630b75b4c",
+      "sha256": "b2dc50a8cffda95031ad6e6382ebcad048c0c3a510cc71ad765c14e3c60c348f"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_03.json",
+      "size": 175,
+      "md5": "0722eb99b08a2521dab6df5fe8489e94",
+      "sha256": "0dc6f8808d8246d15862f285714d52617c913414f74f2fc118471abf1225df75"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_03.parquet",
+      "size": 2785405,
+      "md5": "b52f3f53f0c2869f680122ceea990d52",
+      "sha256": "bb68849008f05ca8fb0076c65e039900db59421d75799b6802068774c17e8a08"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_04.json",
+      "size": 175,
+      "md5": "04abd3c338c1a2c8720f12f120c8c027",
+      "sha256": "b62840cd83c17fb7bd0b7c1add5dde64290efa1e15523e314f052edfbc815ef4"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_04.parquet",
+      "size": 2672955,
+      "md5": "052127bef63b433c96eacd10f4a2dc93",
+      "sha256": "be9d1b4616b559c2e2d39e575c6168fdeaf401dac030ba9d8d991d65207d6a44"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_05.json",
+      "size": 175,
+      "md5": "3c161e240802d403966965d71d1ce3e0",
+      "sha256": "554162c78f274759257598c56d82d5a95bf40ce9d990277c46dc93bf87a92b82"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_05.parquet",
+      "size": 2770795,
+      "md5": "28aa957989ec77742d7f50f5f1ec745b",
+      "sha256": "cedcdcf574cbf229507329575e99ac7b44fcce49d4fa15374ec8dec8be81a6a7"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_06.json",
+      "size": 175,
+      "md5": "5d49ee4180ebf33168c4bcdeeecc691c",
+      "sha256": "7eac7a7f85345aad500c88254da7f0cb7ae078d74cd09783f90c0d79852c00c5"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_06.parquet",
+      "size": 2732828,
+      "md5": "03165f5d9fcb0d4becf877603304a9fb",
+      "sha256": "d157a0d87b6366fcc7110bab13d18c2cd0cf836ad3ca702221e156e85ee85a63"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_07.json",
+      "size": 175,
+      "md5": "2ba6af00ff4a8ad05442c98496480b77",
+      "sha256": "78cd5bdc4e6db9392f8530f941428bcffbf158fd830c6a010e84e4b3e6e3c8c4"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_07.parquet",
+      "size": 2812517,
+      "md5": "19a70cbde22ddb28c20734058c7584b0",
+      "sha256": "0d412d1ad7f3eb32793c7dbd9608a682a085d1afde69ec00898a55fdcda0e482"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_08.json",
+      "size": 175,
+      "md5": "6a40be311a650538f6bbe423fbd5d9d9",
+      "sha256": "92395f6f6fa7cf4c38b0a421a7626f2e7d630dc805c56a298c0f244a45d93daf"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_08.parquet",
+      "size": 2845885,
+      "md5": "8cd8ac3617e1aa7172813d15c1cc3ca7",
+      "sha256": "cd4a58f5bc740225a7dbaeef4a230c2cc16ea389306a1b6935749569a93c266c"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_09.json",
+      "size": 175,
+      "md5": "8309bfa715887564ab26dad2600d4622",
+      "sha256": "7f2721b41e35a736eabf0a4b90843b73ba0d47111365e37f15fe89392c1d7fd0"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_09.parquet",
+      "size": 2725164,
+      "md5": "cf46f2ae91bf0471254a38728dc36af8",
+      "sha256": "6fc3808b241eaffad44d76d4d6dd6f5499426048e074bc29d11d2e15accb33bb"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_10.json",
+      "size": 175,
+      "md5": "344a905afff87f06d89eae469ce0d0e3",
+      "sha256": "185ba517a90127c2633303d7cf3680aa752cff344e3b1371e3e596f91393db0b"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_10.parquet",
+      "size": 2832570,
+      "md5": "fa7a7be7ab5863e7d9116f8be0edb092",
+      "sha256": "c34d281c21dc0169ccb592e768d9f5a57e9a3ced0eb35b4a65164226eccf02ab"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_11.json",
+      "size": 175,
+      "md5": "f0ba25e703ae2a77a9a16548f9035d87",
+      "sha256": "7687c5f016c5a134767daaf1ad8c85a5105f1c0b5b2037d4bedfca76bdc94198"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_11.parquet",
+      "size": 2732441,
+      "md5": "ca49e855e5df34d22bdbb313cd8c0e93",
+      "sha256": "eb177b53e37789e69085106c70a8006f8e152142ef8d35459a7a2ab34805399a"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_12.json",
+      "size": 175,
+      "md5": "2d393fb2df9a801a7da7b11aebc50dbb",
+      "sha256": "5c5b8ae13c7ce585d1f8a86bcec9ee6cba68158a93fa340f4078f5d4d6a7411b"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2025_12.parquet",
+      "size": 2739749,
+      "md5": "2950ef479f46bad97ee33845ffc05e1e",
+      "sha256": "73a2b98c0076cf07c4f3dfbfc4b0f1d4bf8a9b51cc9805043ea8b4856dafd99b"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_01.json",
+      "size": 175,
+      "md5": "4e1e5f92bd238a5e1a8bafb5a12e09ad",
+      "sha256": "e069da4b6d231aeaacc87f583a426adef93c0f439b0f10e9442529b4042c2fc2"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_01.parquet",
+      "size": 2827354,
+      "md5": "e50534222872a6ec4a1a3a7c2b107ad1",
+      "sha256": "b62906f256c6a18a602ac879f3a9675976de199d576b48448f9ece9b07e5c7a6"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_02.json",
+      "size": 175,
+      "md5": "54c3bd0b136e68be2195958a9b5ee751",
+      "sha256": "6feef0aace6ab07f90ccae9a68f842ae14a9b7697e0cf6041ab20f44318e96f3"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_02.parquet",
+      "size": 2570476,
+      "md5": "fbfb2d3c26a2641be0e8197609efe001",
+      "sha256": "357551dbda8e6ecdbd993a7ce88c1add951b33e9a30debe374ee5f951cd87f07"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_03.json",
+      "size": 175,
+      "md5": "10e5d93880afd3a0553866609c0c42f8",
+      "sha256": "e58804a1667c468af489f7bbb736ab12ce7de802dce1136069a0096353aa9a1d"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_03.parquet",
+      "size": 2840262,
+      "md5": "344b0279057933c0fc3513f2d0e8e5e5",
+      "sha256": "7c11aef2dad028d68b0911aacb0bb704dcfd04b482b8e8bf24ac2571b717ec6f"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_04.json",
+      "size": 175,
+      "md5": "d9d75a91598fde2f38f7e03488d10173",
+      "sha256": "0e43949f3b4459ce73eefea3b20ca19c6be0394d99b1e24a66533b36f1047573"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_04.parquet",
+      "size": 2695154,
+      "md5": "495ba9b883fafc3357af7477104ffcdc",
+      "sha256": "f956d476fe47e3a746548103eadb8fda2418cd36bc50810af6c3e2daef55b08d"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_05.json",
+      "size": 175,
+      "md5": "545d63ee56c281f6138635104c18625f",
+      "sha256": "b3f1fd7096f8f7a273118be1b0ac9e2546bcbe041c4ad33f9d1e5ca38206666a"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_05.parquet",
+      "size": 2775766,
+      "md5": "a26e2cfde958fcdbe80017c00c74741f",
+      "sha256": "707835bfa13b48be67009b102301b9092b967e8a1ff6c4d268e2e82c65b66783"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_06.json",
+      "size": 175,
+      "md5": "e2793ea00295b6f4e813d897f6391348",
+      "sha256": "9b8004362b6d9ad2c104a1386711efe09494c7010da99f87eaf33d48814d35b6"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_06.parquet",
+      "size": 2741178,
+      "md5": "41b4b000d11db2b18343f6de8283d378",
+      "sha256": "528292448f965349e02033acf741f141f6c2074e47ca40d0cf61eec1524cc0d3"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_07.json",
+      "size": 175,
+      "md5": "fa08c44ef9d8ff0d51da8e79510de62c",
+      "sha256": "e832e9e855d4a5ee87b68f5ae256e4e49b8b90f6bf64d8e3a2505de3e03abf31"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_07.parquet",
+      "size": 2829412,
+      "md5": "e501ad8253541307d0ffddd6f517022d",
+      "sha256": "3717366f9f8a8c4df6158a619755f21f48aaf54b175bd853bcdaeff0fa2fd4ff"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_08.json",
+      "size": 175,
+      "md5": "50b3057dad9861b0a432f73510d46c15",
+      "sha256": "50bf773340f167cb9c48f042180f6fcb865c40a9469d7a04f2f64159911650cf"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/era5_land_2026_08.parquet",
+      "size": 2599665,
+      "md5": "bc3a1afe9133fb76c93d4ff81720a946",
+      "sha256": "ad04de34ec2b53b3d4db8dbd056f868ff07c3b491e210b874d7a942f89e48000"
+    },
+    {
+      "path": "data/interim/era5_daily_corrected/manifest.json",
+      "size": 9115,
+      "md5": "a3dfdd0d675196b9a495c6abc4db2016",
+      "sha256": "c56f96d571dfadcd474cc14d3872a08ac609255d4acbd3a52a8fa8951ec357c7"
+    },
+    {
+      "path": "data/processed/firms_kalimantan_clean.manifest.json",
+      "size": 3558,
+      "md5": "6998be84328e90295a548cc7d558c2ba",
+      "sha256": "3d50fe647202f660e8c7f3c61eaf888978b0be30de7dbff90e34a27ba6aa2c1a"
+    },
+    {
+      "path": "data/processed/firms_kalimantan_clean.parquet",
+      "size": 16006872,
+      "md5": "4c14b41e1fa1b2f5336c96ca4140013c",
+      "sha256": "39cd66e03d820479a924020494f0d50b6e92d782c6e87c7e5ea21f6b27f9e90a"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-09-01-5d.csv",
+      "size": 2138454,
+      "md5": "8216ef4586162361b42325d4c66270f3",
+      "sha256": "3b0c32f919ab50205074cf605e9148aec6705ab5f3ca27c192bae5316247ca10"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-09-06-5d.csv",
+      "size": 869425,
+      "md5": "7f78a80868247cd50423c434aff0f678",
+      "sha256": "91f23a35d76f984b7b34122208044d23485e67995764af35d32329b6a988e997"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-09-11-5d.csv",
+      "size": 2033404,
+      "md5": "b667b99d03e14ce02bf09ab7a2badd2a",
+      "sha256": "187eedfa27c35bb98781a0ed3dfee74038a1f6638020a7dc0065e6bfdc552a98"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-09-16-5d.csv",
+      "size": 1941929,
+      "md5": "8a48338fa1121e13de92d4b1baa15c47",
+      "sha256": "d38fe301f32294385835823919a1c7eeb2ee4115f68044293f1c0ae510245c82"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-09-21-5d.csv",
+      "size": 1773294,
+      "md5": "07892e0505380d52c249d6ef7629c2cc",
+      "sha256": "407683b6e822fe83668b4399cf2ca329f3c79369ca16c2be978e956fc47ba942"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-09-26-5d.csv",
+      "size": 766417,
+      "md5": "ccd9948c87a1aa85d4917b8c079f5d9f",
+      "sha256": "9bcb286deba008fcc9e0bcdf66cf0d2107e9ea58154fc6da4412ce9c7141b61b"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-10-01-5d.csv",
+      "size": 1639169,
+      "md5": "8712060ade701e1eb4f2fe57d99b2965",
+      "sha256": "d55e3e16ebde566f976797208bd116db081425278c6fa149e529d7ff8d79fdcd"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-10-06-5d.csv",
+      "size": 1547466,
+      "md5": "607945fbe624e4a0baef929283a131a5",
+      "sha256": "51fbc7d64f418d3f3595484884fe015a195e27cc040af608393ce5bcd255697e"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-10-11-5d.csv",
+      "size": 1875848,
+      "md5": "e2d79c268e776bd5e77f33f5d8509d9a",
+      "sha256": "7870699ab6cc6450f18735239e3246bc68c920388d5fdbe36e9ced1b711fe05f"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-10-16-5d.csv",
+      "size": 1398064,
+      "md5": "6a16e3a6498932476ea8b5e100103beb",
+      "sha256": "dd1958255335e9f3a55b806a0329005f4379434ae5b0e2c8591cf9bdcd1d7311"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-10-21-5d.csv",
+      "size": 2029419,
+      "md5": "a4d22b0ed787702212e46e8282dbec59",
+      "sha256": "68b0a59a0feb1a8e4d736371564c0146fa0e5673a64e59e54682d30c5b2d9931"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/VIIRS_NOAA20_NRT-2026-10-26-5d.csv",
+      "size": 259521,
+      "md5": "53c154cdc5323bf7cd1e83f264be66bb",
+      "sha256": "589df658e747e90ad7045007f349842bc24a42773d23877dc73e47792f52dad4"
+    },
+    {
+      "path": "data/raw/firms/refresh_20261030/manifest.json",
+      "size": 3558,
+      "md5": "6998be84328e90295a548cc7d558c2ba",
+      "sha256": "3d50fe647202f660e8c7f3c61eaf888978b0be30de7dbff90e34a27ba6aa2c1a"
+    }
+  ],
+  "total_bytes": 250821453
+}
